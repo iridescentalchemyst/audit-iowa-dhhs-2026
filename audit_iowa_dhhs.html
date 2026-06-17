@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Iowa DHHS | Document Hub</title>
+<style>
+:root {
+  --navy:#1a2744; --gold:#b8952a; --gold-light:#d4af4a;
+  --slate:#3d4f6b; --light-slate:#6b7d9a;
+  --off-white:#f5f4f0; --white:#ffffff;
+  --text:#1e1e1e; --text-light:#4a4a4a;
+  --border:#d0cec8; --hover-bg:#eef1f7; --tag-bg:#e8ecf4;
+  --red:#8b1a1a; --amber:#7a5c00;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.75;}
+
+/* NAV */
+nav{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:3px solid var(--gold);}
+nav ul{max-width:1200px;margin:0 auto;padding:0 1.5rem;list-style:none;display:flex;flex-wrap:wrap;}
+nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.84rem;letter-spacing:.05em;text-transform:uppercase;transition:color .2s,background .2s;}
+nav ul li a:hover{color:var(--gold-light);background:rgba(255,255,255,.05);}
+
+/* HERO */
+.hero{position:relative;height:480px;overflow:hidden;}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(.52);}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;}
+.hero-tag{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.75rem;}
+.hero h1{font-size:clamp(1.8rem,4.5vw,3.2rem);color:#fff;font-weight:normal;line-height:1.2;max-width:780px;margin-bottom:.75rem;}
+.hero-rule{width:60px;height:3px;background:var(--gold);margin:.9rem auto;}
+.hero-sub{color:#c8d4e8;font-size:1.0rem;max-width:600px;font-style:italic;}
+
+.alert-banner{background:var(--navy);color:#c8d4e8;text-align:center;padding:.7rem 2rem;font-family:'Arial',sans-serif;font-size:0.87rem;}
+.alert-banner strong{color:var(--gold-light);}
+.draft-banner{background:#4a1a1a;color:#f5c6c6;text-align:center;padding:.6rem 2rem;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:.02em;}
+.draft-banner strong{color:#ffaaaa;}
+
+/* LAYOUT */
+section{max-width:1200px;margin:0 auto;padding:3.5rem 2rem;}
+section+section{border-top:1px solid var(--border);}
+.section-label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.4rem;}
+h2{font-size:1.75rem;color:var(--navy);font-weight:normal;margin-bottom:.4rem;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;}
+h3{font-size:1.1rem;color:var(--slate);font-weight:bold;margin:1.25rem 0 .5rem;}
+p{margin-bottom:.9rem;color:var(--text-light);}
+p:last-child{margin-bottom:0;}
+
+/* HOVER CARDS */
+.hc{border-bottom:2px dotted var(--gold);cursor:help;position:relative;display:inline;}
+.hc-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:310px;background:var(--navy);color:#fff;border-radius:4px;padding:.9rem 1.1rem;font-size:0.85rem;line-height:1.5;z-index:300;box-shadow:0 4px 20px rgba(0,0,0,.4);font-family:'Arial',sans-serif;pointer-events:none;}
+.hc-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy);}
+.hc:hover .hc-popup{display:block;}
+.hc-plain{color:var(--gold-light);font-weight:bold;display:block;margin-bottom:.3rem;}
+.hc-legal{color:#a0b4cc;display:block;margin-bottom:.3rem;}
+.hc-etym{color:#6a8aaa;font-style:italic;display:block;font-size:0.82rem;}
+.hc-label{font-size:0.73rem;letter-spacing:.1em;text-transform:uppercase;color:#4a6a8a;display:block;margin-top:.4rem;}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.25rem;margin:1.75rem 0;}
+.stat-card{background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);padding:1.25rem;text-align:center;}
+.stat-number{font-size:2.25rem;color:var(--navy);line-height:1;margin-bottom:.4rem;}
+.stat-label{font-family:'Arial',sans-serif;font-size:0.79rem;color:var(--light-slate);letter-spacing:.05em;text-transform:uppercase;}
+
+/* PDF VIEWER MODAL */
+#pdf-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:500;flex-direction:column;}
+#pdf-modal.open{display:flex;}
+.modal-header{background:var(--navy);padding:.75rem 1.25rem;display:flex;align-items:center;gap:1rem;border-bottom:2px solid var(--gold);}
+.modal-title{color:#fff;font-family:'Arial',sans-serif;font-size:0.95rem;flex:1;}
+.modal-draft-tag{background:#6b1a1a;color:#ffaaaa;font-family:'Arial',sans-serif;font-size:0.74rem;padding:.2rem .6rem;border-radius:2px;letter-spacing:.08em;text-transform:uppercase;}
+.modal-close{background:none;border:1px solid #4a6a8a;color:#a0b4cc;padding:.35rem .8rem;cursor:pointer;font-family:'Arial',sans-serif;font-size:0.85rem;border-radius:2px;}
+.modal-close:hover{background:rgba(255,255,255,.1);}
+.modal-actions{display:flex;gap:.5rem;align-items:center;}
+.modal-btn{background:var(--gold);color:var(--navy);border:none;padding:.35rem .85rem;cursor:pointer;font-family:'Arial',sans-serif;font-size:0.84rem;font-weight:bold;border-radius:2px;text-decoration:none;display:inline-block;}
+.modal-btn.outline{background:none;border:1px solid var(--gold-light);color:var(--gold-light);}
+.modal-body{flex:1;overflow:hidden;}
+.modal-body iframe{width:100%;height:100%;border:none;}
+
+/* PETITION SECTION CARDS */
+.section-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-top:1.5rem;}
+.sec-card{background:#fff;border:1px solid var(--border);border-left:4px solid var(--navy);padding:1.1rem 1.25rem;transition:box-shadow .2s;}
+.sec-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.1);}
+.sec-card.draft{border-left-color:var(--amber);}
+.sec-card.final{border-left-color:#1a5c2a;}
+.sec-num{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.3rem;}
+.sec-title{font-family:'Arial',sans-serif;font-size:0.95rem;font-weight:bold;color:var(--navy);margin-bottom:.6rem;line-height:1.3;}
+.sec-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;}
+.sec-btn{font-family:'Arial',sans-serif;font-size:0.78rem;padding:.28rem .7rem;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;}
+.sec-btn.view{background:var(--navy);color:#fff;border:none;}
+.sec-btn.view:hover{background:var(--slate);}
+.sec-btn.dl{background:none;border:1px solid var(--navy);color:var(--navy);}
+.sec-btn.dl:hover{background:var(--tag-bg);}
+.sec-btn.pending{background:none;border:1px solid var(--border);color:var(--light-slate);cursor:default;}
+.sec-status{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px;display:inline-block;margin-bottom:.4rem;}
+.sec-status.draft{background:#fff3cd;color:#7a5c00;}
+.sec-status.final{background:#d4edda;color:#1a5c2a;}
+.sec-status.pending{background:var(--tag-bg);color:var(--light-slate);}
+
+/* COMPANION DOCS */
+.companion-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.25rem;margin-top:1.5rem;}
+.companion-card{background:#fff;border:1px solid var(--border);border-top:4px solid var(--navy);padding:1.5rem;}
+.companion-card h3{margin-top:0;color:var(--navy);font-size:1.0rem;}
+.companion-card p{font-size:0.93rem;}
+
+/* DOMAIN & DEFICIENCY CARDS */
+.domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;margin-top:1.5rem;}
+.domain-card{background:#fff;border:1px solid var(--border);border-left:5px solid var(--navy);padding:1.1rem 1.4rem;}
+.domain-letter{font-family:'Arial',sans-serif;font-size:1.5rem;font-weight:bold;color:var(--gold);line-height:1;margin-bottom:.2rem;}
+.domain-name{font-family:'Arial',sans-serif;font-size:0.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin-bottom:.4rem;font-weight:bold;}
+.domain-card p{font-size:0.88rem;margin:0;}
+
+.def-table{width:100%;border-collapse:collapse;margin-top:1.25rem;font-size:0.89rem;}
+.def-table th{background:var(--navy);color:#fff;padding:.65rem .9rem;text-align:left;font-family:'Arial',sans-serif;font-size:0.76rem;letter-spacing:.08em;text-transform:uppercase;}
+.def-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-light);vertical-align:top;}
+.def-table tr:nth-child(even) td{background:var(--hover-bg);}
+.def-code{font-family:'Arial',sans-serif;font-weight:bold;color:var(--navy);font-size:0.93rem;white-space:nowrap;}
+.sev-high{color:var(--red);font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:.2rem;}
+.sev-med{color:var(--amber);font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:.2rem;}
+
+/* ATTACHMENT INDEX */
+.att-filter-bar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:1.25rem 0 .5rem;}
+.filter-label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--light-slate);margin-right:.2rem;min-width:70px;}
+.filter-btn{font-family:'Arial',sans-serif;font-size:0.81rem;padding:.25rem .65rem;border:1px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:2px;transition:all .15s;}
+.filter-btn:hover{background:var(--tag-bg);border-color:var(--navy);}
+.filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.filter-btn2{font-family:'Arial',sans-serif;font-size:0.78rem;padding:.22rem .55rem;border:1px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:2px;transition:all .15s;}
+.filter-btn2:hover{background:#f5edd8;border-color:var(--gold);}
+.filter-btn2.active{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:bold;}
+
+.att-group{margin-bottom:.65rem;border:1px solid var(--border);}
+.att-group-header{display:flex;align-items:center;gap:1rem;padding:.8rem 1.1rem;background:var(--navy);cursor:pointer;user-select:none;}
+.att-group-header:hover{background:var(--slate);}
+.att-group-name{font-family:'Arial',sans-serif;font-size:0.87rem;letter-spacing:.03em;color:#fff;font-weight:bold;flex:1;}
+.att-group-count{font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--gold-light);}
+.att-toggle{color:var(--gold-light);font-size:0.76rem;transition:transform .2s;}
+.att-group-body{display:none;overflow-x:auto;}
+.att-group-body.open{display:block;}
+
+.att-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.att-table th{background:#243356;color:#a0b4cc;padding:.5rem .75rem;text-align:left;font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+.att-table td{padding:.55rem .75rem;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text-light);}
+.att-table tr:nth-child(even) td{background:var(--hover-bg);}
+.att-table tr.sub-row td{background:#f0f2f8;padding-left:1.75rem;}
+.att-table tr.sub-row:nth-child(even) td{background:#e8ebf5;}
+.att-table tr.filtered-out{display:none;}
+.att-row{cursor:pointer;}
+.att-row:hover td{background:var(--hover-bg)!important;}
+.att-num{font-family:'Arial',sans-serif;font-weight:bold;color:var(--navy);font-size:0.84rem;white-space:nowrap;}
+.att-title{font-size:0.85rem;max-width:340px;line-height:1.35;}
+.att-agency{font-size:0.81rem;color:var(--light-slate);max-width:160px;}
+.att-tags{white-space:nowrap;}
+.dtag{display:inline-block;background:var(--navy);color:#fff;font-family:'Arial',sans-serif;font-size:0.69rem;padding:.08rem .3rem;border-radius:2px;margin:1px;font-weight:bold;}
+.ftag{display:inline-block;background:var(--tag-bg);color:var(--slate);font-family:'Arial',sans-serif;font-size:0.69rem;padding:.08rem .3rem;border-radius:2px;margin:1px;border:1px solid var(--border);}
+.str-high{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;color:#1a5c2a;}
+.str-med{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);}
+.str-low{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--light-slate);}
+.att-link{display:inline-flex;align-items:center;gap:.25rem;font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--navy);text-decoration:none;padding:.2rem .5rem;border:1px solid var(--border);border-radius:2px;margin:1px;white-space:nowrap;}
+.att-link:hover{background:var(--tag-bg);border-color:var(--navy);}
+.att-link.source{color:var(--slate);}
+.att-link.doc{background:var(--navy);color:#fff;border-color:var(--navy);}
+.att-link.doc:hover{background:var(--slate);}
+.att-link.draft-doc{background:var(--amber);color:#fff;border-color:var(--amber);}
+
+/* TIMELINE */
+.timeline{margin:1.5rem 0;}
+.tl-item{display:flex;gap:1.25rem;margin-bottom:1.25rem;align-items:flex-start;}
+.tl-year{font-family:'Arial',sans-serif;font-size:0.85rem;font-weight:bold;color:#fff;background:var(--navy);padding:.22rem .55rem;white-space:nowrap;min-width:62px;text-align:center;flex-shrink:0;margin-top:.2rem;}
+.tl-content{flex:1;}
+.tl-content strong{color:var(--navy);display:block;margin-bottom:.2rem;font-size:0.97rem;}
+.tl-content p{font-size:0.89rem;margin:0;}
+
+/* UPDATES */
+.update-item{border-left:3px solid var(--gold);padding:.7rem 1.1rem;margin-bottom:.9rem;background:#fff;}
+.update-date{font-family:'Arial',sans-serif;font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.2rem;}
+.update-item p{font-size:0.93rem;margin:0;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:start;margin-top:1.75rem;}
+.about-photo{width:100%;border:4px solid var(--navy);}
+.about-name{font-size:1.3rem;color:var(--navy);margin-bottom:.2rem;}
+.about-title{font-family:'Arial',sans-serif;font-size:0.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;}
+
+.contact-block{background:var(--navy);color:#fff;padding:2.25rem;margin-top:1.75rem;}
+.contact-block h3{color:var(--gold-light);margin-top:0;font-size:1.05rem;}
+.contact-block p{color:#a0b4cc;}
+.contact-block a{color:var(--gold-light);}
+
+footer{background:#111827;color:#6b7280;text-align:center;padding:2rem;font-family:'Arial',sans-serif;font-size:0.84rem;margin-top:2rem;line-height:2;}
+footer a{color:var(--gold-light);text-decoration:none;}
+
+@media(max-width:700px){
+  .about-grid{grid-template-columns:1fr;}
+  .about-photo{max-width:180px;}
+  .hero{height:360px;}
+  .hero h1{font-size:1.65rem;}
+  .section-cards-grid{grid-template-columns:1fr;}
+}
+
+/* ── HOVER CARD ─────────────────────────────────────────── */
+#att-hover-card {
+  display:none;
+  transition:opacity .1s ease;
+  position:fixed;
+  z-index:9999;
+  width:340px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:3px solid var(--navy);
+  box-shadow:0 8px 28px rgba(26,39,68,.18);
+  padding:1rem 1.1rem 1rem;
+  pointer-events:none;
+  font-family:'Arial',sans-serif;
+}
+#att-hover-card.visible { display:block; }
+.hc-att-id {
+  font-size:0.72rem;font-weight:bold;letter-spacing:.08em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:.3rem;
+}
+.hc-title {
+  font-size:0.93rem;font-weight:bold;color:var(--navy);
+  line-height:1.4;margin-bottom:.5rem;
+}
+.hc-agency {
+  font-size:0.79rem;color:var(--light-slate);margin-bottom:.65rem;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.hc-section { margin-bottom:.5rem; }
+.hc-label {
+  font-size:0.68rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--light-slate);font-weight:bold;margin-bottom:.25rem;
+}
+.hc-pills { display:flex;flex-wrap:wrap;gap:.25rem; }
+.hc-pill-domain {
+  font-size:0.73rem;background:var(--navy);color:#fff;
+  padding:.15rem .45rem;border-radius:2px;line-height:1.35;
+}
+.hc-pill-def {
+  font-size:0.73rem;background:var(--tag-bg);color:var(--slate);
+  padding:.15rem .45rem;border-radius:2px;line-height:1.35;
+  border:1px solid #cdd3e0;
+}
+.hc-strength-high   { color:#1a5c2a;font-weight:bold;font-size:0.8rem; }
+.hc-strength-medium { color:var(--amber);font-weight:bold;font-size:0.8rem; }
+.hc-strength-low    { color:var(--red);font-weight:bold;font-size:0.8rem; }
+.hc-footer {
+  margin-top:.65rem;border-top:1px solid var(--border);padding-top:.5rem;
+  font-size:0.73rem;color:var(--light-slate);
+  display:flex;align-items:center;justify-content:space-between;
+}
+
+
+/* ── SECTION BADGE (attachment index) ───────────────────── */
+.att-section-cell { white-space:nowrap; }
+a.sec-badge {
+  display:inline-block;
+  font-family:'Arial',sans-serif;font-size:0.72rem;font-weight:bold;
+  background:var(--navy);color:var(--gold-light);
+  padding:.15rem .45rem;border-radius:2px;
+  text-decoration:none;letter-spacing:.03em;
+  border:1px solid var(--slate);
+  transition:background .15s;
+}
+a.sec-badge:hover { background:var(--slate); color:#fff; }
+
+</style>
+</head>
+<body>
+
+<!-- PDF VIEWER MODAL -->
+<div id="pdf-modal">
+  <div class="modal-header">
+    <span class="modal-title" id="modal-title">Document</span>
+    <span class="modal-draft-tag" id="modal-draft-tag" style="display:none;">⚠ Preliminary Draft — v2.0 Working Document</span>
+    <div class="modal-actions">
+      <span class="modal-btn" style="background:#4a4a4a;cursor:default;opacity:.6;" title="Downloads available upon final publication">⬇ Final version pending</span>
+      <a id="modal-src" href="#" target="_blank" class="modal-btn outline" style="display:none;">🔗 Original Source</a>
+      <button class="modal-close" onclick="closeViewer()">✕ Close</button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <iframe id="pdf-iframe" src="" allowfullscreen></iframe>
+  </div>
+</div>
+
+<nav>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#petition-docs">Petition Documents</a></li>
+    <li><a href="#companion-docs">Companion Reports</a></li>
+    <li><a href="#framework">Domains &amp; Deficiencies</a></li>
+    <li><a href="#attachments">Attachments</a></li>
+    <li><a href="#timeline">23-Year Record</a></li>
+    <li><a href="#updates">Updates</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3d4649e0c_metadata.html">Metadata</a></li>
+    <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/759865717_orr_logs.html">ORR Log</a></li>
+    <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/02cf99904_outreach_log.html">Notifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <img src="https://media.base44.com/images/public/6a16b0d2e9426883b87f90bc/3fa50bfee_20260305_IowaCapitalBuilding.jpg" alt="Iowa State Capitol, March 2026">
+  <div class="hero-overlay">
+    <div class="hero-tag">A Public Interest Investigation</div>
+    <h1>Audit Iowa DHHS</h1>
+    <div class="hero-rule"></div>
+    <div class="hero-sub">Twenty-three years of documented child welfare system failures — and a formal petition demanding independent oversight.</div>
+  </div>
+</div>
+
+<div class="alert-banner">
+  <strong>Petition Status:</strong> Final preparation in progress — full packet forthcoming Summer 2026. &nbsp;|&nbsp; <strong>CFSR Round 4</strong> currently underway in Iowa.
+</div>
+<div class="draft-banner">
+  <strong>⚠ Documents marked PRELIMINARY DRAFT</strong> reflect the v2.0 working document and are subject to revision before final submission. They are provided here for transparency and public record purposes only.
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label">What This Is</div>
+  <h2>The Case for an Independent Audit</h2>
+  <p>Since 2003, the federal government has reviewed Iowa's child welfare system four times through the <span class="hc">Child and Family Services Review<span class="hc-popup"><span class="hc-plain">A federal report card for child welfare</span><span class="hc-legal">The CFSR is conducted by the Administration for Children and Families (ACF). States are assessed on safety, permanency, and well-being outcomes under Title IV-B and IV-E of the Social Security Act.</span><span class="hc-label">Etymology</span><span class="hc-etym">"Review" from Latin <em>revidere</em> — to see again. Iowa has been seen again, and again, and again.</span></span></span>. Iowa has never achieved full <span class="hc">conformity<span class="hc-popup"><span class="hc-plain">Meeting the federal standard — Iowa never has</span><span class="hc-legal">Under CFSR, "conformity" requires a performance threshold of 95% or higher on most measures. Iowa has not achieved full conformity in any completed round.</span><span class="hc-label">Etymology</span><span class="hc-etym">From Latin <em>conformare</em> — to form together. Iowa's child welfare system has never been shaped alike with federal standards in over two decades of review.</span></span></span> in any of those four rounds. Not once.</p>
+  <p>This petition asks Iowa Auditor of State Rob Sand to conduct an independent <span class="hc">performance audit<span class="hc-popup"><span class="hc-plain">An investigation into whether government is actually working</span><span class="hc-legal">A performance audit evaluates whether a government agency is achieving its objectives in accordance with applicable laws and standards. Governed by <span style="color:var(--gold-light)">GAGAS</span> — Generally Accepted Government Auditing Standards.</span><span class="hc-label">Etymology</span><span class="hc-etym">"Performance" from Latin <em>performare</em> — to carry through completely. A performance audit asks: did you carry it through?</span></span></span> under Iowa Code § 11.6(3) and § 11.24.</p>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">23</div><div class="stat-label">Years of Federal Review</div></div>
+    <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">CFSR Rounds — Zero Full Conformity</div></div>
+    <div class="stat-card"><div class="stat-number">20</div><div class="stat-label">Petition Sections</div></div>
+    <div class="stat-card"><div class="stat-number">66+</div><div class="stat-label">Evidentiary Attachments</div></div>
+    <div class="stat-card"><div class="stat-number">13</div><div class="stat-label">Deficiency Categories</div></div>
+    <div class="stat-card"><div class="stat-number">6</div><div class="stat-label">Open Records Requests</div></div>
+  </div>
+</section>
+
+<!-- PETITION DOCUMENTS -->
+<section id="petition-docs">
+  <div class="section-label">Primary Document</div>
+  <h2>Petition Sections</h2>
+  <p>The petition is organized into 20 sections under a three-tier architecture: Tier I (narrative), Tier II (companion analytical reports), Tier III (evidentiary attachments). Each section below links to the corresponding portion of the v2.0 working draft. Final individual section PDFs will replace these when submitted.</p>
+
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin:1.25rem 0;">
+    <button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/51ce43747_wd_part1.pdf','Petition v2.0 Working Draft — Pages 1–97 (Front Matter through Section 7)','https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/51ce43747_wd_part1.pdf',true)">📄 View Full Draft — Part 1 (pp. 1–97)</button>
+    <button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/1ed0d75d6_wd_part2.pdf','Petition v2.0 Working Draft — Pages 98–185 (Sections 8–14)','https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/1ed0d75d6_wd_part2.pdf',true)">📄 View Full Draft — Part 2 (pp. 98–185)</button>
+    <button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/e6b185e2d_wd_part3.pdf','Petition v2.0 Working Draft — Pages 186–227 (Sections 15–20 + Attachments)','https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/e6b185e2d_wd_part3.pdf',true)">📄 View Full Draft — Part 3 (pp. 186–227)</button>
+    <button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/c0476a19c_evidentiary_index.pdf','Evidentiary Index v2.0','https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/c0476a19c_evidentiary_index.pdf',true)">📋 View Evidentiary Index</button>
+  </div>
+
+  <div class="section-cards-grid">
+    <!-- Front Matter -->
+    <div class="sec-card draft">
+      <div class="sec-num">Front Matter</div>
+      <div class="sec-status draft">Preliminary Draft</div>
+      <div class="sec-title">Title Page · Cover Letter · Table of Contents · Reader Guidance</div>
+      <div class="sec-actions">
+        <button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/51ce43747_wd_part1.pdf','Front Matter — v2.0 Preliminary Draft','',true)">👁 View</button>
+        
+      </div>
+    </div>
+    <!-- Sections 0-20 -->
+    <div class="sec-card draft"><div class="sec-num">Section 0</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Referral Memorandum</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/2ab386502_section_0.pdf','Section 0 — Referral Memorandum (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 1</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Executive Summary</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/2f8766afa_section_1.pdf','Section 1 — Executive Summary (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 2</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">One-Page Audit Snapshot</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/6a85e867b_section_2.pdf','Section 2 — Legal Authority & Statutory Framework (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 3</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Definitions, Scope &amp; Analytical Framework</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/7e23c80d7_section_3.pdf','Section 3 — Petition Basis & Audit Scope (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 4</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">System Timeline &amp; Evolutionary Context</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/bed38a36b_section_4.pdf','Section 4 — Analytical Framework & Documentation Standards (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 5</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Attachment Map &amp; Evidentiary Index</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/eeb26cf65_section_5.pdf','Section 5 — GAGAS Alignment & Methodology (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 6</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Statutory &amp; Federal Regulatory Authority</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/5f4389101_section_6.pdf','Section 6 — CFSR Longitudinal Record — Rounds 1–4 (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 7</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">CFSR Round 4 Structural Integrity Analysis</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/38367fc84_section_7.pdf','Section 7 — CFSR Round 4 Structural Integrity Analysis (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 8</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Longitudinal CFSR Performance Analysis (Rounds 1–3)</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/9e26392d0_section_8.pdf','Section 8 — Federal Intervention & Judicial History (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 9</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Structured Decision Making — Implementation &amp; Performance Record</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3e1625220_section_9.pdf','Section 9 — Current State Admissions & Self-Reporting (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 10</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Iowa HHS Operational Capacity &amp; Workforce Analysis</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/77798ff07_section_10.pdf','Section 10 — Independent System Evaluations (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 11</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Contract &amp; Provider Oversight Failures</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3bae45099_section_11.pdf','Section 11 — Auditor of State Findings & Financial Oversight (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 12</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Judicial Interface &amp; Legal Oversight Deficiencies</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/6bc1685a0_section_12.pdf','Section 12 — Ombudsman & Complaint Systems (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 13</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Child Fatality Pattern Analysis &amp; Post-Permanency Risk</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/f24668965_section_13.pdf','Section 13 — Known Fatality Risk Conditions & Pattern Evidence (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 14</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Independent Systems Evaluations</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/0589ca144_section_14.pdf','Section 14 — Case-Level Outcomes & Contemporaneous Exemplars (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 15</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Iowa Auditor of State — Historical Findings Record</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/53d48b53d_section_15.pdf','Section 15 — Public Impact, Media Record & Contradictions (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 16</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Iowa Ombudsman Investigation Record</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/796dab6e8_section_16.pdf','Section 16 — Procedural History & Audit Triggers (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 17</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">CCWIS &amp; Technology Modernization — Transparency &amp; Risk Analysis</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/372644d71_section_17.pdf','Section 17 — Public Interest & Community Engagement (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 18</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Funding Compliance &amp; Fiscal Accountability</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/a9d54b16a_section_18.pdf','Section 18 — Open Records, Transparency & CCWIS (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 19</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Audit Questions &amp; Proposed Scope</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/a5b2843fc_section_19.pdf','Section 19 — Substance Use, Drug Testing & the PPRCP Framework (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+    <div class="sec-card draft"><div class="sec-num">Section 20</div><div class="sec-status draft">Preliminary Draft</div><div class="sec-title">Certification of Good Faith &amp; Evidentiary Standards</div><div class="sec-actions"><button class="sec-btn view" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/0c2b9cbd1_section_20.pdf','Section 20 — Post-Permanency Risk & Requested Relief (v2.0 Preliminary Draft)','',true)">👁 View Draft</button></div></div>
+  </div>
+</section>
+
+<!-- COMPANION DOCUMENTS -->
+<section id="companion-docs">
+  <div class="section-label">Analytical Depth</div>
+  <h2>Companion Reports</h2>
+  <p>The three companion documents carry the analytical depth behind the petition's findings. Each is a standalone document that can be read independently or alongside the relevant petition sections.</p>
+  <div class="companion-grid">
+    <div class="companion-card">
+      <h3>CD-CFSR — CFSR Companion Report</h3>
+      <p>Longitudinal analysis of Rounds 1–4. Extended Round 4 documentation. The depth behind the petition's 23-year federal review findings — conformity analysis, PIP tracking, and systemic pattern mapping across all four cycles.</p>
+      <div class="sec-actions" style="margin-top:1rem;">
+        <span class="sec-btn pending">📄 Finalization in Progress</span>
+      </div>
+    </div>
+    <div class="companion-card">
+      <h3>CD-CCWIS — CCWIS Companion Report</h3>
+      <p>Technology transparency and procurement analysis. Covers the VISION system, the Google Public Sector contract, the IAPD, AI accountability gaps, and Iowa's "national model" designation against the backdrop of the June 2026 ASPE findings.</p>
+      <div class="sec-actions" style="margin-top:1rem;">
+        <span class="sec-btn pending">📄 Finalization in Progress</span>
+      </div>
+    </div>
+    <div class="companion-card">
+      <h3>CD-SDM — SDM Companion Report</h3>
+      <p>Structured Decision Making implementation history, the pre/post-implementation performance analysis, and the 84% accuracy finding across nearly 250,000 Iowa safety assessments (2015–2023).</p>
+      <div class="sec-actions" style="margin-top:1rem;">
+        <span class="sec-btn pending">📄 Finalization in Progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework">
+  <div class="section-label">The Analytical Framework</div>
+  <h2>Domains &amp; Deficiency Categories</h2>
+  <p>Every attachment, finding, and audit question is coded to the eight analytical domains (A–H) and thirteen deficiency categories (F1–F13) that structure the petition's analysis.</p>
+
+  <h3>Eight Analytical Domains</h3>
+  <div class="domain-grid">
+    <div class="domain-card"><div class="domain-letter">A</div><div class="domain-name">Funding Authorization &amp; Federal Compliance</div><p>Federal and state child welfare funding streams, reimbursement compliance, budget allocation, and financial oversight controls.</p></div>
+    <div class="domain-card"><div class="domain-letter">B</div><div class="domain-name">Contract &amp; Provider Oversight</div><p>Oversight, monitoring, enforcement, and accountability mechanisms governing contracted providers and service delivery entities.</p></div>
+    <div class="domain-card"><div class="domain-letter">C</div><div class="domain-name">Decision Controls &amp; Case Authorization</div><p>Policies, decision-support tools, and controls governing case actions, removals, placements, service authorization, and ICWA compliance.</p></div>
+    <div class="domain-card"><div class="domain-letter">D</div><div class="domain-name">Judicial Interface &amp; Legal Oversight</div><p>Agency-court interaction, evidentiary submissions, guardian ad litem coordination, ICWA tribal notification, and oversight mechanisms.</p></div>
+    <div class="domain-card"><div class="domain-letter">E</div><div class="domain-name">Outcomes, Incentives &amp; Systemic Disparities</div><p>Measured child welfare outcomes, performance incentives, demographic disparities, and operational metrics including safety, permanency, and well-being tracking.</p></div>
+    <div class="domain-card"><div class="domain-letter">F</div><div class="domain-name">Workforce Capacity &amp; Internal Accountability</div><p>Workforce stability, staffing, supervision systems, training adequacy, internal accountability, and ICWA-specific training requirements.</p></div>
+    <div class="domain-card"><div class="domain-letter">G</div><div class="domain-name">Federal Oversight History &amp; Corrective Action Response</div><p>CFSR cycles, PIPs, OIG findings, DOJ investigations, corrective action implementation, and patterns of recurring findings across review cycles.</p></div>
+    <div class="domain-card"><div class="domain-letter">H</div><div class="domain-name">Data Integrity &amp; System Auditability</div><p>Reliability, accessibility, auditability, and governance of administrative and case management data systems — including audit trails and reporting infrastructure.</p></div>
+  </div>
+
+  <h3 style="margin-top:2.5rem;">Thirteen Deficiency Categories</h3>
+  <p>F5 is the system failure multiplier — present wherever prior findings went uncorrected. F10 is the catastrophic failure marker — present in child fatality and severe injury patterns. F13 is the systemic exposure flag — present wherever policy compliance on paper conceals operational non-performance.</p>
+  <table class="def-table">
+    <thead><tr><th>Code</th><th>Category</th><th>Plain Language</th><th>Co-Occurs With</th></tr></thead>
+    <tbody>
+      <tr><td><span class="def-code">F1</span></td><td>Safety Assessment Deficiency</td><td>Failure to adequately identify, evaluate, or document child safety risks during intake or ongoing assessment</td><td>F3, F4, F10</td></tr>
+      <tr><td><span class="def-code">F2</span></td><td>Ongoing Monitoring Deficiency</td><td>Insufficient follow-up, reassessment, or ongoing monitoring — missed visits, long gaps in case activity</td><td>F9, F12, F10</td></tr>
+      <tr><td><span class="def-code">F3</span></td><td>Timeliness &amp; Response Deficiency</td><td>Delayed, incomplete, or insufficient response actions relative to statutory or policy requirements</td><td>F1, F2, F10</td></tr>
+      <tr><td><span class="def-code">F4</span></td><td>Documentation &amp; Data Integrity Deficiency</td><td>Inaccurate, incomplete, inconsistent, unverifiable, or missing documentation and data records</td><td>F1, F7, F13</td></tr>
+      <tr><td><span class="def-code">F5</span></td><td>Repeat Findings Not Corrected<span class="sev-high">⚠ System Failure Multiplier</span></td><td>Previously identified deficiencies that remain unresolved — same issue appearing across multiple CFSR rounds or oversight cycles</td><td>All categories</td></tr>
+      <tr><td><span class="def-code">F6</span></td><td>Contract &amp; Provider Oversight Deficiency</td><td>Inadequate monitoring or enforcement of contracted providers — continued use of deficient providers without corrective action</td><td>F8, F11, F12</td></tr>
+      <tr><td><span class="def-code">F7</span></td><td>Fiscal Control &amp; Funding Compliance Deficiency</td><td>Financial oversight failures, expenditure tracking gaps, reimbursement compliance failures, or funding incentives that distort case decisions</td><td>F4, F13</td></tr>
+      <tr><td><span class="def-code">F8</span></td><td>Service Availability &amp; Access Deficiency</td><td>Insufficient, delayed, unavailable, or inappropriate services necessary to support safety, permanency, or case plan objectives</td><td>F6, F2, F10</td></tr>
+      <tr><td><span class="def-code">F9</span></td><td>Staff Performance &amp; Compliance Deficiency</td><td>Failure of assigned personnel to comply with required procedures, standards, or casework protocols</td><td>F2, F12</td></tr>
+      <tr><td><span class="def-code">F10</span></td><td>High-Risk Case Management Deficiency<span class="sev-high">⚠ Catastrophic Failure Marker</span></td><td>Deficiencies in cases with elevated or known risk factors — harm occurring despite known risk indicators present in the record</td><td>F1, F2, F3</td></tr>
+      <tr><td><span class="def-code">F11</span></td><td>Interagency Coordination Deficiency</td><td>Breakdowns in communication or information-sharing between agencies, courts, providers, or system partners</td><td>F6, F12</td></tr>
+      <tr><td><span class="def-code">F12</span></td><td>Supervisory Oversight Deficiency</td><td>Inadequate supervisory review, escalation, or corrective oversight — approval of incomplete or incorrect actions without intervention</td><td>F2, F9, F11</td></tr>
+      <tr><td><span class="def-code">F13</span></td><td>Policy–Practice Implementation Gap<span class="sev-med">⚑ Systemic Exposure Flag</span></td><td>Divergence between formal policy or statutory requirements and actual operational practice — "on paper" compliance not reflected in operational reality</td><td>F4, F7, F5</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ATTACHMENT INDEX -->
+<section id="attachments">
+  <div class="section-label">Evidentiary Record</div>
+  <h2>Attachment Index — A01 through A66</h2>
+  <p>All official attachments are verbatim primary sources with full citation. Each row includes links to: (1) the original public source where available, and (2) a local copy or excerpt where on file. Sub-attachments are series entries nested under their parent.</p>
+
+  <div class="att-filter-bar">
+    <span class="filter-label">Domain:</span>
+    <button class="filter-btn active" data-type="domain" data-val="all" onclick="filterBy(this)">All</button>
+    <button class="filter-btn" data-type="domain" data-val="A" onclick="filterBy(this)" title="Funding Authorization &amp; Federal Compliance">A</button>
+    <button class="filter-btn" data-type="domain" data-val="B" onclick="filterBy(this)" title="Contract &amp; Provider Oversight">B</button>
+    <button class="filter-btn" data-type="domain" data-val="C" onclick="filterBy(this)" title="Decision Controls &amp; Case Authorization">C</button>
+    <button class="filter-btn" data-type="domain" data-val="D" onclick="filterBy(this)" title="Judicial Interface &amp; Legal Oversight">D</button>
+    <button class="filter-btn" data-type="domain" data-val="E" onclick="filterBy(this)" title="Outcomes, Incentives &amp; Systemic Disparities">E</button>
+    <button class="filter-btn" data-type="domain" data-val="F" onclick="filterBy(this)" title="Workforce Capacity &amp; Internal Accountability">F</button>
+    <button class="filter-btn" data-type="domain" data-val="G" onclick="filterBy(this)" title="Federal Oversight History &amp; Corrective Action Response">G</button>
+    <button class="filter-btn" data-type="domain" data-val="H" onclick="filterBy(this)" title="Data Integrity &amp; System Auditability">H</button>
+  </div>
+  <div class="att-filter-bar" style="margin-top:.3rem;">
+    <span class="filter-label">Deficiency:</span>
+    <button class="filter-btn2 active" data-type="def" data-val="all" onclick="filterBy(this)">All</button>
+    <button class="filter-btn2" data-type="def" data-val="F1"  onclick="filterBy(this)" title="Safety Assessment Deficiency">F1</button>
+    <button class="filter-btn2" data-type="def" data-val="F2"  onclick="filterBy(this)" title="Ongoing Monitoring Deficiency">F2</button>
+    <button class="filter-btn2" data-type="def" data-val="F3"  onclick="filterBy(this)" title="Timeliness &amp; Response Deficiency">F3</button>
+    <button class="filter-btn2" data-type="def" data-val="F4"  onclick="filterBy(this)" title="Documentation &amp; Data Integrity Deficiency">F4</button>
+    <button class="filter-btn2" data-type="def" data-val="F5"  onclick="filterBy(this)" title="Repeat Findings Not Corrected">F5</button>
+    <button class="filter-btn2" data-type="def" data-val="F6"  onclick="filterBy(this)" title="Contract &amp; Provider Oversight Deficiency">F6</button>
+    <button class="filter-btn2" data-type="def" data-val="F7"  onclick="filterBy(this)" title="Fiscal Control &amp; Funding Compliance Deficiency">F7</button>
+    <button class="filter-btn2" data-type="def" data-val="F8"  onclick="filterBy(this)" title="Service Availability &amp; Access Deficiency">F8</button>
+    <button class="filter-btn2" data-type="def" data-val="F9"  onclick="filterBy(this)" title="Staff Performance &amp; Compliance Deficiency">F9</button>
+    <button class="filter-btn2" data-type="def" data-val="F10" onclick="filterBy(this)" title="High-Risk Case Management Deficiency">F10</button>
+    <button class="filter-btn2" data-type="def" data-val="F11" onclick="filterBy(this)" title="Interagency Coordination Deficiency">F11</button>
+    <button class="filter-btn2" data-type="def" data-val="F12" onclick="filterBy(this)" title="Supervisory Oversight Deficiency">F12</button>
+    <button class="filter-btn2" data-type="def" data-val="F13" onclick="filterBy(this)" title="Policy–Practice Implementation Gap">F13</button>
+  </div>
+
+  <div id="att-index-container"><!-- populated by JS --></div>
+
+  <p style="font-size:0.84rem;color:var(--light-slate);margin-top:1.25rem;">
+    <strong>Retired IDs:</strong> A31, A32, A53–A56 are permanently dark — numbers reserved, not reassigned.<br>
+    All documents designated A01–A66 are publicly available primary sources or materials obtained through Iowa's open records process. AI assistance was used materially in petition preparation. That assistance does not constitute independent verification of any factual claim.
+  </p>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-label">23 Years of Federal Oversight</div>
+  <h2>A Longitudinal Record</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-year">2003</div><div class="tl-content"><strong>CFSR Round 1 — Statewide Assessment &amp; Final Report</strong><p>Iowa achieves substantial conformity with only 2 of 7 outcomes and 3 of 7 systemic factors. PIP required. Caseloads documented at 35–55 per worker; caseworker visit compliance at 10% for children.</p></div></div>
+    <div class="tl-item"><div class="tl-year">2010–11</div><div class="tl-content"><strong>CFSR Round 2 — Statewide Assessment &amp; Final Report</strong><p>Second federal review cycle. Iowa again fails full conformity. The same systemic factors from Round 1 reappear. A second PIP is required.</p></div></div>
+    <div class="tl-item"><div class="tl-year">2016–17</div><div class="tl-content"><strong>Child Fatality Investigations: Finn, Ray, Duis</strong><p>Independent investigations find Iowa DHS involvement prior to each fatal outcome. Documented deficiencies: F1, F2, F3, F10, F12 — across all three cases.</p></div></div>
+    <div class="tl-item"><div class="tl-year">2018</div><div class="tl-content"><strong>CFSR Round 3 — Statewide Assessment &amp; Final Report</strong><p>Third federal review. Non-conformity persists. A third PIP is required. F5 (Repeat Findings Not Corrected) now documented across all three completed rounds.</p></div></div>
+    <div class="tl-item"><div class="tl-year">2019–21</div><div class="tl-content"><strong>SDM Implementation — Safety Assessment Modernization</strong><p>Iowa's own internal review identifies the legacy safety assessment tool as producing inconsistent decisions. New SDM instrument (RC-0104) deployed with Evident Change. Published December 2021.</p></div></div>
+    <div class="tl-item"><div class="tl-year">2023</div><div class="tl-content"><strong>SDM Post-Implementation Analysis</strong><p>84% accuracy rate documented across ~250,000 safety assessments. Improvement over legacy tool — but roughly 1 in 6 decisions assessed as inaccurate. F1 persists into the modernized tool era.</p></div></div>
+    <div class="tl-item"><div class="tl-year">Feb 2026</div><div class="tl-content"><strong>Iowa VISION System Declared "National Model"</strong><p>ACF and Governor Reynolds jointly announce Iowa's CCWIS VISION system as a national model. The announcement does not reference Iowa's CFSR conformity status or Domain H data integrity gaps.</p></div></div>
+    <div class="tl-item"><div class="tl-year">Jun 2026</div><div class="tl-content"><strong>ASPE Report &amp; ACF Industry Day</strong><p>ASPE publishes finding that fewer than ⅓ of CCWIS projects nationally are operational after $2B in federal investment. Petitioner participates in ACF Child Welfare Technology Modernization Industry Day.</p></div></div>
+    <div class="tl-item"><div class="tl-year">2026</div><div class="tl-content"><strong>Petition Submitted to Iowa Auditor of State</strong><p>20 sections, 66+ attachments, three companion documents. Submitted to Auditor Rob Sand under Iowa Code § 11.6(3) and § 11.24. <em>Final preparation in progress.</em></p></div></div>
+  </div>
+</section>
+
+<!-- UPDATES -->
+<section id="updates">
+  <div class="section-label">Significant Developments</div>
+  <h2>Updates</h2>
+
+<!-- OUTREACH WIDGET -->
+<div id="outreach-widget" style="margin-bottom:2.5rem;">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;">
+    <h3 style="font-size:1.1rem;color:#1a2744;font-weight:normal;border-bottom:2px solid #b8952a;padding-bottom:.3rem;display:inline-block;">Authority Notification Log</h3>
+    <a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/02cf99904_outreach_log.html" style="font-family:Arial,sans-serif;font-size:0.84rem;color:#b8952a;text-decoration:none;">View full record →</a>
+  </div>
+  <p style="font-family:Arial,sans-serif;font-size:0.87rem;color:#6b7d9a;margin-bottom:1rem;">Every email, call, and meeting with elected officials, federal agencies, and state oversight bodies — in real time.</p>
+  <div id="outreach-entries"><div style="font-style:italic;color:#888;font-size:0.9rem;">Loading…</div></div>
+  <div style="text-align:center;margin-top:1rem;">
+    <a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/02cf99904_outreach_log.html" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#1a2744;border:1px solid #1a2744;padding:.35rem .9rem;text-decoration:none;display:inline-block;">View All Entries →</a>
+  </div>
+</div>
+<script>
+(function(){
+  const APP_ID='6a16b0d2e9426883b87f90bc';
+  const OUTREACH_URL='https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/02cf99904_outreach_log.html';
+  function outcomeColor(s){
+    if(!s)return'#888';
+    if(s.includes('Meeting'))return'#1a2744';
+    if(s.includes('Response Received'))return'#1a5c2a';
+    if(s.includes('No Response'))return'#8b1a1a';
+    if(s.includes('Pending'))return'#7a5c00';
+    return'#6b7d9a';
+  }
+  function catColor(c){
+    if(c==='Congressional')return'#1a2744';
+    if(c==='Federal Agency')return'#1a5c2a';
+    if(c==='State Oversight')return'#7a5c00';
+    if(c==='Judicial / Court')return'#8b1a1a';
+    return'#6b7d9a';
+  }
+  fetch('https://superagent-b87f90bc.base44.app/functions/publicData?entity=OutreachLog')
+    .then(r=>r.json()).then(data=>{
+      const records=(data.items||data||[]).sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);
+      if(!records.length){document.getElementById('outreach-entries').innerHTML='<p style="font-style:italic;color:#888;font-size:0.9rem;">No entries yet.</p>';return;}
+      const html=records.map(r=>`
+        <div style="border-left:3px solid ${catColor(r.category)};padding:.6rem .9rem;margin-bottom:.6rem;background:#fff;border:1px solid #d0cec8;border-left:3px solid ${catColor(r.category)};">
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.25rem;">
+            <span style="font-family:Arial,sans-serif;font-size:0.78rem;color:#6b7d9a;">${r.date||''}</span>
+            <span style="font-family:Arial,sans-serif;font-size:0.72rem;background:${catColor(r.category)};color:#fff;padding:.1rem .4rem;border-radius:2px;">${r.category||''}</span>
+            <span style="font-family:Arial,sans-serif;font-size:0.72rem;color:#fff;background:${outcomeColor(r.outcome_status)};padding:.1rem .4rem;border-radius:2px;">${r.outcome_status||''}</span>
+          </div>
+          <div style="font-size:0.93rem;color:#1a2744;font-weight:bold;margin-bottom:.2rem;">${r.subject||''}</div>
+          <div style="font-family:Arial,sans-serif;font-size:0.84rem;color:#4a4a4a;">${r.recipient_office||''}${r.contact_name?' — '+r.contact_name:''}</div>
+          ${r.document_url?'<a href="'+r.document_url+'" target="_blank" rel="noopener" style="font-family:Arial,sans-serif;font-size:0.78rem;color:#b8952a;text-decoration:none;margin-top:.3rem;display:inline-block;">📄 View Document</a>':''}
+        </div>`).join('');
+      document.getElementById('outreach-entries').innerHTML=html;
+    }).catch(()=>{document.getElementById('outreach-entries').innerHTML='<p style="font-style:italic;color:#888;font-size:0.9rem;">Unable to load. <a href="'+OUTREACH_URL+'" style="color:#b8952a;">View full log</a></p>';});
+})();
+</script>
+
+  <div class="update-item"><div class="update-date">June 2026</div><p>Petitioner registered for ACF Child Welfare Technology Modernization Industry Day (June 26, 2026). Written concerns regarding Iowa's VISION system submitted to ACF CCWIS team — including CFSR data integrity implications and AI documentation risks in child welfare proceedings.</p></div>
+  <div class="update-item"><div class="update-date">June 1, 2026</div><p>ASPE publishes <em>"After 10 Years and $2 Billion, Modern Information Systems Are Still Out of Reach"</em> — co-authored by ACF Assistant Secretary Alex J. Adams. Fewer than one third of CCWIS projects nationally are operational. Iowa's VISION is a designated "national model."</p></div>
+  <div class="update-item"><div class="update-date">February 2026</div><p>ACF and Iowa Governor Kim Reynolds announce Iowa's VISION system as a national model for CCWIS modernization. CB conditional approval letter (December 23, 2025) identified project risks not required to be resolved before deployment.</p></div>
+  <div class="update-item"><div class="update-date">Spring 2026</div><p>Six open records requests filed across Iowa HHS, Iowa Judicial Branch, and Iowa Department of Education. Productions to date include the IAPD, Google/Carahsoft contract, Ombudsman correspondence, drug testing protocols, and additional policy documentation.</p></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">The Petitioner</div>
+  <h2>About Ashley Marie Meredith</h2>
+  <div class="about-grid">
+    <div><img class="about-photo" src="https://media.base44.com/images/public/6a16b0d2e9426883b87f90bc/3814929b5_DSMtripMarch2026.jpg" alt="Ashley Marie Meredith, Iowa State Capitol steps, March 2026"></div>
+    <div>
+      <div class="about-name">Ashley Marie Meredith, MSN</div>
+      <div class="about-title">Founder, Iowa Family Rights &nbsp;|&nbsp; Pro Se Petitioner &nbsp;|&nbsp; Child Welfare Analyst</div>
+      <p>Ashley Marie Meredith is a registered nurse with a Master of Science in Nursing and the founder of Iowa Family Rights. Her analytical work on Iowa's child welfare system began from direct personal experience with the system — experience that motivated a multi-year, document-grounded investigation into systemic patterns of failure.</p>
+      <p>She filed six open records requests, reviewed hundreds of pages of federal CFSR documentation across four review cycles, and developed the Post-Permanency Risk Convergence Profile (PPRCP) — an original analytical framework addressing a structural blind spot in both state and federal oversight systems.</p>
+      <p>The photograph was taken on the steps of the Iowa State Capitol in March 2026, the same evening she photographed the Capitol dome used at the top of this page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2>Contact</h2>
+  <p>If you are a journalist, researcher, policy professional, or an Iowa family with relevant experience, Iowa Family Rights welcomes your correspondence.</p>
+  <div class="contact-block">
+    <h3>Iowa Family Rights</h3>
+    <p>Founded and operated by Ashley Marie Meredith, MSN</p>
+    <p>Email: <a href="mailto:revamermsn@proton.me">revamermsn@proton.me</a><br>Blog: <a href="https://iowafamilyrights.wordpress.com" target="_blank">iowafamilyrights.wordpress.com</a></p>
+    <p style="margin-top:1.1rem;font-size:0.87rem;color:#6b7d9a;">This site is maintained as a public record of the petition preparation process. It does not constitute legal advice. All findings are sourced to primary documents in the evidentiary record. AI assistance was used materially in petition preparation. That assistance does not constitute independent verification of any factual claim.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Audit Iowa DHHS &nbsp;|&nbsp; A public interest petition by <a href="https://iowafamilyrights.wordpress.com">Iowa Family Rights</a></p>
+  <p>Ashley Marie Meredith, MSN &nbsp;|&nbsp; <a href="mailto:revamermsn@proton.me">revamermsn@proton.me</a></p>
+  <p style="margin-top:.4rem;font-size:0.76rem;color:#374151;">All source documents are publicly available or obtained through Iowa's open records process. For questions contact Iowa Family Rights directly.</p>
+</footer>
+
+<script>
+// ── ATTACHMENT DATA ──────────────────────────────────────────
+const ATTS = [{"att": "A01","title": "Iowa Code § 11.6 and § 11.24 — Statutory Authority for Audit","short": "Iowa Audit Statutory Authority","domain": "A,G","def_cat": "F5,F7","agency": "Iowa Legislature","link": "https://www.legis.iowa.gov/law/iowaCode/sections?codeChapter=11","strength": "High","section": "S02"},{"att": "A02","title": "Child and Family Services Review Iowa Statewide Assessment","short": "IA CFSR R1 Statewide Assessment","domain": "G,A,H","def_cat": "F5,F9","agency": "Iowa Department of Human Services","link": "https://acf.gov/cb/monitoring/child-family-services-reviews/rounds1-2#IA_25684","strength": "High","section": "S06"},{"att": "A03","title": "Child and Family Services Review Round Two Iowa Statewide Assessment","short": "IA CFSR R2 Statewide Assessment","domain": "G,H,A,D","def_cat": "F5,F10,F1","agency": "Iowa Department of Human Services","link": "https://acf.gov/cb/monitoring/child-family-services-reviews/rounds1-2#IA_25684","strength": "High","section": "S06"},{"att": "A04","title": "Iowa Child and Family Services Review Statewide Assessment","short": "IA CFSR R3 Statewide Assessment","domain": "G,H,F","def_cat": "F5,F13,F4","agency": "Iowa Department of Human Services","link": "https://acf.gov/cb/monitoring/child-family-services-reviews/round3#IA_25625","strength": "High","section": "S06"},{"att": "A05","title": "CFSR Round 4 Structural Integrity Analysis — Iowa","short": "IA CFSR R4","domain": "G,H,A","def_cat": "F5,F4,F13","agency": "Compiled by Ashley Marie Meredith MSN","link": "https://www.cfsrportal.acf.hhs.gov/resources/round-4-resources","strength": "High","section": "S07"},{"att": "A06","title": "Investigation Of Woodward State Resource Center And Glenwood State Resource Center (Iowa)","short": "Woodward/Glenwood Findings Letter","domain": "G,E","def_cat": "F10,F2,F4,F13","agency": "U.S. Department of Justice","link": "https://www.justice.gov/crt/investigation-woodward-state-resource-center-and-glenwood-state-resource-center-iowa","strength": "High","section": "S08"},{"att": "A07","title": "United States District Court for the Southern District of Iowa Monitoring Team Report 2023","short": "Oct 2023 Monitoring Report","domain": "G,E,H,B","def_cat": "F2,F5,F13,F4,F10","agency": "United States District Court for the Southern District of Iowa","link": "https://storage.courtlistener.com/recap/gov.uscourts.iasd.81951/gov.uscourts.iasd.81951.18.1.pdf","strength": "High","section": "S08"},{"att": "A08","title": "Iowa HHS Operational Plan","short": "IA HHS Operational Plan","domain": "A,E,H,B","def_cat": "F2,F13,F11","agency": "Iowa Health and Human Services (HHS)","link": "https://publications.iowa.gov/54026/","strength": "Medium","section": "S08"},{"att": "A09","title": "FFY 2026 – Annual Progress and Services Report","short": "IA APSR FFY2026","domain": "G,A,E,H","def_cat": "F5,F4,F1","agency": "State of Iowa Department of Health and Human Services","link": "https://hhs.iowa.gov/media/18103/","strength": "High","section": "S09"},{"att": "A10","title": "CAPTA State Plan Update","short": "IA CAPTA FFY2026","domain": "G,A,C,B","def_cat": "F2,F13,F11","agency": "Iowa Department of Health and Human Services (HHS)","link": "https://hhs.iowa.gov/media/18284/","strength": "High","section": "S09"},{"att": "A11","title": "2026 Performance Improvement Plan","short": "IA HHS PIP FY2026","domain": "F,H","def_cat": "F2,F13","agency": "Iowa Health and Human Services (HHS)","link": "https://hhs.iowa.gov/media/17817/","strength": "Medium","section": "S09"},{"att": "A12","title": "FFY 2025-2029 – Iowa Child and Family Services Plan","short": "IA CFSP 2025-2029","domain": "G,A,E,C","def_cat": "F5,F13,F9","agency": "Iowa Health and Human Services (HHS)","link": "https://hhs.iowa.gov/media/15201/","strength": "High","section": "S09"},{"att": "A13","title": "Strengthening Iowa’s Community-Based Services System Transformation Plan","short": "IA CBS Transformation Plan","domain": "E,B,G,H","def_cat": "F8,F13","agency": "Iowa Health and Human Services (HHS)","link": "https://www.mathematica.org/publications/strengthening-iowas-community-based-services-system-transformation-plan","strength": "High","section": "S09"},{"att": "A14","title": "Transformation Plan — Community-Based Services","short": "Iowa CBS Transformation Plan","domain": "B,E,F","def_cat": "F6,F13,F11","agency": "Iowa DHHS / Mathematica","link": "https://www.mathematica.org/publications/strengthening-iowas-community-based-services-system-transformation-plan","strength": "Medium","section": "S09"},{"att": "A14-A","title": "Iowa Child Abuse Prevention Program Evaluation Report to Iowa Department of Human Services","short": "ICAPP 2019 Evaluation","domain": "G,E,H","def_cat": "F8,F2,F13","agency": "Iowa Department of Human Services","link": "https://publications.iowa.gov/id/eprint/52096","strength": "High","section": "S09"},{"att": "A14-B","title": "Iowa Child Abuse Prevention Program Evaluation Report to Iowa Department of Human Services","short": "ICAPP 2020 Evaluation","domain": "G,E,H","def_cat": "F8,F13","agency": "Iowa Department of Human Services","link": "https://publications.iowa.gov/id/eprint/52097","strength": "High","section": "S09"},{"att": "A14-C","title": "Iowa Child Abuse Prevention Program Evaluation Report to Iowa Department of Human Services","short": "ICAPP 2021 Evaluation","domain": "G,E,H","def_cat": "F8,F11,F13","agency": "Iowa Department of Human Services","link": "https://publications.iowa.gov/id/eprint/52098","strength": "High","section": "S09"},{"att": "A14-D","title": "Iowa Child Abuse Prevention Program Evaluation Report to Iowa Department of Human Services","short": "ICAPP 2022 Evaluation","domain": "G,E,H,B","def_cat": "F8,F4,F13","agency": "Iowa Department of Health and Human Services (HHS)","link": "https://publications.iowa.gov/id/eprint/52099","strength": "High","section": "S09"},{"att": "A14-E","title": "Iowa Child Abuse Prevention Program Evaluation Report to Iowa Department of Human Services","short": "ICAPP 2023 Evaluation","domain": "G,E,H","def_cat": "F4,F8,F13","agency": "Iowa Department of Health and Human Services (HHS)","link": "https://publications.iowa.gov/id/eprint/52100","strength": "High","section": "S09"},{"att": "A15","title": "Early Childhood Iowa Statewide Needs Assessment 2019","short": "ECI 2019 Needs Assessment","domain": "E;H;G;F","def_cat": "F8;F13;F11;F4","agency": "Early Childhood Iowa","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16","title": "Early Childhood Iowa Annual Reports Indexed Series (2018–2025)","short": "ECI Annual Reports Series","domain": "E,H","def_cat": "F4,F2","agency": "Iowa DHHS / Early Childhood Iowa","link": "https://hhs.iowa.gov/initiatives/eci","strength": "Medium","section": "S09"},{"att": "A16-A","title": "ECI Annual Report A16-A","short": "ECI Annual Report A16-A","domain": "A;E;H","def_cat": "F8;F11","agency": "Iowa Department of Management","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16-B","title": "ECI Annual Report A16-B","short": "ECI Annual Report A16-B","domain": "G;E;H","def_cat": "F8;F13","agency": "Iowa Department of Management","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16-C","title": "ECI Annual Report A16-C","short": "ECI Annual Report A16-C","domain": "E;H;A","def_cat": "F8;F11;F13","agency": "Iowa Department of Management","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16-D","title": "ECI Annual Report A16-D","short": "ECI Annual Report A16-D","domain": "E;A;H","def_cat": "F8;F13","agency": "Iowa Department of Management","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16-E","title": "ECI Annual Report A16-E","short": "ECI Annual Report A16-E","domain": "A;E;B","def_cat": "F8;F11","agency": "Iowa Department of Health and Human Services","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16-F","title": "ECI Annual Report A16-F","short": "ECI Annual Report A16-F","domain": "E;H;A","def_cat": "F8;F13","agency": "Early Childhood Iowa","link": "https://i2d2.iastate.edu/ia-data-drive","strength": "High","section": "S09"},{"att": "A16-G","title": "ECI Annual Report A16-G","short": "ECI Annual Report A16-G","domain": "A;E;B;F","def_cat": "F8;F11","agency": "Iowa Department of Health and Human Services","link": "https://hhs.iowa.gov/initiatives/eci","strength": "High","section": "S09"},{"att": "A16-H","title": "ECI Annual Report A16-H","short": "ECI Annual Report A16-H","domain": "H;E;F;A","def_cat": "F2;F13","agency": "Iowa Department of Health and Human Services","link": "https://i2d2.iastate.edu/ia-data-drive/","strength": "High","section": "S09"},{"att": "A17","title": "Early Childhood Iowa Statewide Needs Assessment (2019)","short": "ECI Statewide Needs Assessment 2019","domain": "B,E,F,H","def_cat": "F1,F8,F13,F4","agency": "Early Childhood Iowa / Iowa Department of Management","link": "https://hhs.iowa.gov/media/9253/","strength": "High","section": "S10"},{"att": "A18","title": "Iowa Preventive Services Needs Assessment: Summary of AECF Findings & Recommendations","short": "AECF Preventive Services Assessment","domain": "B,E,G","def_cat": "F6,F8,F5,F9","agency": "Annie E. Casey Foundation / Iowa Department of Human Services","link": "https://hhs.iowa.gov/media/11516/","strength": "High","section": "S10"},{"att": "A19","title": "Final Report of Findings and Recommendations: Iowa DHHS Child Welfare","short": "C!A Final Report","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F4,F5,F6,F9,F12,F13","agency": "Change and Innovation Agency (C!A) / Iowa DHHS","link": "https://hhs.iowa.gov/media/9250/","strength": "High","section": "S10"},{"att": "A20","title": "Iowa DHS Service Provider Forums Report","short": "Service Provider Forums Report","domain": "B,C,D,F,G","def_cat": "F6,F9,F11,F12,F13","agency": "Child Welfare Policy & Practice Group (CWPPG) / Iowa DHS","link": "https://harkininstitute.drake.edu/wp-content/uploads/sites/103/2021/03/02-01-2021-Kindertrack-Cover-Page.vFINAL.pdf","strength": "High","section": "S10"},{"att": "A21","title": "Analysis of Iowa's Child Care Assistance Database (KinderTrack)","short": "Harkin KinderTrack Analysis","domain": "A,F,H","def_cat": "F4,F7,F8","agency": "The Harkin Institute / University of Iowa / Iowa DHS","link": "https://hhs.iowa.gov/media/12240/","strength": "High","section": "S10"},{"att": "A22","title": "Title IV-E Recommendations Report: Service Recommendations","short": "Sivic IV-E Recommendations","domain": "A,B,G,H","def_cat": "F5,F6,F7,F4","agency": "Sivic Solutions Group LLC / Iowa DHHS","link": "https://hhs.iowa.gov/media/12240/","strength": "High","section": "S10"},{"att": "A22-A","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2009","short": "AOS ROR 2009","domain": "A;G;H","def_cat": "F2;F4;F5;F6;F7;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/51303.pdf","strength": "High","section": "S11"},{"att": "A22-B","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2010","short": "AOS ROR 2010","domain": "A;B;G;H","def_cat": "F2;F4;F6;F7;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/2004.pdf","strength": "High","section": "S11"},{"att": "A22-C","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2011","short": "AOS ROR 2011","domain": "A;G;H","def_cat": "F4;F7;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/5748.pdf","strength": "High","section": "S11"},{"att": "A22-D","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2012","short": "AOS ROR 2012","domain": "A;F;G;H","def_cat": "F4;F5;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/9732.pdf","strength": "High","section": "S11"},{"att": "A22-E","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2013","short": "AOS ROR 2013","domain": "A;G;H","def_cat": "F4;F12;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/14055.pdf","strength": "High","section": "S11"},{"att": "A22-F","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2014","short": "AOS ROR 2014","domain": "A;G;H","def_cat": "F4;F7;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/18435.pdf","strength": "High","section": "S11"},{"att": "A22-G","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2015","short": "AOS ROR 2015","domain": "A;F;G;H","def_cat": "F2;F12;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/22641.pdf","strength": "High","section": "S11"},{"att": "A22-H","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2016","short": "AOS ROR 2016","domain": "A;B;G;H","def_cat": "F4;F6;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/26073.pdf","strength": "High","section": "S11"},{"att": "A22-I","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2017","short": "AOS ROR 2017","domain": "A;G;H","def_cat": "F4;F7;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/54465.pdf","strength": "High","section": "S11"},{"att": "A22-J","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2018","short": "AOS ROR 2018","domain": "A;G;H","def_cat": "F4;F5;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/58820.pdf","strength": "High","section": "S11"},{"att": "A22-K","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2019","short": "AOS ROR 2019","domain": "A;G;H","def_cat": "F4;F5;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/63787.pdf","strength": "High","section": "S11"},{"att": "A22-L","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2020","short": "AOS ROR 2020","domain": "A;G;H","def_cat": "F4;F12;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/76769.pdf","strength": "High","section": "S11"},{"att": "A22-M","title": "Report of Recommendations to the Iowa Department of Human Services June 30, 2021","short": "AOS ROR 2021","domain": "A;F;G;H","def_cat": "F2;F4;F13","agency": "IOWA AUDITOR OF STATE","link": "https://www.auditor.iowa.gov/reports/file/76898.pdf","strength": "High","section": "S11"},{"att": "A23","title": "Consolidated Analyses of Auditor of State Reports to Iowa DHS (2009-2021)","short": "AOS Reports Indexed Series 2009-2021","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F5,F6,F7,F9,F12","agency": "Iowa Auditor of State","link": "https://www.auditor.iowa.gov/reports/file/60044.pdf","strength": "High","section": "S11"},{"att": "A24","title": "Report on Review of Service Contract Monitoring (July 1 2010 – June 30 2018)","short": "AOS Service Contract Monitoring 2010-2018","domain": "B,F,H","def_cat": "F5,F6,F7","agency": "Iowa Auditor of State","link": "https://www.auditor.iowa.gov/reports/file/60044.pdf","strength": "High","section": "S11"},{"att": "A25","title": "Report on Review of Managed Care Organization Contracts (April 1 2016 – July 31 2019)","short": "AOS MCO Contracts 2016-2019","domain": "B,E,F,H","def_cat": "F5,F6,F7,F4","agency": "Iowa Auditor of State","link": "https://www.auditor.iowa.gov/reports/file/62302.pdf","strength": "High","section": "S11"},{"att": "A26","title": "Report on Special Investigation of Reimbursements Submitted by Crossroads Behavioral Health Services","short": "AOS Crossroads Special Investigation","domain": "A,B,F,H","def_cat": "F5,F6,F7,F13","agency": "Iowa Auditor of State (Rob Sand)","link": "https://www.auditor.iowa.gov/reports/file/82390.pdf","strength": "High","section": "S11"},{"att": "A27","title": "Iowa Ombudsman Annual Reports Indexed Series (2010-2025): Domain-Based Systemic Risk Analysis","short": "Ombudsman Annual Reports 2010-2025","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov","strength": "High","section": "S12"},{"att": "A27-A","title": "Iowa Ombudsman Annual Report — A27-A","short": "Ombudsman Annual A27-A","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/be51f303f7be4e818b0c4dea199ca3c3/download","strength": "High","section": "S12"},{"att": "A27-B","title": "Iowa Ombudsman Annual Report — A27-B","short": "Ombudsman Annual A27-B","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/97b0b58d3f544c7b8fb87792ae44e0b7/download","strength": "High","section": "S12"},{"att": "A27-C","title": "Iowa Ombudsman Annual Report — A27-C","short": "Ombudsman Annual A27-C","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/daac5bd017bc4363b21fdb0e42e08ea6/download","strength": "High","section": "S12"},{"att": "A27-D","title": "Iowa Ombudsman Annual Report — A27-D","short": "Ombudsman Annual A27-D","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/44c351bbcc3943e2b8255c0cca7a33e2/download","strength": "High","section": "S12"},{"att": "A27-E","title": "Iowa Ombudsman Annual Report — A27-E","short": "Ombudsman Annual A27-E","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/e9c5f9cf1f564dd19a07bca9323d45e3/download","strength": "High","section": "S12"},{"att": "A27-F","title": "Iowa Ombudsman Annual Report — A27-F","short": "Ombudsman Annual A27-F","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/448842daffb444c6859e9efc6dee2665/download","strength": "High","section": "S12"},{"att": "A27-G","title": "Iowa Ombudsman Annual Report — A27-G","short": "Ombudsman Annual A27-G","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/1521e26024944a3c932a8c33df629fb0/download","strength": "High","section": "S12"},{"att": "A27-H","title": "Iowa Ombudsman Annual Report — A27-H","short": "Ombudsman Annual A27-H","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/a4d3d00f164041acbf8cb096f8f4d507/download","strength": "High","section": "S12"},{"att": "A27-I","title": "Iowa Ombudsman Annual Report — A27-I","short": "Ombudsman Annual A27-I","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/164f957f36714d28b93fc51416368191/download","strength": "High","section": "S12"},{"att": "A27-J","title": "Iowa Ombudsman Annual Report — A27-J","short": "Ombudsman Annual A27-J","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/e04c492b253f452786c769b217196389/download","strength": "High","section": "S12"},{"att": "A27-K","title": "Iowa Ombudsman Annual Report — A27-K","short": "Ombudsman Annual A27-K","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/f014da999e91456f92ad458ac04af634/download","strength": "High","section": "S12"},{"att": "A27-L","title": "Iowa Ombudsman Annual Report — A27-L","short": "Ombudsman Annual A27-L","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/93cb1d5cba384de3a53dbd4e349b8704/download","strength": "High","section": "S12"},{"att": "A27-M","title": "Iowa Ombudsman Annual Report — A27-M","short": "Ombudsman Annual A27-M","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/8116c1c430bf447d86c876e6cafdf068/download","strength": "High","section": "S12"},{"att": "A27-N","title": "Iowa Ombudsman Annual Report — A27-N","short": "Ombudsman Annual A27-N","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/3f63bc09c8ec4941ae3e32a82df5b24e/download","strength": "High","section": "S12"},{"att": "A27-O","title": "Iowa Ombudsman Annual Report — A27-O","short": "Ombudsman Annual A27-O","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/b3f272603e0245039c67e6ee856c1d74/download","strength": "High","section": "S12"},{"att": "A27-P","title": "Iowa Ombudsman Annual Report — A27-P","short": "Ombudsman Annual A27-P","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F5,F9,F12,F13","agency": "Iowa Citizens' Aide / Office of Ombudsman","link": "https://ombudsman.iowa.gov/browse/files/3c7148ae4e304d71acc579e64e8c65dd/download","strength": "High","section": "S12"},{"att": "A28","title": "Investigation of Iowa DHS Handling of Allegations of Child Abuse Concerning Shelby Duis (Report 00-2)","short": "Ombudsman — Shelby Duis Fatality","domain": "B,E,F,G,H","def_cat": "F1,F2,F3,F9,F12","agency": "Iowa Office of Ombudsman","link": "https://www.legis.iowa.gov/docs/publications/CI/678.pdf","strength": "High","section": "S12"},{"att": "A29","title": "A Tragedy of Errors: An Investigation of the Death of Natalie Finn","short": "Ombudsman — Natalie Finn Fatality","domain": "C,F,H","def_cat": "F1,F2,F3,F9,F12","agency": "Iowa Office of Ombudsman","link": "https://www.legis.iowa.gov/docs/publications/CI/1130515.pdf","strength": "High","section": "S12"},{"att": "A30","title": "Misplaced Trust: An Investigation of the Death of Sabrina Ray","short": "Ombudsman — Sabrina Ray Fatality","domain": "B,C,E,F,G,H","def_cat": "F1,F2,F6,F9,F10,F12","agency": "Iowa Office of Ombudsman","link": "Perry Police; Dallas County EMS; Department of Education","strength": "High","section": "S12"},{"att": "A31","title": "Evidence Review: Known Fatality Risk Conditions Present in Active Iowa Cases","short": "Fatality Risk Conditions — Active Cases","domain": "B,C,D,F","def_cat": "F1,F2,F10,F12,F13","agency": "Compiled by Ashley Marie Meredith MSN / Cross-source synthesis","link": "A33, A34","strength": "High","section": "S13"},{"att": "A32","title": "Systemic Failure Matrix: 29-Year Recurrence Pattern Across Oversight Sources","short": "Systemic Failure Matrix","domain": "A,B,C,D,E,F,G,H","def_cat": "F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13","agency": "Compiled by Ashley Marie Meredith MSN","link": "N/A — original petitioner analysis","strength": "High","section": "S13"},{"att": "A33","title": "Criminal Case Files for Joshua and Ashley Drew — FECR007113 and FECR007114","short": "Drew Case Criminal Dockets","domain": "B,D,F","def_cat": "F2,F10,F12","agency": "Washington County Iowa Clerk of Court","link": "FECR007113, FECR007114","strength": "High","section": "S14"},{"att": "A34","title": "Washington Foster Parents Avoid Prison For Severe Neglect","short": "Gazette — Drew Case Sentencing","domain": "B,F","def_cat": "F2,F10","agency": "The Gazette (Jared Strong)","link": "District Court sentencing","strength": "Medium","section": "S14"},{"att": "A35","title": "Brother of Sabrina Ray, Who Was Starved to Death in Foster Care, Gets Settlement","short": "People Magazine — Sabrina Ray Settlement","domain": "E,F,H","def_cat": "F1,F2,F10,F12","agency": "People Magazine (Lesley Cosme Torres)","link": "https://people.com/sabrina-ray-starved-death-adopted-brother-settlement-11731273","strength": "Medium","section": "S15"},{"att": "A36","title": "State settles lawsuit with siblings of Sabrina Ray for $10 million","short": "KCCI — Sabrina Ray $10M Settlement","domain": "A,E,H","def_cat": "F7,F10,F11,F13","agency": "KCCI News (Associated Press)","link": "https://www.kcci.com/article/state-of-iowa-settlement-sabrina-ray-siblings-10-million-perry-adoptive-parents-marc-ray-misty-jo-bousman-ra/45754268","strength": "Medium","section": "S15"},{"att": "A37","title": "Breaking the Cycle: Linn County Mother Takes Her Fight From Iowa DHS to Washington D.C.","short": "Populist Wire — Mitchell/WG Removal","domain": "D,F,G","def_cat": "F11,F13","agency": "Populist Wire (Pepe Jones)","link": "Congressional interest","strength": "Medium","section": "S15"},{"att": "A38","title": "Sibling Bonds on Trial: Linn County Judge and Iowa DHS Under Fire","short": "Populist Wire — Sibling Bonds/Judicial Recusal","domain": "C,D,F","def_cat": "F11,F13","agency": "Populist Wire (Pepe Jones)","link": "https://populistwire.com/local-news/iowa/sibling-bonds-on-trial-linn-county-judge-and-iowa-dhs-under-fire/","strength": "Medium","section": "S15"},{"att": "A39","title": "Affidavit of Ashley Marie Meredith Summarizing Communications with Washington County Attorney","short": "Affidavit — Communication Summary (A39)","domain": "B,D","def_cat": "F9,F12","agency": "Ashley Marie Meredith MSN (Affiant)","link": "","strength": "High","section": "S16"},{"att": "A40","title": "Affidavit of Ashley Marie Meredith Summarizing Procedural History and Exhaustion of Reporting Channels Related to Child Safety Concerns","short": "Affidavit — Procedural History (A40)","domain": "A,B,C","def_cat": "F9,F12,F13","agency": "Ashley Marie Meredith MSN (Affiant)","link": "","strength": "High","section": "S16"},{"att": "A41","title": "Physical Petition Signature Pages — Iowa State Auditor Submission","short": "Physical Petition Signatures","domain": "A","def_cat": "F13","agency": "Ashley Marie Meredith MSN (Petitioner)","link": "https://www.change.org/Audit_Iowa_DHHS","strength": "Low","section": "S17"},{"att": "A42","title": "Public Petition Supporting Citizen-Initiated Audit Request (Change.org submission)","short": "Change.org Online Petition","domain": "A","def_cat": "F13","agency": "Change.org / Ashley Marie Meredith MSN","link": "Not stated","strength": "Low","section": "S17"},{"att": "A43","title": "Iowa DHS Response to Senator Ernst Inquiry — June 15 2022 (Log #F22-081)","short": "DHS Ernst Letter — Log F22-081","domain": "H,G,D","def_cat": "F4,F5,F13","agency": "Iowa Department of Human Services — Director's Office","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/e16482dfe_014ce0ea5_ResponsetoSenatorErnst-DHSletter.pdf","strength": "High","section": "S16"},{"att": "A44","title": "Iowa HHS CCWIS VISION Contract — Google/Carahsoft Technology Corp. (Redacted) — March 26, 2026","short": "Google/Carahsoft CCWIS Contract","domain": "F,H,G","def_cat": "F4,F7,F13","agency": "Iowa Department of Health and Human Services","link": "https://ocio.iowa.gov/it-procurement/approval-processes (ACCESS DENIED — 403 Forbidden)","strength": "High","section": "S18"},{"att": "A45","title": "ACF Children's Bureau Conditional Approval of Iowa CCWIS IAPD — December 11, 2025","short": "CB IAPD Conditional Approval","domain": "F,G","def_cat": "F5,F7,F13","agency": "U.S. Department of Health and Human Services — Administration for Children and Families","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/7f124fe38_c81d09c3e_IA_2025_12_11_CB_Approval1.pdf","strength": "High","section": "S18"},{"att": "A46","title": "Iowa HHS Confidentiality Policy — COMP23-0111","short": "HHS Confidentiality Policy COMP23-0111","domain": "F,H","def_cat": "F4,F13","agency": "Iowa Department of Health and Human Services","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/998cb9335_1d16182bc_ConfidentialityCOMP23-0111.pdf","strength": "Moderate","section": "S18"},{"att": "A47","title": "Iowa HHS Data Sharing Policy — HHS-COMP-DSPOR-0043","short": "HHS Data Sharing Policy DSPOR-0043","domain": "F,H","def_cat": "F4,F13","agency": "Iowa Department of Health and Human Services","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/1085c63b2_c0b9f255b_DataSharingHHS-COMP-DSPOR-0043.pdf","strength": "Moderate","section": "S18"},{"att": "A48","title": "Iowa HHS Information Technology Acceptable Use Policy — IT23-0082","short": "HHS IT Acceptable Use Policy IT23-0082","domain": "G,F,H","def_cat": "F4,F12,F13","agency": "Iowa Department of Health and Human Services","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/62cb69b50_1121abea5_InformationTechnologyAcceptableUseIT23-0082.pdf","strength": "High","section": "S18"},{"att": "A49","title": "Iowa CCWIS VISION Implementation Advance Planning Document (IAPD) Part 1 — Pages 1–77 — December 8, 2025","short": "CCWIS IAPD Part 1 (pp. 1–77)","domain": "F,G,H","def_cat": "F4,F5,F7,F13","agency": "Iowa Department of Health and Human Services","link": "N/A","strength": "High","section": "S18"},{"att": "A50","title": "Iowa CCWIS VISION Implementation Advance Planning Document (IAPD) Part 2 — Pages 78–138 — December 8, 2025","short": "CCWIS IAPD Part 2 (pp. 78–138)","domain": "F,G,H","def_cat": "F4,F5,F7,F13","agency": "Iowa Department of Health and Human Services","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/efaac2652_3b99832ad_GoogleContract3262026_Redacted.pdf","strength": "High","section": "S18"},{"att": "A51","title": "Iowa OCIO/DOM Enterprise IT Standards Page — Archived May 30, 2026 (ocio.iowa.gov/standards)","short": "Iowa OCIO IT Standards Page","domain": "G,F","def_cat": "F4,F7,F13","agency": "Iowa Department of Management — Office of the Chief Information Officer","link": "https://ocio.iowa.gov/it-procurement","strength": "High","section": "S18"},{"att": "A52","title": "Iowa HHS Open Records Policy — Accessed May 30, 2026 (hhs.iowa.gov/about/open-records)","short": "HHS Open Records Policy","domain": "G,H","def_cat": "F4,F13","agency": "Iowa Department of Health and Human Services","link": "https://hhs.iowa.gov/about/open-records","strength": "Moderate","section": "S18"},{"att": "A53","title": "Analytical Report: Iowa CCWIS Oversight, IT Procurement Compliance, and PHI Access Controls — Petitioner-Generated","short": "CCWIS Oversight Analytical Report","domain": "F,G,H","def_cat": "F4,F7,F12,F13","agency": "Ashley Marie Meredith MSN (Petitioner)","link": "N/A","strength": "High","section": "S18"},{"att": "A54","title": "Iowa HHS Communication 626 — Drug Testing Practice, Policy, and Protocols — October 2, 2025","short": "HHS Comm. 626 Drug Testing Policy","domain": "D,H","def_cat": "F1,F8,F13","agency": "Iowa Department of Health and Human Services","link": "https://hhs.iowa.gov (Iowa HHS public website — Communication 626 publicly accessible)","strength": "High","section": "S19"},{"att": "A55","title": "Affidavit of Amanda Buckingham — Divorce Decree Restriction on Ashley Drew and Notifications to Washington County Attorney Nathan Repp (with Email Exhibits)","short": "Buckingham Affidavit — Drew Decree & Repp Notifications","domain": "C,G,H","def_cat": "F2,F3,F9,F12","agency": "Amanda Buckingham (Third-Party Witness)","link": "N/A","strength": "High","section": "S20"},{"att": "A56","title": "Ombudsman Inquiry Letter — Third Fatality Investigation Status and R.D. Post-Permanency Placement — May 30, 2026","short": "Ombudsman Inquiry Letter (Outgoing)","domain": "G,H,C","def_cat": "F2,F3,F12","agency": "Ashley Marie Meredith MSN (Petitioner)","link": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/2ca465a31_578e4ee36_20260601_Gmail-Ombudsman_Hainline-FormalInquiryResponseMyResponse.pdf","strength": "High","section": "S16"}];
+const SEC_URLS = {"S02": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/6a85e867b_section_2.pdf", "S06": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/5f4389101_section_6.pdf", "S07": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/38367fc84_section_7.pdf", "S08": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/9e26392d0_section_8.pdf", "S09": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3e1625220_section_9.pdf", "S10": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/77798ff07_section_10.pdf", "S11": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3bae45099_section_11.pdf", "S12": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/6bc1685a0_section_12.pdf", "S13": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/f24668965_section_13.pdf", "S14": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/0589ca144_section_14.pdf", "S15": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/53d48b53d_section_15.pdf", "S16": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/796dab6e8_section_16.pdf", "S17": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/372644d71_section_17.pdf", "S18": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/a9d54b16a_section_18.pdf", "S19": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/a5b2843fc_section_19.pdf", "S20": "https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/0c2b9cbd1_section_20.pdf"};
+
+
+// ── SOURCE URL MAP (primary attachments) ────────────────────
+const SRC = {
+  A01:"https://www.legis.iowa.gov/law/iowaCode/sections?codeChapter=11",
+  A02:"https://acf.gov/cb/monitoring/child-family-services-reviews/rounds1-2#IA_25684",
+  A03:"https://acf.gov/cb/monitoring/child-family-services-reviews/rounds1-2#IA_25684",
+  A04:"https://acf.gov/cb/monitoring/child-family-services-reviews/round3#IA_25625",
+  A05:"https://www.cfsrportal.acf.hhs.gov/resources/round-4-resources",
+  A06:"https://www.justice.gov/crt/investigation-woodward-state-resource-center-and-glenwood-state-resource-center-iowa",
+  A07:"https://storage.courtlistener.com/recap/gov.uscourts.iasd.81951/gov.uscourts.iasd.81951.18.1.pdf",
+  A08:"https://publications.iowa.gov/54026/",
+  A09:"https://hhs.iowa.gov/media/18103/",
+  A10:"https://hhs.iowa.gov/media/18284/",
+  A11:"https://hhs.iowa.gov/media/17817/",
+  A12:"https://hhs.iowa.gov/media/15201/",
+  A13:"https://www.mathematica.org/publications/strengthening-iowas-community-based-services",
+  A15:"https://earlychildhood.iowa.gov/document/2018-eci-state-wide-needs-assessment",
+  A16:"https://hhs.iowa.gov/initiatives/eci",
+  A17:"https://hhs.iowa.gov/media/9253/",
+  A18:"https://hhs.iowa.gov/media/11516/",
+  A19:"https://hhs.iowa.gov/media/9250/",
+  A20:"https://harkininstitute.drake.edu/wp-content/uploads/sites/103/2021/03/02-01-2021-Kindertrack-Cover-Page.vFINAL.pdf",
+  A21:"https://hhs.iowa.gov/media/12240/",
+  A22:"https://hhs.iowa.gov/media/12240/",
+  A23:"https://www.auditor.iowa.gov/reports/file/60044.pdf",
+  A24:"https://www.auditor.iowa.gov/reports/file/60044.pdf",
+  A25:"https://www.auditor.iowa.gov/reports/file/62302.pdf",
+  A26:"https://www.auditor.iowa.gov/reports/file/82390.pdf",
+  A27:"https://ombudsman.iowa.gov",
+  A28:"https://www.legis.iowa.gov/docs/publications/CI/678.pdf",
+  A29:"https://www.legis.iowa.gov/docs/publications/CI/1130515.pdf",
+  A35:"https://people.com/sabrina-ray-starved-death-adopted-brother-settlement-11731273",
+  A36:"https://www.kcci.com/article/state-of-iowa-settlement-sabrina-ray-siblings-10-million-perry-adoptive-parents-marc-ray-misty-jo-bousman-ra/45754268",
+  A37:"https://populistwire.com/local-news/iowa/breaking-the-cycle-linn-county-mother-takes-her-fight-from-iowa-dhs-to-washington-d-c/",
+  A38:"https://populistwire.com/local-news/iowa/sibling-bonds-on-trial-linn-county-judge-recuses-himself-what-does-it-mean/",
+  A41:"https://www.change.org/Audit_Iowa_DHHS",
+  A51:"https://ocio.iowa.gov/standards",
+  A52:"https://hhs.iowa.gov/about/open-records",
+  A54:"https://hhs.iowa.gov"
+};
+
+// AOS sub-attachment URLs
+const AOS_URLS = {
+  "A22-A":"https://www.auditor.iowa.gov/reports/file/51303.pdf",
+  "A22-B":"https://www.auditor.iowa.gov/reports/file/2004.pdf",
+  "A22-C":"https://www.auditor.iowa.gov/reports/file/5748.pdf",
+  "A22-D":"https://www.auditor.iowa.gov/reports/file/9732.pdf",
+  "A22-E":"https://www.auditor.iowa.gov/reports/file/14055.pdf",
+  "A22-F":"https://www.auditor.iowa.gov/reports/file/18435.pdf",
+  "A22-G":"https://www.auditor.iowa.gov/reports/file/22641.pdf",
+  "A22-H":"https://www.auditor.iowa.gov/reports/file/26073.pdf",
+  "A22-I":"https://www.auditor.iowa.gov/reports/file/54465.pdf",
+  "A22-J":"https://www.auditor.iowa.gov/reports/file/58820.pdf",
+  "A22-K":"https://www.auditor.iowa.gov/reports/file/63787.pdf",
+  "A22-L":"https://www.auditor.iowa.gov/reports/file/76769.pdf",
+  "A22-M":"https://www.auditor.iowa.gov/reports/file/76898.pdf"
+};
+
+// ── GROUP DEFINITIONS ────────────────────────────────────────
+function getGroup(att) {
+  if (att==='A01') return ['Statutory &amp; Federal Authority',0];
+  if (['A02','A03','A04','A05'].includes(att)) return ['CFSR Federal Review Record',1];
+  if (['A06','A07'].includes(att)) return ['Federal Monitoring &amp; DOJ Oversight',2];
+  if (['A08','A09','A10','A11','A12','A13'].includes(att)) return ['Iowa HHS Planning &amp; Compliance',3];
+  if (att.startsWith('A14')||att==='A18') return ['Program Evaluations — ICAPP &amp; Preventive Services',4];
+  if (att==='A15'||att==='A17'||att.startsWith('A16')) return ['Early Childhood Iowa Reports',5];
+  if (['A19','A20','A21','A22'].includes(att)&&!att.startsWith('A22-')) return ['Independent System Analyses',6];
+  if (att.startsWith('A22-')||['A23','A24','A25','A26'].includes(att)) return ['Iowa Auditor of State Reports',7];
+  if (att==='A27'||att.startsWith('A27-')||['A28','A29','A30'].includes(att)) return ['Iowa Ombudsman Investigations',8];
+  if (['A31','A32','A33','A34','A35','A36'].includes(att)) return ['Child Fatality &amp; High-Risk Case Record',9];
+  if (['A37','A38'].includes(att)) return ['Media Corroboration',10];
+  if (['A39','A40','A41','A42'].includes(att)) return ['Petitioner Affidavits &amp; Public Support',11];
+  if (['A43','A44','A45','A46','A47','A48','A49','A50','A51','A52'].includes(att)) return ['CCWIS &amp; Technology Documentation',12];
+  return ['Additional Evidence',13];
+}
+
+function isSub(att){ return /^A\d+-[A-Z]/.test(att); }
+
+function strBadge(s){
+  if(s==='High') return '<span class="str-high">High</span>';
+  if(s==='Medium'||s==='Moderate') return '<span class="str-med">Moderate</span>';
+  return '<span class="str-low">Supporting</span>';
+}
+
+function buildIndex(){
+  const groups = {};
+  ATTS.forEach(d=>{
+    const [label,order] = getGroup(d.att);
+    if(!groups[label]) groups[label]={order,items:[]};
+    groups[label].items.push(d);
+  });
+
+  const sorted = Object.entries(groups).sort((a,b)=>a[1].order-b[1].order);
+  let html = '';
+  sorted.forEach(([label,{items}],gi)=>{
+    const rows = items.map(d=>{
+      const sub = isSub(d.att) ? ' sub-row' : '';
+      const agency = d.agency.length>52 ? d.agency.slice(0,50)+'…' : d.agency;
+      const dtags = d.domain.split(',').filter(Boolean).map(x=>`<span class="dtag">${x.trim()}</span>`).join('');
+      const ftags = d.def_cat.split(',').filter(Boolean).map(x=>`<span class="ftag">${x.trim()}</span>`).join('');
+
+      // Petition section badge
+      const secCode = d.section || '';
+      const secNum  = secCode.replace('S','');
+      const secUrl  = SEC_URLS[secCode] || '';
+      const secCell = secCode
+        ? `<a class="sec-badge" href="${secUrl}" target="_blank" rel="noopener" title="View Section ${secNum} draft">Sec.&nbsp;${secNum}</a>`
+        : '<span style="color:#bbb;font-size:0.75rem;">—</span>';
+
+      // Build link buttons
+      let links = '';
+      const srcUrl = SRC[d.att] || AOS_URLS[d.att] || '';
+      if(srcUrl && srcUrl.startsWith('http')){
+        links += `<a class="att-link source" href="${srcUrl}" target="_blank" rel="noopener">🔗 Source</a>`;
+      }
+      // Draft doc link for petition-compiled items — link to part 3 (attachments section)
+      if(['A31','A32','A33','A34','A35','A36','A39','A40','A41','A42','A43','A44','A45','A46','A47','A48','A49','A50','A51','A52','A53','A54','A55','A56'].includes(d.att)){
+        links += `<a class="att-link draft-doc" href="#" onclick="openViewer('https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/e6b185e2d_wd_part3.pdf','${d.att}: ${d.title.replace(/'/g,"\\'")} (v2.0 Draft)','',true);return false;">📄 Draft</a>`;
+      }
+
+      return `<tr class="att-row${sub}">
+        <td class="att-num">${d.att}</td>
+        <td class="att-title">${d.title}</td>
+        <td class="att-agency">${agency}</td>
+        <td class="att-tags">${dtags}</td>
+        <td class="att-tags">${ftags}</td>
+        <td>${strBadge(d.strength)}</td>
+        <td class="att-section-cell">${secCell}</td>
+        <td style="white-space:nowrap">${links}</td>
+      </tr>`;
+    }).join('');
+
+    const openFirst = gi===0 ? ' open' : '';
+    const rotFirst  = gi===0 ? 'style="transform:rotate(180deg)"' : '';
+    html += `
+<div class="att-group">
+  <div class="att-group-header" onclick="toggleGroup(this)">
+    <span class="att-group-name">${label}</span>
+    <span class="att-group-count">${items.length} attachment${items.length!==1?'s':''}</span>
+    <span class="att-toggle" ${rotFirst}>▼</span>
+  </div>
+  <div class="att-group-body${openFirst}">
+    <table class="att-table">
+      <thead><tr>
+        <th style="width:68px">ID</th>
+        <th>Document Title</th>
+        <th style="width:150px">Source Agency</th>
+        <th style="width:95px">Domains</th>
+        <th style="width:150px">Deficiency Cats.</th>
+        <th style="width:75px">Strength</th>
+        <th style="width:90px">Section</th><th style="width:140px">Links</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>
+</div>`;
+  });
+  document.getElementById('att-index-container').innerHTML = html;
+}
+
+// ── FILTER ───────────────────────────────────────────────────
+function filterBy(btn){
+  btn.closest('.att-filter-bar').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const ad = (document.querySelector('.filter-btn.active')||{dataset:{val:'all'}}).dataset.val;
+  const af = (document.querySelector('.filter-btn2.active')||{dataset:{val:'all'}}).dataset.val;
+  document.querySelectorAll('.att-row').forEach(row=>{
+    const dt = Array.from(row.querySelectorAll('.dtag')).map(t=>t.textContent.trim());
+    const ft = Array.from(row.querySelectorAll('.ftag')).map(t=>t.textContent.trim());
+    const ok = (ad==='all'||dt.includes(ad)) && (af==='all'||ft.includes(af));
+    row.classList.toggle('filtered-out',!ok);
+  });
+  if(ad!=='all'||af!=='all'){
+    document.querySelectorAll('.att-group-body').forEach(b=>{
+      b.classList.add('open');
+      const t=b.previousElementSibling.querySelector('.att-toggle');
+      if(t) t.style.transform='rotate(180deg)';
+    });
+  }
+}
+
+// ── GROUP TOGGLE ─────────────────────────────────────────────
+function toggleGroup(hdr){
+  const body = hdr.nextElementSibling;
+  const tog  = hdr.querySelector('.att-toggle');
+  body.classList.toggle('open');
+  tog.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+// ── PDF VIEWER ───────────────────────────────────────────────
+function openViewer(url, title, dlUrl, isDraft, srcUrl){
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('pdf-iframe').src = url + '#toolbar=1&navpanes=0';
+  const dl = document.getElementById('modal-dl');
+  dl.href = dlUrl || url;
+  const draftTag = document.getElementById('modal-draft-tag');
+  draftTag.style.display = isDraft ? 'inline-block' : 'none';
+  const srcBtn = document.getElementById('modal-src');
+  if(srcUrl){ srcBtn.href=srcUrl; srcBtn.style.display='inline-block'; }
+  else { srcBtn.style.display='none'; }
+  document.getElementById('pdf-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeViewer(){
+  document.getElementById('pdf-modal').classList.remove('open');
+  document.getElementById('pdf-iframe').src='';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeViewer(); });
+
+// ── INIT ──────────────────────────────────────────────────────
+buildIndex();
+
+// ── HOVER CARD ────────────────────────────────────────────────
+const DOMAIN_NAMES = {
+  A:'Funding Authorization & Federal Compliance',
+  B:'Contract & Provider Oversight',
+  C:'Decision Controls & Case Authorization',
+  D:'Judicial Interface & Legal Oversight',
+  E:'Outcomes, Incentives & Systemic Disparities',
+  F:'Workforce Capacity & Internal Accountability',
+  G:'Federal Oversight History & Corrective Action Response',
+  H:'Data Integrity & System Auditability'
+};
+const DEF_NAMES = {
+  F1:'Safety Assessment Deficiency',
+  F2:'Ongoing Monitoring Deficiency',
+  F3:'Timeliness & Response Deficiency',
+  F4:'Documentation & Data Integrity Deficiency',
+  F5:'Repeat Findings Not Corrected',
+  F6:'Contract & Provider Oversight Deficiency',
+  F7:'Fiscal Control & Funding Compliance Deficiency',
+  F8:'Service Availability & Access Deficiency',
+  F9:'Staff Performance & Compliance Deficiency',
+  F10:'High-Risk Case Management Deficiency',
+  F11:'Interagency Coordination Deficiency',
+  F12:'Supervisory Oversight Deficiency',
+  F13:'Policy–Practice Implementation Gap'
+};
+
+let hcCard; function getCard(){ return hcCard||(hcCard=document.getElementById('att-hover-card')); }
+let hcTimeout = null;
+
+function showHoverCard(e, attId) {
+  const d = ATTS.find(a => a.att === attId);
+  if (!d) return;
+
+  document.getElementById('hc-id').textContent = d.att;
+  document.getElementById('hc-title').textContent = d.title;
+  document.getElementById('hc-agency').textContent = d.agency;
+
+  // Domains
+  const doms = d.domain.split(/[,;]/).map(x=>x.trim()).filter(Boolean);
+  document.getElementById('hc-domains').innerHTML = doms.map(code =>
+    `<span class="hc-pill-domain" title="${code}">${code} — ${DOMAIN_NAMES[code]||code}</span>`
+  ).join('');
+
+  // Deficiency categories
+  const defs = d.def_cat.split(/[,;]/).map(x=>x.trim()).filter(Boolean);
+  document.getElementById('hc-defs').innerHTML = defs.map(code =>
+    `<span class="hc-pill-def" title="${code}">${code}: ${DEF_NAMES[code]||code}</span>`
+  ).join('');
+
+  // Strength
+  const sc = document.getElementById('hc-strength');
+  sc.textContent = d.strength || '—';
+  sc.className = 'hc-strength-' + (d.strength||'').toLowerCase();
+
+  // Section badge in hover card
+  const secBadge = document.getElementById('hc-section-badge');
+  const secCode = d.section || '';
+  const secNum = secCode.replace('S','');
+  const secUrl = SEC_URLS[secCode] || '';
+  if (secCode) {
+    secBadge.innerHTML = secUrl
+      ? \`<a href="\${secUrl}" target="_blank" rel="noopener" style="font-family:Arial,sans-serif;font-size:0.72rem;font-weight:bold;background:var(--navy);color:var(--gold-light);padding:.15rem .5rem;border-radius:2px;text-decoration:none;">→ Sec. \${secNum}</a>\`
+      : \`<span style="font-size:0.72rem;color:var(--light-slate);">Sec. \${secNum}</span>\`;
+  } else {
+    secBadge.innerHTML = '';
+  }
+
+  positionCard(e);
+  getCard().classList.add('visible');
+}
+
+function positionCard(e) {
+  const margin = 14;
+  const cw = getCard().offsetWidth  || 340;
+  const ch = getCard().offsetHeight || 220;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  let x = e.clientX + margin;
+  let y = e.clientY + margin;
+  if (x + cw > vw - 8) x = e.clientX - cw - margin;
+  if (y + ch > vh - 8) y = e.clientY - ch - margin;
+  getCard().style.left = x + 'px';
+  getCard().style.top  = y + 'px';
+}
+
+function hideHoverCard() {
+  getCard().classList.remove('visible');
+}
+
+// Delegate hover events on the att-index container
+document.addEventListener('mouseover', function(e) {
+  const row = e.target.closest('tr.att-row');
+  if (!row) return;
+  const attId = row.querySelector('.att-num')?.textContent?.trim();
+  if (!attId) return;
+  clearTimeout(hcTimeout);
+  hcTimeout = setTimeout(() => showHoverCard(e, attId), 80);
+});
+
+document.addEventListener('mousemove', function(e) {
+  if (getCard().classList.contains('visible')) positionCard(e);
+});
+
+document.addEventListener('mouseout', function(e) {
+  const row = e.target.closest('tr.att-row');
+  if (!row) return;
+  clearTimeout(hcTimeout);
+  hideHoverCard();
+});
+
+// Click row to open link if available
+document.addEventListener('click', function(e) {
+  // Don't intercept clicks on actual link buttons
+  if (e.target.closest('a.att-link')) return;
+  const row = e.target.closest('tr.att-row');
+  if (!row) return;
+  const attId = row.querySelector('.att-num')?.textContent?.trim();
+  if (!attId) return;
+  const d = ATTS.find(a => a.att === attId);
+  if (d && d.link && d.link.startsWith('http')) {
+    window.open(d.link, '_blank', 'noopener');
+  }
+});
+
+</script>
+
+<!-- HOVER CARD -->
+<div id="att-hover-card">
+  <div class="hc-att-id" id="hc-id"></div>
+  <div class="hc-title" id="hc-title"></div>
+  <div class="hc-agency" id="hc-agency"></div>
+  <div class="hc-section">
+    <div class="hc-label">Analytical Domains</div>
+    <div class="hc-pills" id="hc-domains"></div>
+  </div>
+  <div class="hc-section">
+    <div class="hc-label">Deficiency Categories</div>
+    <div class="hc-pills" id="hc-defs"></div>
+  </div>
+  <div class="hc-footer">
+    <span>Strength: <span id="hc-strength"></span></span>
+    <span id="hc-section-badge"></span>
+  </div>
+</div>
+
+</body>
+</html>
