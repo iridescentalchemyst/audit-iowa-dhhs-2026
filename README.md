@@ -1,3 +1,3 @@
 # Petition to Audit Iowa DHHS — Public Transparency Page
 
-This repository hosts the public-facing landing page only. Formal audit-review packets, source indices, derivative materials, and internal working drafts are controlled separately and are not published in this repository.
+This repository hosts the public-facing landing page. The page links to the public-facing handoff packet and does not publish source indices, internal working drafts, or derivative materials in the repository.
