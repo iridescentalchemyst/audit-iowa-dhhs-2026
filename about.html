@@ -6,367 +6,646 @@
 <title>About | Iowa HHS Audit Request</title>
 <style>
 :root {
-  --navy:#1a2744; --gold:#b8952a; --gold-light:#d4af4a;
-  --slate:#3d4f6b; --light-slate:#6b7d9a;
-  --off-white:#f5f4f0; --white:#ffffff;
-  --text:#1e1e1e; --text-light:#4a4a4a;
+  --navy:#1a2744;
+  --gold:#b8952a;
+  --gold-light:#d4af4a;
+  --slate:#3d4f6b;
+  --light-slate:#6b7d9a;
+  --off-white:#f5f4f0;
+  --white:#ffffff;
+  --text:#1e1e1e;
+  --text-light:#4a4a4a;
   --border:#d0cec8;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.75;}
-nav{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:3px solid var(--gold);}
-nav ul{max-width:1200px;margin:0 auto;padding:0 1.5rem;list-style:none;display:flex;flex-wrap:wrap;}
-nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;transition:color .2s;}
-nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
-section{max-width:860px;margin:0 auto;padding:3.5rem 2rem;}
-section+section{border-top:1px solid var(--border);}
-.section-label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.4rem;}
-h1,h2{font-weight:normal;color:var(--navy);}
-h1{font-size:clamp(1.9rem,4vw,2.8rem);border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;margin-bottom:1.25rem;}
-h2{font-size:1.75rem;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;margin-bottom:1.25rem;}
-p{margin-bottom:.9rem;color:var(--text-light);}
-.about-grid{display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:start;margin-top:1.5rem;}
-@media(max-width:640px){.about-grid{grid-template-columns:1fr;}}
-.about-photo{width:100%;border-radius:4px;box-shadow:0 4px 16px rgba(0,0,0,.18);}
-.about-caption{font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--light-slate);margin-top:.4rem;text-align:center;}
-.about-name{font-size:1.15rem;font-weight:bold;color:var(--navy);margin-bottom:.2rem;}
-.about-title{font-family:'Arial',sans-serif;font-size:0.84rem;color:var(--light-slate);margin-bottom:1rem;}
-.cta-box{background:var(--navy);padding:2.5rem 2rem;text-align:center;margin-top:.5rem;}
-.cta-box p{color:#c8d4e8;margin-bottom:1.25rem;}
-.cta-btn{display:inline-block;background:var(--gold);color:var(--navy);font-family:'Arial',sans-serif;font-size:0.88rem;font-weight:bold;letter-spacing:.07em;text-transform:uppercase;padding:.75rem 2rem;text-decoration:none;transition:background .2s;}
-.cta-btn:hover{background:var(--gold-light);}
-footer{background:#0f1a30;color:#5a6a80;padding:2rem;text-align:center;font-family:'Arial',sans-serif;font-size:0.82rem;}
-footer a{color:#7a9abf;text-decoration:none;}
-footer a:hover{color:var(--gold-light);}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:'Georgia',serif;
+  color:var(--text);
+  background:var(--off-white);
+  font-size:17px;
+  line-height:1.75;
+}
+
+nav {
+  background:var(--navy);
+  position:sticky;
+  top:0;
+  z-index:200;
+  border-bottom:3px solid var(--gold);
+}
+
+nav ul {
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 1.5rem;
+  list-style:none;
+  display:flex;
+  flex-wrap:wrap;
+}
+
+nav ul li a {
+  display:block;
+  color:#c8d0e0;
+  text-decoration:none;
+  padding:.85rem 1rem;
+  font-family:'Arial',sans-serif;
+  font-size:.82rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  transition:color .2s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color:var(--gold-light);
+}
+
+section {
+  max-width:860px;
+  margin:0 auto;
+  padding:3.5rem 2rem;
+}
+
+section + section {
+  border-top:1px solid var(--border);
+}
+
+.section-label {
+  font-family:'Arial',sans-serif;
+  font-size:.78rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--light-slate);
+  margin-bottom:.4rem;
+}
+
+h1,
+h2,
+h3 {
+  color:var(--navy);
+}
+
+h1,
+h2 {
+  font-weight:normal;
+}
+
+h1 {
+  font-size:clamp(1.9rem,4vw,2.8rem);
+  border-bottom:3px solid var(--gold);
+  padding-bottom:.4rem;
+  display:inline-block;
+  margin-bottom:1.25rem;
+}
+
+h2 {
+  font-size:1.75rem;
+  border-bottom:3px solid var(--gold);
+  padding-bottom:.4rem;
+  display:inline-block;
+  margin-bottom:1.25rem;
+}
+
+h3 {
+  font-size:1.2rem;
+  margin-top:1.8rem;
+  margin-bottom:.65rem;
+}
+
+p {
+  margin-bottom:.9rem;
+  color:var(--text-light);
+}
+
+.content-list {
+  margin:0 0 1.25rem 1.25rem;
+  padding-left:1rem;
+  color:var(--text-light);
+}
+
+.content-list li {
+  margin-bottom:.85rem;
+  padding-left:.2rem;
+}
+
+.disclosure-box {
+  margin-top:2rem;
+  padding:1.35rem 1.5rem;
+  background:var(--white);
+  border-left:4px solid var(--gold);
+}
+
+.disclosure-box h3 {
+  margin-top:0;
+}
+
+.about-grid {
+  display:grid;
+  grid-template-columns:220px minmax(0,1fr);
+  gap:2.5rem;
+  align-items:start;
+}
+
+.about-figure {
+  width:220px;
+  margin:0;
+}
+
+.about-photo {
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:4px;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+}
+
+.about-caption {
+  margin-top:.45rem;
+  margin-bottom:0;
+  font-family:'Arial',sans-serif;
+  font-size:.76rem;
+  line-height:1.4;
+  color:var(--light-slate);
+  text-align:center;
+}
+
+.about-header {
+  margin-bottom:1rem;
+}
+
+.about-header h2 {
+  margin-bottom:.75rem;
+}
+
+.about-name {
+  font-size:1.15rem;
+  font-weight:bold;
+  color:var(--navy);
+  margin-bottom:.2rem;
+}
+
+.about-title {
+  font-family:'Arial',sans-serif;
+  font-size:.84rem;
+  line-height:1.55;
+  color:var(--light-slate);
+  margin-bottom:0;
+}
+
+.about-title-primary,
+.about-title-secondary {
+  display:block;
+}
+
+.about-title-secondary {
+  margin-top:.2rem;
+  color:var(--slate);
+  font-weight:600;
+}
+
+.related-systems-work {
+  margin-top:2rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+
+.related-systems-work h3 {
+  margin-top:0;
+}
+
+.cta-box {
+  background:var(--navy);
+  padding:2.5rem 2rem;
+  text-align:center;
+  margin-top:.5rem;
+}
+
+.cta-box p {
+  color:#c8d4e8;
+  margin-bottom:1.25rem;
+}
+
+.cta-btn {
+  display:inline-block;
+  background:var(--gold);
+  color:var(--navy);
+  font-family:'Arial',sans-serif;
+  font-size:.88rem;
+  font-weight:bold;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  padding:.75rem 2rem;
+  text-decoration:none;
+  transition:background .2s;
+}
+
+.cta-btn:hover {
+  background:var(--gold-light);
+}
+
+footer {
+  background:#0f1a30;
+  color:#5a6a80;
+  padding:2rem;
+  text-align:center;
+  font-family:'Arial',sans-serif;
+  font-size:.82rem;
+}
+
+footer p {
+  margin-bottom:.4rem;
+  color:#5a6a80;
+}
+
+footer a {
+  color:#7a9abf;
+  text-decoration:none;
+}
+
+footer a:hover {
+  color:var(--gold-light);
+}
+
+.footer-source-note {
+  margin-top:.4rem;
+  margin-bottom:0;
+  font-size:.76rem;
+  color:#7a879c;
+}
+
+@media (max-width:640px) {
+  section {
+    padding:2.5rem 1.25rem;
+  }
+
+  .about-grid {
+    grid-template-columns:1fr;
+    gap:1.5rem;
+  }
+
+  .about-figure {
+    width:160px;
+    margin:0 auto;
+  }
+
+  .about-header {
+    text-align:center;
+  }
+}
 </style>
 </head>
 <body>
 
-<nav>
+<nav aria-label="Primary navigation">
   <ul>
     <li><a href="audit_iowa_dhhs.html">Home</a></li>
     <li><a href="hub.html">Document Hub</a></li>
-    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="about.html" class="active" aria-current="page">About</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="orr-log.html">ORR Log</a></li>
     <li><a href="outreach-log.html">Outreach Log</a></li>
   </ul>
 </nav>
 
-<section id="about-petition" aria-labelledby="about-petition-heading">
-  <header>
-    <h2 id="about-petition-heading">About This Petition</h2>
-    <p>
-      <strong>
-        A citizen-initiated request for independent review of IowaÃ¢ÂÂs
-        child-welfare system
-      </strong>
-    </p>
-  </header>
-
-  <p>
-    This petition asks the Iowa Auditor of StateÃ¢ÂÂor another body with
-    appropriate authorityÃ¢ÂÂto consider an independent performance audit of the
-    Iowa Department of Health and Human ServicesÃ¢ÂÂ child-welfare system.
-  </p>
-
-  <p>
-    The requested review extends beyond written policy. It asks whether Iowa
-    HHS can demonstrate that corrective actions, oversight commitments,
-    workforce controls, contractor responsibilities, financial safeguards,
-    data systems, and records-management practices were implemented
-    consistently and produced measurable results.
-  </p>
-
-  <p>
-    Iowa has completed three federal Child and Family Services Review cycles
-    and is now participating in a fourth. Across the completed cycles, federal
-    records document recurring areas of nonconformity, successive Program
-    Improvement Plans, and repeated commitments to corrective action. The
-    petition examines why materially similar concerns have continued to
-    appear, how Iowa tracks remediation over time, and whether the underlying
-    records permit independent verification of implementation and
-    effectiveness.
-  </p>
-
-  <p>
-    This work is not simply a collection of reports. It is a structured
-    evidentiary record developed through multi-year source retrieval,
-    reconciliation, citation review, metadata control, and comparative
-    analysis. The current architecture includes a 20-section petition, a
-    longitudinal CFSR Companion Report, a CCWIS Companion Report, 45 attachment
-    families, a 169-record source foundation, and a separately controlled
-    layer of 57 petitioner-prepared analytical products.
-  </p>
-
-  <h3>The Evidence Base</h3>
-
-  <p>The evidence is organized into three principal source layers:</p>
-
-  <ul>
-    <li>
-      <strong>Government and institutional records Ã¢ÂÂ</strong>
-      Federal CFSR reports, Statewide Assessments, Program Improvement Plans,
-      CFSP and APSR materials, federal guidance, Iowa HHS policies and training
-      materials, contracts, procurement records, CCWIS planning documents,
-      task-force records, statutes, legislative materials, and records
-      produced through Iowa's open-records process.
-    </li>
-
-    <li>
-      <strong>Independent oversight and corroborating records Ã¢ÂÂ</strong>
-      Iowa Auditor of State reports, Iowa Ombudsman investigations,
-      court-certified records, independent evaluations, academic and policy
-      research, and carefully selected public reporting used as a source
-      locator or corroborating record.
-    </li>
-
-    <li>
-      <strong>Petitioner-developed analytical products Ã¢ÂÂ</strong>
-      Source registries, crosswalks, longitudinal comparisons,
-      deficiency-category mapping, audit-procedure matrices, and the
-      Post-Permanency Risk Convergence Profile. These products are identified
-      separately from original source records and do not constitute
-      independent verification.
-    </li>
-  </ul>
-
-  <h3>Source Integrity and Traceability</h3>
-
-  <p>
-    Every source is assigned a persistent control identifier and documented
-    by title, issuing body, provenance, status, petition use, and when
-    available an official public URL. Original source records are distinguished
-    from excerpts, summaries, analytical products, and packet derivatives so
-    readers can trace significant claims back to their underlying evidence.
-  </p>
-
-  <p>
-    The source architecture also distinguishes records relied upon directly
-    by the petition from materials preserved only to support derivative
-    analysis. This prevents background materials, working products, and
-    original evidence from being presented as though they carry the same
-    evidentiary weight.
-  </p>
-
-  <h3>Public Access and Privacy</h3>
-
-  <p>
-    This website presents the public-safe layer of the record. Public documents
-    and open-records productions are linked whenever lawful and practicable.
-    Sealed, confidential, restricted, or privately preserved records are not
-    published merely because they informed an audit question.
-  </p>
-
-  <p>
-    Case-linked material is minimized, redacted, or identified by provenance
-    and access limitation rather than exposed publicly. When a source cannot
-    lawfully or responsibly be posted, the record explains its origin and
-    availability without disclosing protected information.
-  </p>
-
-  <h3>Purpose and Status</h3>
-
-  <p>
-    The petition is not a lawsuit, judicial filing, or request to relitigate an
-    individual child-welfare case. It is a citizen-initiated audit request and
-    public transparency record intended to help families, lawmakers, auditors,
-    journalists, and oversight bodies examine the evidence, understand the
-    methodology, and independently test the questions presented.
-  </p>
-
-  <p>
-    Materials are labeled according to their actual status. Drafts remain
-    drafts until reviewed and approved, source limitations are disclosed,
-    corrections are preserved, and no analytical conclusion substitutes for
-    the independent work of an authorized auditor.
-  </p>
-
-  <aside aria-labelledby="methodology-disclosure-heading">
-    <h3 id="methodology-disclosure-heading">Methodology Disclosure</h3>
+<main>
+  <section id="about-petition" aria-labelledby="about-petition-heading">
+    <header>
+      <div class="section-label">About This Petition</div>
+      <h1 id="about-petition-heading">An Independent Audit of Iowa HHS</h1>
+      <p>
+        <strong>
+          A citizen-initiated request for independent review of Iowa&rsquo;s
+          child-welfare system
+        </strong>
+      </p>
+    </header>
 
     <p>
-      AI assistance was used materially in the preparation of this document.
-      That assistance does not constitute independent verification of any
-      factual claim.
+      This petition asks the Iowa Auditor of State&mdash;or another body with
+      appropriate authority&mdash;to consider an independent performance audit
+      of the Iowa Department of Health and Human Services&rsquo; child-welfare
+      system.
     </p>
 
     <p>
-      Source selection, evidentiary judgments, corrections, and final
-      publication decisions remain the responsibility of the Petitioner.
+      The requested review extends beyond written policy. It asks whether Iowa
+      HHS can demonstrate that corrective actions, oversight commitments,
+      workforce controls, contractor responsibilities, financial safeguards,
+      data systems, and records-management practices were implemented
+      consistently and produced measurable results.
     </p>
-  </aside>
-</section>
-
-<section id="about-petitioner" aria-labelledby="petitioner-heading">
-  <header>
-    <h2 id="petitioner-heading">About the Petitioner</h2>
-
-    <h3>Ashley Marie Meredith, MSN</h3>
 
     <p>
-      <strong>
-        Founder, Iowa Family Rights &nbsp;|&nbsp; Mother of three
-        &nbsp;|&nbsp; Nurse &nbsp;|&nbsp; Citizen Petitioner &nbsp;|&nbsp; Child-Welfare Accountability Researcher and Systems Designer
-      </strong>
+      Iowa has completed three federal Child and Family Services Review cycles
+      and is now participating in a fourth. Across the completed cycles,
+      federal records document recurring areas of nonconformity, successive
+      Program Improvement Plans, and repeated commitments to corrective
+      action. The petition examines why materially similar concerns have
+      continued to appear, how Iowa tracks remediation over time, and whether
+      the underlying records permit independent verification of implementation
+      and effectiveness.
     </p>
-  </header>
 
+    <p>
+      This work is not simply a collection of reports. It is a structured
+      evidentiary record developed through multi-year source retrieval,
+      reconciliation, citation review, metadata control, and comparative
+      analysis. The current architecture includes a 21-section petition, a
+      longitudinal CFSR Companion Report, a CCWIS Companion Report, 45
+      attachment families, a 169-record source foundation, and a separately
+      controlled layer of 57 derivative packet and analytical products.
+    </p>
 
-<figure class="about-photo">
-  <img
-    src="https://media.base44.com/images/public/6a16b0d2e9426883b87f90bc/3814929b5_DSMtripMarch2026.jpg"
-    alt="Ashley Marie Meredith sitting on the steps of the Iowa State Capitol in March 2026"
-    loading="lazy"
-  >
+    <h3>The Evidence Base</h3>
 
-  <figcaption>
-    Ashley Marie Meredith at the Iowa State Capitol in March 2026. The
-    photograph was taken the same evening she captured the Capitol dome
-    featured on this website.
-  </figcaption>
-</figure>
+    <p>The evidence is organized into three principal source layers:</p>
 
+    <ul class="content-list">
+      <li>
+        <strong>Government and institutional records &mdash;</strong>
+        Federal CFSR reports, Statewide Assessments, Program Improvement Plans,
+        CFSP and APSR materials, federal guidance, Iowa HHS policies and
+        training materials, contracts, procurement records, CCWIS planning
+        documents, task-force records, statutes, legislative materials, and
+        records produced through Iowa&rsquo;s open-records process.
+      </li>
 
-  <p>
-    Ashley Marie Meredith, MSN, mother of 3, is a professional nurse with more   
-    than twelve years of clinical experience, the founder of Iowa Family 
-    Rights, and the citizen petitioner behind this independent audit request. 
-    Her work applies clinical reasoning, records analysis, source 
-    reconciliation, systems thinking, and longitudinal review to questions of 
-    child-welfare oversight and public accountability.
-  </p>
+      <li>
+        <strong>Independent oversight and corroborating records &mdash;</strong>
+        Iowa Auditor of State reports, Iowa Ombudsman investigations,
+        court-certified records, independent evaluations, academic and policy
+        research, and carefully selected public reporting used as a source
+        locator or corroborating record.
+      </li>
 
-  <p>
-    Her investigation began with direct personal experience inside Iowa's
-    child-welfare system. That experience exposed how difficult it can be to
-    trace decisions, corrective actions, safety concerns, and institutional
-    responsibility across agencies, contractors, courts, oversight bodies,
-    technology systems, and disconnected records.
-  </p>
+      <li>
+        <strong>Petitioner-developed analytical products &mdash;</strong>
+        Source registries, crosswalks, longitudinal comparisons,
+        deficiency-category mapping, audit-procedure matrices, and the
+        Post-Permanency Risk Convergence Profile. These products are identified
+        separately from original source records and do not constitute
+        independent verification.
+      </li>
+    </ul>
 
-  <p>
-    Ashley does not present one family's experience as proof of a system-wide
-    conclusion. She treats that experience as an originating observation and
-    contemporaneous data point to be tested against the broader institutional
-    record. The resulting project developed into a multi-year,
-    document-grounded investigation of recurring deficiencies, oversight gaps,
-    records integrity, and corrective-action continuity.
-  </p>
+    <h3>Source Integrity and Traceability</h3>
 
-  <p>
-    She has assembled and reconciled records spanning four federal Child and
-    Family Services Review cycles, successive Program Improvement Plans, state
-    child-welfare planning documents, Iowa HHS policies and training
-    materials, Auditor and Ombudsman reports, contracts and procurement
-    records, legislative materials, independent evaluations, court-certified
-    records, and a coordinated portfolio of Iowa open-records requests.
-  </p>
+    <p>
+      Every source is assigned a persistent control identifier and documented
+      by title, issuing body, provenance, status, petition use, and&mdash;when
+      available&mdash;an official public URL. Original source records are
+      distinguished from excerpts, summaries, analytical products, and packet
+      derivatives so readers can trace significant claims back to their
+      underlying evidence.
+    </p>
 
-  <p>
-    Ashley also developed the
-    <strong>Post-Permanency Risk Convergence Profile (PPRCP)</strong>, an
-    original audit-triage framework addressing a persistent oversight blind
-    spot: what happens when post-permanency safety risks, monitoring gaps,
-    fragmented records, and corrective-action failures converge after a child
-    has reached a legally recognized permanency outcome.
-  </p>
+    <p>
+      The source architecture also distinguishes records relied upon directly
+      by the petition from materials preserved only to support derivative
+      analysis. This prevents background materials, working products, and
+      original evidence from being presented as though they carry the same
+      evidentiary weight.
+    </p>
 
-  <p>
-    Her role is not to substitute her judgment for that of an authorized
-    government auditor. It is to preserve the record, distinguish original
-    evidence from petitioner-developed analysis, identify source-supported
-    audit questions, and place those questions before officials with the
-    authority to examine them independently.
-  </p>
+    <h3>Public Access and Privacy</h3>
 
-  <p>
-    Through Iowa Family Rights, Ashley maintains this project as a
-    public-interest accountability effort for Iowa families, lawmakers,
-    journalists, researchers, and oversight bodies seeking a clearer and more
-    traceable understanding of the state's child-welfare system.
-  </p>
+    <p>
+      This website presents the public-safe layer of the record. Public
+      documents and open-records productions are linked whenever lawful and
+      practicable. Sealed, confidential, restricted, or privately preserved
+      records are not published merely because they informed an audit question.
+    </p>
 
-<aside
-  id="related-systems-work"
-  aria-labelledby="related-systems-work-heading"
->
-  <h3 id="related-systems-work-heading">
-    Related Systems Work and Disclosure
-  </h3>
+    <p>
+      Case-linked material is minimized, redacted, or identified by provenance
+      and access limitation rather than exposed publicly. When a source cannot
+      lawfully or responsibly be posted, the record explains its origin and
+      availability without disclosing protected information.
+    </p>
 
-  <p>
-    Ashley’s work on this petition developed alongside, but separately from,
-    <strong>
-      Self-Representation Intelligence&trade; (SRI&trade;)
-    </strong>.
-    The two projects share commitments to evidence integrity, procedural
-    understanding, and meaningful public participation, but they have
-    distinct purposes.
-  </p>
+    <h3>Purpose and Status</h3>
 
-  <p>
-    The petition is a source-controlled request for independent examination of
-    Iowa’s child-welfare system. Self-Representation Intelligence&trade; is a
-    separate research and systems-design initiative focused more broadly on
-    helping individuals organize evidence, understand procedure, preserve
-    source context, and participate effectively in complex legal and
-    administrative systems. Neither project is presented as having originated
-    from or validated the other.
-  </p>
+    <p>
+      The petition is not a lawsuit, judicial filing, or request to relitigate
+      an individual child-welfare case. It is a citizen-initiated audit request
+      and public transparency record intended to help families, lawmakers,
+      auditors, journalists, and oversight bodies examine the evidence,
+      understand the methodology, and independently test the questions
+      presented.
+    </p>
 
-  <p>
-    The need for <strong>Attest&trade;</strong> became clear later, as Ashley’s
-    investigation expanded into Comprehensive Child Welfare Information System
-    (CCWIS) design, data governance, and auditability. The CCWIS work exposed a
-    recurring technical problem: records may exist without a reliable,
-    reviewable way to preserve provenance, connect claims to their underlying
-    sources, document transformations, and verify what information was
-    available at a particular point in time.
-  </p>
+    <p>
+      Materials are labeled according to their actual status. Drafts remain
+      drafts until reviewed and approved, source limitations are disclosed,
+      corrections are preserved, and no analytical conclusion substitutes for
+      the independent work of an authorized auditor.
+    </p>
 
-  <p>
-    Attest&trade; was developed in response to that specific problem. It is
-    intended to support evidence provenance, source-to-claim traceability,
-    documented review, and audit-ready verification.
-    <strong>Vault&trade;</strong> is related systems work focused on the
-    controlled preservation and organization of the underlying record.
-  </p>
+    <aside class="disclosure-box" aria-labelledby="methodology-disclosure-heading">
+      <h3 id="methodology-disclosure-heading">Methodology Disclosure</h3>
 
-  <p>
-    Ashley has proposed Attest&trade; and Vault&trade; to the federal
-    Administration for Children and Families for consideration in connection
-    with its Comprehensive Child Welfare Information System technology
-    catalog. This disclosure does not represent that ACF has endorsed,
-    approved, adopted, or listed either proposal.
-  </p>
+      <p>
+        AI assistance was used materially in the preparation of this document.
+        That assistance does not constitute independent verification of any
+        factual claim.
+      </p>
 
-  <p>
-    Attest&trade; and Vault&trade; are not presented as evidence supporting the
-    petition’s findings, and the petition does not ask Iowa HHS or any reviewing
-    authority to purchase or adopt them. They are disclosed because the CCWIS
-    investigation materially informed the development of Attest&trade; and
-    because that relationship is relevant to a transparent account of
-    Ashley’s work.
-  </p>
-</aside>
+      <p>
+        Source selection, evidentiary judgments, corrections, and final
+        publication decisions remain the responsibility of the Petitioner.
+      </p>
+    </aside>
+  </section>
 
-  <p class="photo-caption">
-    The photograph was taken on the steps of the Iowa State Capitol on March 5,
-    2026, the same evening Ashley photographed the Capitol dome featured on
-    this website.
-  </p>
-</section>
+  <section id="about-petitioner" aria-labelledby="petitioner-heading">
+    <div class="about-grid">
+      <figure class="about-figure">
+        <img
+          class="about-photo"
+          src="https://media.base44.com/images/public/6a16b0d2e9426883b87f90bc/3814929b5_DSMtripMarch2026.jpg"
+          alt="Ashley Marie Meredith sitting on the steps of the Iowa State Capitol in March 2026"
+          loading="lazy"
+        >
+        <figcaption class="about-caption">
+          Iowa State Capitol steps, March 5, 2026
+        </figcaption>
+      </figure>
 
-<!-- CTA -->
+      <div class="about-content">
+        <header class="about-header">
+          <div class="section-label">The Petitioner</div>
+          <h2 id="petitioner-heading">About the Petitioner</h2>
+
+          <div class="about-name">Ashley Marie Meredith, MSN</div>
+
+          <p class="about-title">
+            <span class="about-title-primary">
+              Founder, Iowa Family Rights &nbsp;|&nbsp; Mother of three
+              &nbsp;|&nbsp; Nurse &nbsp;|&nbsp; Citizen Petitioner
+            </span>
+            <span class="about-title-secondary">
+              Child-Welfare Accountability Researcher and Systems Designer
+            </span>
+          </p>
+        </header>
+
+        <p>
+          Ashley Marie Meredith, MSN, is a mother of three and a registered
+          nurse with more than sixteen years of clinical experience. She is the
+          founder of Iowa Family Rights and the citizen petitioner behind this
+          independent audit request. Her work applies clinical reasoning,
+          records analysis, source reconciliation, systems thinking, and
+          longitudinal review to questions of child-welfare oversight and
+          public accountability.
+        </p>
+
+        <p>
+          Her investigation began with direct personal experience inside
+          Iowa&rsquo;s child-welfare system. That experience exposed how
+          difficult it can be to trace decisions, corrective actions, safety
+          concerns, and institutional responsibility across agencies,
+          contractors, courts, oversight bodies, technology systems, and
+          disconnected records.
+        </p>
+
+        <p>
+          Ashley does not present one family&rsquo;s experience as proof of a
+          systemwide conclusion. She treats that experience as an originating
+          observation and contemporaneous data point to be tested against the
+          broader institutional record. The resulting project developed into a
+          multi-year, document-grounded investigation of recurring
+          deficiencies, oversight gaps, records integrity, and
+          corrective-action continuity.
+        </p>
+
+        <p>
+          She has assembled and reconciled records spanning four federal Child
+          and Family Services Review cycles, successive Program Improvement
+          Plans, state child-welfare planning documents, Iowa HHS policies and
+          training materials, Auditor and Ombudsman reports, contracts and
+          procurement records, legislative materials, independent evaluations,
+          court-certified records, and a coordinated portfolio of Iowa
+          open-records requests.
+        </p>
+
+        <p>
+          Ashley also developed the
+          <strong>Post-Permanency Risk Convergence Profile (PPRCP)</strong>, an
+          original audit-triage framework addressing a persistent oversight
+          blind spot: what happens when post-permanency safety risks, monitoring
+          gaps, fragmented records, and corrective-action failures converge
+          after a child has reached a legally recognized permanency outcome.
+        </p>
+
+        <p>
+          Her role is not to substitute her judgment for that of an authorized
+          government auditor. It is to preserve the record, distinguish
+          original evidence from petitioner-developed analysis, identify
+          source-supported audit questions, and place those questions before
+          officials with the authority to examine them independently.
+        </p>
+
+        <p>
+          Through Iowa Family Rights, Ashley maintains this project as a
+          public-interest accountability effort for Iowa families, lawmakers,
+          journalists, researchers, and oversight bodies seeking a clearer and
+          more traceable understanding of the state&rsquo;s child-welfare
+          system.
+        </p>
+
+        <aside
+          id="related-systems-work"
+          class="related-systems-work"
+          aria-labelledby="related-systems-work-heading"
+        >
+          <h3 id="related-systems-work-heading">
+            Related Systems Work and Disclosure
+          </h3>
+
+          <p>
+            Ashley&rsquo;s work on this petition developed alongside, but
+            separately from,
+            <strong>
+              Self-Representation Intelligence&trade; (SRI&trade;)
+            </strong>.
+            The two projects share commitments to evidence integrity,
+            procedural understanding, and meaningful public participation, but
+            they have distinct purposes.
+          </p>
+
+          <p>
+            The petition is a source-controlled request for independent
+            examination of Iowa&rsquo;s child-welfare system.
+            Self-Representation Intelligence&trade; is a separate research and
+            systems-design initiative focused more broadly on helping
+            individuals organize evidence, understand procedure, preserve
+            source context, and participate effectively in complex legal and
+            administrative systems. Neither project is presented as having
+            originated from or validated the other.
+          </p>
+
+          <p>
+            The need for <strong>Attest&trade;</strong> became clear later, as
+            Ashley&rsquo;s investigation expanded into Comprehensive Child
+            Welfare Information System (CCWIS) design, data governance, and
+            auditability. The CCWIS work exposed a recurring technical problem:
+            records may exist without a reliable, reviewable way to preserve
+            provenance, connect claims to their underlying sources, document
+            transformations, and verify what information was available at a
+            particular point in time.
+          </p>
+
+          <p>
+            Attest&trade; was developed in response to that specific problem. It
+            is intended to support evidence provenance, source-to-claim
+            traceability, documented review, and audit-ready verification.
+            <strong>Vault&trade;</strong> is related systems work focused on the
+            controlled preservation and organization of the underlying record.
+          </p>
+
+          <p>
+            Ashley has proposed Attest&trade; and Vault&trade; to the federal
+            Administration for Children and Families for consideration in
+            connection with its Comprehensive Child Welfare Information System
+            technology catalog. This disclosure does not represent that ACF has
+            endorsed, approved, adopted, or listed either proposal.
+          </p>
+
+          <p>
+            Attest&trade; and Vault&trade; are not presented as evidence
+            supporting the petition&rsquo;s findings, and the petition does not
+            ask Iowa HHS or any reviewing authority to purchase or adopt them.
+            They are disclosed because the CCWIS investigation materially
+            informed the development of Attest&trade; and because that
+            relationship is relevant to a transparent account of Ashley&rsquo;s
+            work.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
 <div class="cta-box">
   <p>Have questions or want to get in touch?</p>
   <a href="contact.html" class="cta-btn">Contact Ashley &rarr;</a>
 </div>
 
 <footer>
-  <p>Audit Iowa DHHS &nbsp;|&nbsp; A public interest petition by <a href="https://iowafamilyrights.wordpress.com">Iowa Family Rights</a></p>
-  <p style="margin-top:.4rem;font-size:0.76rem;color:#374151;">All source documents are publicly available or obtained through Iowa's open records process.</p>
+  <p>
+    Audit Iowa DHHS &nbsp;|&nbsp; A public-interest petition by
+    <a href="https://iowafamilyrights.wordpress.com">Iowa Family Rights</a>
+  </p>
+  <p class="footer-source-note">
+    Publicly shareable sources are linked when available. Restricted or
+    nonpublic records are identified by provenance and access limitation.
+  </p>
 </footer>
 
 </body>
