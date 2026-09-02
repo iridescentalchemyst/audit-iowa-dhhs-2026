@@ -108,6 +108,46 @@ footer p+p{margin-top:.4rem;}
   .deficiency-table td{display:block;border-bottom:1px solid var(--border);}
   .deficiency-table td::before{content:attr(data-label);display:block;font-family:'Arial',sans-serif;font-size:0.72rem;text-transform:uppercase;color:var(--light-slate);margin-bottom:.2rem;}
 }
+
+/* Framework section */
+.fw-subhead{font-size:1.05rem;color:var(--navy);margin-bottom:1rem;font-family:'Georgia',serif;font-weight:normal;font-style:italic;border-left:3px solid var(--gold);padding-left:.75rem;}
+.fw-summary{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--light-slate);cursor:pointer;padding:.4rem 0;user-select:none;}
+.fw-summary:hover{color:var(--navy);}
+.fw-detail{padding:.75rem 0 .25rem;display:flex;flex-direction:column;gap:.6rem;}
+.fw-label{font-family:'Arial',sans-serif;font-size:0.72rem;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:.35rem;}
+.fw-detail ul{padding-left:1.1rem;font-size:0.85rem;color:var(--text-light);}
+.fw-detail ul li{margin-bottom:.2rem;}
+.fw-detail p{font-size:0.85rem;color:var(--text-light);line-height:1.55;}
+.fw-linkages{font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--light-slate);margin-top:.6rem;border-top:1px solid var(--border);padding-top:.5rem;}
+.fw-codes{font-weight:bold;color:var(--slate);}
+/* Deficiency cards */
+.flaw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.flaw-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.1rem 1.25rem;display:flex;flex-direction:column;gap:.5rem;}
+.flaw-card.flaw-special{border-left:4px solid var(--gold);}
+.flaw-card.flaw-critical{border-left:4px solid #8b2c2c;}
+.flaw-header{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+.flaw-code{display:inline-block;background:var(--navy);color:var(--gold-light);font-family:'Arial',sans-serif;font-size:0.78rem;font-weight:bold;letter-spacing:.06em;padding:.25rem .6rem;border-radius:3px;white-space:nowrap;}
+.flaw-title{font-size:0.91rem;color:var(--navy);font-weight:bold;line-height:1.35;}
+.flaw-role-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:0.68rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.18rem .55rem;border-radius:3px;background:#e8ecf4;color:var(--slate);border:1px solid #b0b8d8;white-space:nowrap;}
+.flaw-role-badge.flaw-role-critical{background:#f5e8e8;color:#8b2c2c;border-color:#d4a0a0;}
+.flaw-def{font-size:0.88rem;color:var(--text-light);line-height:1.6;}
+/* Severity bar */
+.severity-bar{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.5rem;}
+.sev-cell{display:flex;flex-direction:column;align-items:center;padding:.75rem .5rem;text-align:center;border-right:1px solid var(--border);}
+.sev-cell:last-child{border-right:none;}
+.sev-level{font-family:'Arial',sans-serif;font-size:0.72rem;font-weight:bold;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.25rem;}
+.sev-label{font-family:'Arial',sans-serif;font-size:0.72rem;color:var(--text-light);line-height:1.3;}
+.sev-1{background:#f5f7ff;}.sev-1 .sev-level{color:#3d4f6b;}
+.sev-2{background:#eef2f9;}.sev-2 .sev-level{color:#3d4f6b;}
+.sev-3{background:#f5f0e0;}.sev-3 .sev-level{color:#7a5c00;}
+.sev-4{background:#f0e8d8;}.sev-4 .sev-level{color:#7a3c00;}
+.sev-5{background:#f5e8e8;}.sev-5 .sev-level{color:#8b2c2c;}
+@media(max-width:700px){
+  .flaw-grid{grid-template-columns:1fr;}
+  .severity-bar{grid-template-columns:1fr;border-radius:4px;}
+  .sev-cell{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;justify-content:flex-start;gap:.75rem;text-align:left;}
+  .sev-cell:last-child{border-bottom:none;}
+}
 </style>
 </head>
 <body>
@@ -341,131 +381,407 @@ footer p+p{margin-top:.4rem;}
   <!-- ANALYTICAL FRAMEWORK -->
   <div class="hub-section" id="domains">
     <div class="section-eyebrow">Analytical Framework</div>
-    <h2>Domains and Deficiency Categories</h2>
-    <p class="section-body">The audit framework organizes the source record across analytical domains and recurring deficiency categories. This structure helps distinguish isolated incidents from repeated system-pattern evidence.</p>
+    <h2>Risk Domains and Deficiency Categories</h2>
+    <p class="section-body">The audit framework uses two linked classification systems. Domains A&ndash;H organize the source record by system area. Deficiency Categories F1&ndash;F13 identify recurring operational failure types found across records, reports, reviews, audits, correspondence, and case-adjacent source materials. Together, the two systems help distinguish isolated incidents from repeat, cross-domain system-pattern evidence.</p>
+    <p class="section-body" style="font-style:italic;font-size:0.88rem;color:var(--light-slate);margin-top:-.75rem;">These categories are analytical and source-control tools. They do not independently determine legal liability, intent, or final audit findings.</p>
 
-    <h3 style="font-size:1.05rem;color:var(--navy);margin-bottom:1rem;font-family:'Georgia',serif;font-weight:normal;font-style:italic;">Eight Analytical Domains</h3>
+    <!-- DOMAINS -->
+    <h3 class="fw-subhead">Part 1 &mdash; Risk Domains A&ndash;H</h3>
     <div class="domain-grid">
+
       <div class="domain-card">
         <div class="domain-letter">A</div>
-        <h4>Funding Authorization and Federal Compliance</h4>
-        <p>Federal and state child welfare funding streams, reimbursement compliance, budget allocation, and financial oversight controls.</p>
+        <h4>Funding Authorization &amp; Federal Compliance</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Administration, allocation, monitoring, and compliance oversight of federal and state child welfare funding streams and reimbursement structures.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Federal funding streams including Title IV-E, Title IV-B, CAPTA, and related grants</li><li>Budget allocation and expenditure tracking</li><li>Federal reimbursement compliance</li><li>Financial reporting and grant administration</li><li>Funding utilization oversight</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Misalignment between funding claims and actual service delivery</li><li>Unsupported or unverifiable expenditures</li><li>Noncompliance with federal eligibility or reimbursement requirements</li><li>Incentive structures influencing operational decisions</li><li>Inconsistent financial reporting</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Determine whether reimbursement claims align with documented service delivery</li><li>Assess compliance with federal funding requirements</li><li>Evaluate adequacy of financial oversight controls</li><li>Identify operational incentives that may distort case practices</li><li>Review consistency between reported expenditures and documented outcomes</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F4, F5, F7, F13</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">B</div>
-        <h4>Contract and Provider Oversight</h4>
-        <p>Oversight, monitoring, enforcement, and accountability mechanisms governing contracted providers and service-delivery entities.</p>
+        <h4>Contract &amp; Provider Oversight</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Oversight, monitoring, enforcement, and accountability mechanisms governing contracted providers and service-delivery entities.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Procurement and contract administration</li><li>Provider licensing and compliance monitoring</li><li>Performance measurement and enforcement</li><li>Corrective action implementation</li><li>Vendor accountability systems</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Continued use of deficient providers</li><li>Lack of measurable performance standards</li><li>Inadequate corrective action enforcement</li><li>Fragmented oversight responsibilities</li><li>Insufficient provider monitoring</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Evaluate adequacy of provider monitoring systems</li><li>Assess enforcement of contractual compliance requirements</li><li>Determine whether corrective actions are documented and implemented</li><li>Review provider performance tracking mechanisms</li><li>Assess coordination between contracting and oversight functions</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F2, F6, F8, F11, F12</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">C</div>
-        <h4>Decision Controls and Case Authorization</h4>
-        <p>Policies, decision-support tools, controls governing case actions, removals, placements, service authorization, and ICWA compliance.</p>
+        <h4>Decision Controls &amp; Case Authorization</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Policies, procedures, decision-support tools, and operational controls governing case actions, removals, placements, and service authorization decisions.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Intake screening procedures</li><li>Safety and risk assessment tools</li><li>Removal authorization processes</li><li>Case planning controls</li><li>Decision standardization procedures</li><li>Active efforts compliance and ICWA placement preference adherence where applicable</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Inconsistent application of decision criteria</li><li>Lack of documented decision rationale</li><li>Excessive reliance on subjective judgment</li><li>Inconsistent safety determinations</li><li>Outcome disparities across comparable cases</li><li>Failure to identify tribal membership at intake where applicable</li><li>Non-compliance with ICWA placement preference hierarchy where applicable</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Assess consistency of decision-making processes</li><li>Evaluate adequacy of documented case rationale</li><li>Review use and reliability of assessment tools</li><li>Determine whether escalation protocols are followed</li><li>Analyze outcome consistency across case categories</li><li>Assess ICWA identification, notification, and active-efforts compliance where applicable</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F1, F3, F10, F11, F13</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">D</div>
-        <h4>Judicial Interface and Legal Oversight</h4>
-        <p>Agency-court interaction, evidentiary submissions, guardian ad litem coordination, ICWA tribal notification, and oversight mechanisms.</p>
+        <h4>Judicial Interface &amp; Legal Oversight</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Interaction between child welfare agencies, courts, legal representatives, guardians ad litem, CASA programs, and judicial oversight systems.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Court filings and evidentiary submissions</li><li>Judicial review processes</li><li>Legal compliance monitoring</li><li>Guardian ad litem and CASA coordination</li><li>Oversight and appellate mechanisms</li><li>Tribal court notification and coordination under ICWA where applicable</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Limited judicial visibility into agency operations</li><li>Reliance on incomplete or inconsistent documentation</li><li>Lack of adversarial rigor</li><li>Inadequate oversight review mechanisms</li><li>Repeated acceptance of unsupported recommendations</li><li>Absent or delayed ICWA tribal notification where applicable</li><li>Non-compliance with tribal court transfer requests where applicable</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Evaluate adequacy of evidentiary support provided to courts</li><li>Assess transparency of agency representations</li><li>Review effectiveness of judicial oversight mechanisms</li><li>Analyze consistency of legal compliance practices</li><li>Assess compliance with ICWA procedural requirements in applicable cases</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F4, F11, F12, F13</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">E</div>
-        <h4>Outcomes, Incentives, and Systemic Disparities</h4>
-        <p>Measured child welfare outcomes, performance incentives, demographic disparities, and operational metrics including safety, permanency, and well-being tracking.</p>
+        <h4>Outcomes, Incentives &amp; Systemic Disparities</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Measured child welfare outcomes, performance incentives, demographic disparities, and operational metrics influencing system behavior.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Outcome measurement and reporting</li><li>Safety, permanency, and well-being tracking</li><li>Performance metric administration</li><li>Incentive structure evaluation</li><li>Equity and disparity analysis</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Metrics incentivizing undesirable outcomes</li><li>Discrepancies between reported and actual outcomes</li><li>Persistent demographic disparities</li><li>Outcome inflation or manipulation</li><li>Incentive structures distorting operational behavior</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Assess validity of reported performance outcomes</li><li>Review alignment between incentives and child welfare objectives</li><li>Evaluate demographic disparity patterns</li><li>Analyze reliability of outcome reporting systems</li><li>Determine whether performance metrics reflect operational reality</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F4, F7, F8, F13</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">F</div>
-        <h4>Workforce Capacity and Internal Accountability</h4>
-        <p>Workforce stability, staffing, supervision systems, training adequacy, internal accountability, and ICWA-specific training requirements.</p>
+        <h4>Workforce Capacity &amp; Internal Accountability</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Workforce stability, staffing capacity, supervision systems, training adequacy, and internal accountability structures.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Staffing allocation and caseload management</li><li>Workforce training and competency assurance</li><li>Supervision and performance review</li><li>Internal discipline and accountability systems</li><li>Retention and workforce sustainability</li><li>ICWA-specific training and competency requirements where applicable</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>High turnover or vacancy rates</li><li>Excessive caseloads</li><li>Inadequate supervisory review</li><li>Burnout-related performance degradation</li><li>Weak internal accountability enforcement</li><li>Absence of documented ICWA training for assigned caseworkers where applicable</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Assess adequacy of staffing and caseload distribution</li><li>Review supervision and escalation practices</li><li>Evaluate workforce training systems</li><li>Determine effectiveness of accountability mechanisms</li><li>Analyze workforce stability and retention patterns</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F2, F9, F12, F13</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">G</div>
-        <h4>Federal Oversight History and Corrective Action Response</h4>
-        <p>CFSR cycles, Program Improvement Plans, federal oversight findings, corrective-action implementation, and recurring findings across review cycles.</p>
+        <h4>Federal Oversight History &amp; Corrective Action Response</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Federal oversight findings, corrective action history, compliance reviews, monitoring reports, and implementation of remedial measures.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Child and Family Services Reviews</li><li>Program Improvement Plans</li><li>OIG and auditor findings</li><li>DOJ investigations and oversight</li><li>Corrective action implementation monitoring</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Repeated findings across review cycles</li><li>Failure to implement corrective actions</li><li>Superficial compliance reporting</li><li>Persistent deficiencies despite oversight intervention</li><li>Escalation from monitoring to enforcement actions</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Compare findings across multiple oversight cycles</li><li>Assess implementation of corrective actions</li><li>Review consistency of compliance reporting</li><li>Determine whether deficiencies were effectively remediated</li><li>Analyze patterns of recurring operational weaknesses</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F5 primary, plus all categories depending on findings</span></div>
       </div>
+
       <div class="domain-card">
         <div class="domain-letter">H</div>
-        <h4>Data Integrity and System Auditability</h4>
-        <p>Reliability, accessibility, auditability, and governance of administrative and case-management data systems, including audit trails and reporting infrastructure.</p>
+        <h4>Data Integrity &amp; System Auditability</h4>
+        <details>
+          <summary class="fw-summary">Scope, Functions &amp; Risk Indicators</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Scope</div>
+            <p>Reliability, accessibility, auditability, governance, and verification of administrative and case-management data systems.</p>
+            <div class="fw-label">Core Functions</div>
+            <ul><li>Data collection and reporting systems</li><li>Audit trail management</li><li>Data governance procedures</li><li>Reporting infrastructure</li><li>Verification and reproducibility controls</li></ul>
+            <div class="fw-label">Primary Risk Indicators</div>
+            <ul><li>Missing or unverifiable data</li><li>Inconsistent reporting across systems</li><li>Lack of audit trails</li><li>Inability to reproduce reported metrics</li><li>Weak data governance practices</li></ul>
+            <div class="fw-label">Testing Objectives</div>
+            <ul><li>Evaluate integrity of reporting systems</li><li>Assess adequacy of audit trail functionality</li><li>Review consistency across datasets</li><li>Determine reproducibility of reported outcomes</li><li>Analyze effectiveness of data governance controls</li></ul>
+          </div>
+        </details>
+        <div class="fw-linkages">Deficiency linkages: <span class="fw-codes">F4 primary, F5, F7, F13</span></div>
       </div>
+
+    </div><!-- /domain-grid -->
+
+    <!-- DEFICIENCY CATEGORIES -->
+    <h3 class="fw-subhead" style="margin-top:2.5rem;">Part 2 &mdash; Deficiency Categories F1&ndash;F13</h3>
+    <div class="flaw-grid">
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F1</span><span class="flaw-title">Safety Assessment Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving failure to adequately identify, evaluate, or document child safety risks during intake or ongoing assessment activities.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Safety decision not supported by documented facts</li><li>Missing or incomplete safety assessment</li><li>Conflicting safety conclusions without explanation</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Case file discrepancies</li><li>Missing assessment fields or rationale</li><li>Contradictions between reported risk and action taken</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Increases risk of erroneous removal or non-removal decisions, reduces reliability of court-submitted safety determinations, elevates liability exposure in fatality or near-fatality cases, and compromises federal CFSR safety-outcome reporting accuracy.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F3, F4, F10</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F2</span><span class="flaw-title">Ongoing Monitoring Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving insufficient follow-up, reassessment, supervision, or ongoing monitoring of active cases.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Missed required visits or contacts</li><li>No reassessment despite changing conditions</li><li>Long gaps in case activity</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Timeline gaps in case logs</li><li>Missing required documentation intervals</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Allows child-safety conditions to deteriorate undetected during open cases, increases probability of harm between required contact intervals, reduces caseworker situational awareness in high-risk placements, and weakens the evidentiary basis for case closure or reunification decisions.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F9, F12, F10</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F3</span><span class="flaw-title">Timeliness &amp; Response Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving delayed, incomplete, or insufficient response actions relative to statutory, policy, or operational requirements.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Delayed response to intake or reports</li><li>Action taken does not match severity of risk</li><li>Escalation thresholds not met</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Timestamp comparisons between report and action</li><li>Policy-required timelines compared against actual response</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Extends child exposure to unmitigated risk conditions, creates statutory-violation exposure, reduces deterrent effect when reporters receive no visible response, and compromises safety-outcome metrics in CFSR performance measurement.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F1, F2, F10</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F4</span><span class="flaw-title">Documentation &amp; Data Integrity Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving inaccurate, incomplete, inconsistent, unverifiable, or missing documentation and data records.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Missing documentation for key actions</li><li>Conflicting entries across systems</li><li>Data that cannot be independently verified</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Cross-record inconsistencies</li><li>Missing audit trails</li><li>Inability to reproduce reported outcomes</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Prevents auditors or courts from independently verifying case actions, elevates risk of inaccurate federal reporting and reimbursement claims, compromises judicial reliability when records are submitted as evidence, and obscures operational-failure patterns across time.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F1, F7, F13</span></div>
+      </div>
+
+      <div class="flaw-card flaw-special">
+        <div class="flaw-header"><span class="flaw-code">F5</span><span class="flaw-title">Repeat Findings Not Corrected</span><span class="flaw-role-badge">System Failure Multiplier</span></div>
+        <p class="flaw-def">Deficiencies previously identified through audits, reviews, oversight findings, or corrective action plans that remain unresolved or inadequately remediated.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Same issue appears in multiple CFSR rounds, audits, or reports</li><li>PIP commitments not fulfilled or only partially implemented</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Cross-year comparison of findings</li><li>Repeated language or identical deficiencies across oversight cycles</li></ul>
+            <div class="fw-label">Systemic Role</div>
+            <p>System failure multiplier. Shows systemic rather than isolated failure, supports independent audit jurisdiction, reduces credibility of corrective-action representations to oversight bodies, and compounds harm potential as unresolved deficiencies interact across cycles.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">All categories</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F6</span><span class="flaw-title">Contract &amp; Provider Oversight Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving inadequate monitoring, enforcement, accountability, or compliance oversight of contracted providers or service entities.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Known provider deficiencies with no corrective action</li><li>Lack of measurable performance tracking</li><li>Continued use of noncompliant providers</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Contract terms compared against actual enforcement</li><li>Absence of corrective-action documentation</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Allows continuation of substandard service delivery to vulnerable children, creates federal financial exposure if noncompliant providers receive IV-E reimbursement, reduces accountability visibility for contracted placement and treatment services, and weakens deterrence against provider non-performance.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F8, F11, F12</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F7</span><span class="flaw-title">Fiscal Control &amp; Funding Compliance Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving financial oversight, expenditure tracking, reimbursement compliance, or funding-administration controls.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Funds not aligned with service delivery</li><li>Unsupported or unverifiable expenditures</li><li>Incentives that distort case decisions</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Financial reports compared against service outcomes</li><li>Audit findings or expenditure discrepancies</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Creates federal clawback exposure and reimbursement-disallowance risk, distorts case practice through misaligned financial incentives, creates audit-finding exposure under Title IV-E eligibility requirements, and reduces public accountability for child-welfare expenditures.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F4, F13</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F8</span><span class="flaw-title">Service Availability &amp; Access Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving insufficient, delayed, unavailable, or inappropriate services necessary to support safety, permanency, or case-plan objectives.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Delays in service initiation</li><li>Lack of available placements or providers</li><li>Services not matching identified needs</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Service referral compared against delivery timelines</li><li>Documented unmet needs</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Delays permanency, extends foster-care duration, increases placement instability and developmental harm, undermines statutory timelines for reunification or TPR, and reduces achievability of court-ordered case-plan compliance.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F6, F2, F10</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F9</span><span class="flaw-title">Staff Performance &amp; Compliance Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving failure of assigned personnel to comply with required procedures, standards, responsibilities, or casework protocols.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Missed responsibilities clearly assigned to worker</li><li>Noncompliance with required procedures</li><li>Negligence in case handling</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Case-file omissions tied to individual responsibility</li><li>Policy compared against documented behavior</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Creates individual-case harm directly attributable to worker non-performance, creates supervisory liability exposure when patterns are known and unaddressed, degrades institutional knowledge retention during workforce instability, and weakens the evidentiary record in contested court proceedings.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F2, F12</span></div>
+      </div>
+
+      <div class="flaw-card flaw-special flaw-critical">
+        <div class="flaw-header"><span class="flaw-code">F10</span><span class="flaw-title">High-Risk Case Management Deficiency</span><span class="flaw-role-badge flaw-role-critical">Catastrophic Failure Marker</span></div>
+        <p class="flaw-def">Deficiencies occurring within cases involving elevated or known risk factors requiring enhanced protective measures or heightened oversight.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Prior reports or severe allegations present</li><li>No escalation or enhanced oversight applied</li><li>Harm occurs despite known risk indicators</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Case history showing prior risk</li><li>Lack of intensified response documentation</li></ul>
+            <div class="fw-label">Systemic Role</div>
+            <p>Catastrophic failure marker. Represents the highest direct child-harm probability of any single failure category, is a probable precursor condition in child fatality or severe injury review patterns, creates maximum judicial and legislative accountability exposure after adverse outcomes, and serves as a retrospective audit trigger when harm occurs in previously flagged cases.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F1, F2, F3</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F11</span><span class="flaw-title">Interagency Coordination Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving breakdowns in communication, coordination, or information-sharing between agencies, courts, providers, or system partners.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Conflicting actions between agencies</li><li>Missing or delayed information sharing</li><li>Lack of coordinated response</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Gaps between agency records</li><li>Timeline mismatches across system partners</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Creates duplication, contradiction, or gaps in protective action across system partners; increases the likelihood that high-risk conditions are known to one agency but not acted upon by another; can create independent ICWA violation exposure where tribal notice or coordination is delayed or absent; and reduces effectiveness of multidisciplinary team processes.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F6, F12</span></div>
+      </div>
+
+      <div class="flaw-card">
+        <div class="flaw-header"><span class="flaw-code">F12</span><span class="flaw-title">Supervisory Oversight Deficiency</span></div>
+        <p class="flaw-def">Deficiencies involving inadequate supervisory review, escalation, intervention, or corrective oversight.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Approval of incomplete or incorrect actions</li><li>No intervention despite clear issues</li><li>Lack of escalation in high-risk cases</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Supervisor sign-off on deficient documentation</li><li>Absence of review notes or escalation records</li></ul>
+            <div class="fw-label">Systemic Implications</div>
+            <p>Ratifies deficient practices when supervisors approve incomplete documentation, propagates F1&ndash;F9 failures without internal correction, reduces the accountability pathway for individual worker noncompliance, and weakens the internal audit function and corrective-action credibility.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F2, F9, F11</span></div>
+      </div>
+
+      <div class="flaw-card flaw-special">
+        <div class="flaw-header"><span class="flaw-code">F13</span><span class="flaw-title">Policy&ndash;Practice Implementation Gap</span><span class="flaw-role-badge">Systemic Exposure Flag</span></div>
+        <p class="flaw-def">Deficiencies involving divergence between formal policy, statutory requirements, or procedural standards and actual operational practice.</p>
+        <details>
+          <summary class="fw-summary">Triggers, Evidence &amp; Systemic Role</summary>
+          <div class="fw-detail">
+            <div class="fw-label">Audit Trigger Indicators</div>
+            <ul><li>Policy requires action that is not observed in practice</li><li>Repeated deviation from formal procedures</li><li>&ldquo;On paper&rdquo; compliance not reflected in operational reality</li></ul>
+            <div class="fw-label">Evidence Standards</div>
+            <ul><li>Policy text compared against case execution</li><li>System-wide patterns of deviation</li></ul>
+            <div class="fw-label">Systemic Role</div>
+            <p>Systemic exposure flag. Allows formal compliance posture to conceal operational non-performance from oversight review, renders PIP commitments and corrective-action plans unreliable as remediation evidence, creates conditions where oversight findings cannot be effectively implemented, creates highest systemic exposure when co-occurring with F5, and creates ICWA-specific risk where policy-level compliance frameworks are not implemented at the caseworker level.</p>
+          </div>
+        </details>
+        <div class="fw-linkages">Co-occurrences: <span class="fw-codes">F4, F7, F5</span></div>
+      </div>
+
+    </div><!-- /flaw-grid -->
+
+    <!-- SEVERITY CLASSIFICATION -->
+    <h3 class="fw-subhead" style="margin-top:2.5rem;">Deficiency Severity Classification</h3>
+    <p style="font-size:0.91rem;color:var(--text-light);margin-bottom:1.25rem;max-width:820px;">Each identified deficiency may also be assigned a severity level reflecting scope of potential operational impact. Severity classification is not a determination of intent or legal culpability.</p>
+    <div class="severity-bar">
+      <div class="sev-cell sev-1"><span class="sev-level">Level I</span><span class="sev-label">Administrative Deficiency</span></div>
+      <div class="sev-cell sev-2"><span class="sev-level">Level II</span><span class="sev-label">Operational Control Weakness</span></div>
+      <div class="sev-cell sev-3"><span class="sev-level">Level III</span><span class="sev-label">Significant Compliance Failure</span></div>
+      <div class="sev-cell sev-4"><span class="sev-level">Level IV</span><span class="sev-label">High-Risk Systemic Exposure</span></div>
+      <div class="sev-cell sev-5"><span class="sev-level">Level V</span><span class="sev-label">Critical Failure with Probable Harm Risk</span></div>
     </div>
 
-    <h3 style="font-size:1.05rem;color:var(--navy);margin:1.5rem 0 1rem;font-family:'Georgia',serif;font-weight:normal;font-style:italic;">Thirteen Deficiency Categories</h3>
-    <table class="deficiency-table" aria-label="Thirteen Deficiency Categories">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Category</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="#">1</td>
-          <td data-label="Category">Repeated CFSR Non-Conformity</td>
-          <td data-label="Description">Findings of non-conformity recurring across multiple federal review cycles without sustained corrective action.</td>
-        </tr>
-        <tr>
-          <td data-label="#">2</td>
-          <td data-label="Category">PIP Non-Implementation</td>
-          <td data-label="Description">Program Improvement Plans accepted but not fully implemented or independently verified.</td>
-        </tr>
-        <tr>
-          <td data-label="#">3</td>
-          <td data-label="Category">Safety Assessment Failure</td>
-          <td data-label="Description">Documented patterns of inadequate safety-assessment accuracy in structured decision-making tools and practice.</td>
-        </tr>
-        <tr>
-          <td data-label="#">4</td>
-          <td data-label="Category">Contract Oversight Gaps</td>
-          <td data-label="Description">Insufficient monitoring, performance accountability, or enforcement in contracted provider relationships.</td>
-        </tr>
-        <tr>
-          <td data-label="#">5</td>
-          <td data-label="Category">ICWA Compliance Deficiencies</td>
-          <td data-label="Description">Failures in Indian Child Welfare Act notification, tribal coordination, and placement-preference compliance.</td>
-        </tr>
-        <tr>
-          <td data-label="#">6</td>
-          <td data-label="Category">Post-Permanency Risk Gaps</td>
-          <td data-label="Description">Inadequate monitoring, support, or accountability for children after reunification, adoption, or guardianship.</td>
-        </tr>
-        <tr>
-          <td data-label="#">7</td>
-          <td data-label="Category">Workforce and Supervision Instability</td>
-          <td data-label="Description">High turnover, supervision gaps, inadequate training, and workforce-capacity deficiencies affecting case quality.</td>
-        </tr>
-        <tr>
-          <td data-label="#">8</td>
-          <td data-label="Category">Data Integrity and Auditability Concerns</td>
-          <td data-label="Description">Unreliable, inaccessible, or non-auditable administrative and case-management data systems.</td>
-        </tr>
-        <tr>
-          <td data-label="#">9</td>
-          <td data-label="Category">Fiscal Accountability Gaps</td>
-          <td data-label="Description">Federal funding compliance questions, reimbursement accuracy concerns, and budget-oversight deficiencies.</td>
-        </tr>
-        <tr>
-          <td data-label="#">10</td>
-          <td data-label="Category">Technology Modernization Risk</td>
-          <td data-label="Description">Data-governance, auditability, and public-records risks introduced by CCWIS/VISION modernization work.</td>
-        </tr>
-        <tr>
-          <td data-label="#">11</td>
-          <td data-label="Category">Judicial Coordination Deficiencies</td>
-          <td data-label="Description">Gaps in agency-court information sharing, evidentiary standards, and oversight coordination.</td>
-        </tr>
-        <tr>
-          <td data-label="#">12</td>
-          <td data-label="Category">Child Fatality Pattern Issues</td>
-          <td data-label="Description">Systemic concerns identified in child fatality review records, including prior-contact and oversight patterns.</td>
-        </tr>
-        <tr>
-          <td data-label="#">13</td>
-          <td data-label="Category">Family Preservation and Stabilization Gaps</td>
-          <td data-label="Description">Insufficient investment in, or implementation of, family-stabilization and preservation services prior to removal.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  </div><!-- /hub-section #domains -->
 
   <!-- ATTACHMENTS -->
   <div class="hub-section" id="attachments">
