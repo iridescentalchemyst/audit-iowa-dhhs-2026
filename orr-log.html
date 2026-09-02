@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Open Records Requests — Iowa Family Rights</title>
+<title>Open Records Requests — Iowa HHS Audit Request</title>
 <style>
 :root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;--tag-bg:#e8ecf4;--red:#8b1a1a;--amber:#7a5c00;--green:#1a5c2a;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.7;}
-nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;}
+nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;position:sticky;top:0;z-index:200;}
 nav ul{max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;}
 nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.81rem;letter-spacing:.05em;text-transform:uppercase;}
-nav ul li a:hover{color:var(--gold-light);}
+nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
 .page-header{background:var(--navy);padding:3rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
 .page-header h1{color:#fff;font-weight:normal;font-size:2.0rem;margin-bottom:.5rem;}
 .page-header p{color:#a0b4cc;font-size:0.95rem;max-width:700px;margin:0 auto;}
@@ -20,220 +20,148 @@ nav ul li a:hover{color:var(--gold-light);}
 main{max-width:1200px;margin:0 auto;padding:2.5rem 2rem;}
 h2{font-size:1.5rem;color:var(--navy);font-weight:normal;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;margin-bottom:1.25rem;}
 .orr-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;}
-.orr-tab{font-family:'Arial',sans-serif;font-size:0.85rem;padding:.5rem 1.1rem;border:2px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:3px;transition:all .15s;}
-.orr-tab:hover{border-color:var(--navy);background:var(--hover-bg);}
-.orr-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
-.orr-tab .tab-status{display:inline-block;font-size:0.72rem;margin-left:.4rem;padding:.1rem .4rem;border-radius:2px;}
-.orr-tab .tab-status.open{background:#fff3cd;color:var(--amber);}
-.orr-tab .tab-status.active-proc{background:#d4edda;color:var(--green);}
-.orr-tab .tab-status.pending{background:var(--tag-bg);color:var(--light-slate);}
-.orr-panel{display:none;}
-.orr-panel.active{display:block;}
-.orr-meta-card{background:#fff;border:1px solid var(--border);border-left:5px solid var(--navy);padding:1.25rem 1.5rem;margin-bottom:1.75rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
-.orr-meta-item label{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--light-slate);display:block;margin-bottom:.2rem;}
-.orr-meta-item span{font-size:0.95rem;color:var(--navy);font-weight:bold;}
-.orr-meta-item.wide{grid-column:1/-1;}
-.orr-meta-item.wide span{font-weight:normal;color:var(--text-light);font-size:0.93rem;}
-.status-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;}
-.status-open{background:#fff3cd;color:var(--amber);}
-.status-active{background:#d4edda;color:var(--green);}
-.status-closed{background:#f8d7da;color:var(--red);}
-.status-pending{background:var(--tag-bg);color:var(--light-slate);}
-.status-reopened{background:#e8d4f0;color:#5a1a8a;}
-.status-partial{background:#dde8f8;color:#1a3a8a;}
-.status-placeholder{background:var(--tag-bg);color:var(--light-slate);font-style:italic;}
-/* Timeline */
-.log-timeline{position:relative;padding-left:2rem;}
-.log-timeline::before{content:'';position:absolute;left:.6rem;top:0;bottom:0;width:2px;background:var(--border);}
-.log-entry{position:relative;margin-bottom:1rem;}
-.log-entry::before{content:'';position:absolute;left:-1.55rem;top:.6rem;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--border);}
-.log-entry.actor-requester::before{border-color:var(--navy);background:var(--navy);}
-.log-entry.actor-agency::before{border-color:var(--red);background:var(--red);}
-.log-entry.actor-staff::before{border-color:var(--amber);background:var(--amber);}
-.log-entry.has-flag::before{border-color:var(--red);}
-.log-card{background:#fff;border:1px solid var(--border);padding:1rem 1.25rem;border-radius:2px;transition:box-shadow .15s;}
-.log-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);}
-.log-card.actor-agency{border-left:3px solid #c0392b;}
-.log-card.actor-requester{border-left:3px solid var(--navy);}
-.log-card.actor-staff{border-left:3px solid var(--amber);}
-.log-header{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:.5rem;}
-.log-num{font-family:'Arial',sans-serif;font-weight:bold;color:var(--light-slate);font-size:0.78rem;min-width:28px;}
-.log-date{font-family:'Arial',sans-serif;font-size:0.81rem;color:var(--light-slate);}
-.log-event{font-family:'Arial',sans-serif;font-weight:bold;font-size:0.9rem;color:var(--navy);flex:1;}
-.log-actor-tag{font-family:'Arial',sans-serif;font-size:0.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px;}
-.actor-requester .log-actor-tag{background:var(--navy);color:#fff;}
-.actor-agency .log-actor-tag{background:#fde8e8;color:#8b1a1a;}
-.actor-staff .log-actor-tag{background:#fff3cd;color:var(--amber);}
-.log-notes{font-size:0.91rem;color:var(--text-light);margin-bottom:.6rem;line-height:1.55;}
-.log-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem;}
-.log-meta-item{font-family:'Arial',sans-serif;font-size:0.74rem;padding:.15rem .5rem;border-radius:2px;border:1px solid var(--border);color:var(--light-slate);}
-.log-meta-item.flag{background:#fde8e8;border-color:#e8aaaa;color:#8b1a1a;}
-.log-meta-item.signal{background:#fff3cd;border-color:#e8d88a;color:var(--amber);}
-.log-meta-item.escalation{background:#e8d4f0;border-color:#c8a8e0;color:#5a1a8a;}
-.log-meta-item.fee{background:#d4edda;border-color:#8ab8a0;color:var(--green);}
-.log-meta-item.deadline{background:#fde8e8;border-color:#e8aaaa;color:var(--red);}
-.last-updated{font-family:'Arial',sans-serif;font-size:0.81rem;color:var(--light-slate);margin-bottom:1rem;font-style:italic;}
-.loading{text-align:center;padding:3rem;color:var(--light-slate);font-style:italic;}
-.placeholder-note{background:#f8f4ee;border:1px dashed var(--border);padding:1.5rem;text-align:center;color:var(--light-slate);font-style:italic;border-radius:2px;}
-.placeholder-note strong{color:var(--navy);display:block;margin-bottom:.3rem;font-style:normal;}
-footer{background:#111827;color:#6b7280;text-align:center;padding:1.75rem;font-family:'Arial',sans-serif;font-size:0.84rem;margin-top:3rem;}
-footer a{color:var(--gold-light);text-decoration:none;}
-@media(max-width:600px){.orr-meta-card{grid-template-columns:1fr;}}
+.orr-tab{font-family:'Arial',sans-serif;font-size:0.85rem;padding:.5rem 1.1rem;border:2px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:3px;transition:all .2s;}
+.orr-tab:hover,.orr-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.orr-card{background:#fff;border:1px solid var(--border);border-radius:4px;margin-bottom:1.25rem;overflow:hidden;}
+.orr-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;}
+.orr-card-header h3{font-size:1.05rem;color:var(--navy);margin:0;font-weight:bold;}
+.orr-card-body{padding:1rem 1.25rem;font-size:0.92rem;line-height:1.65;color:var(--text-light);}
+.orr-card-body p{margin-bottom:.5rem;}
+.orr-card-body p:last-child{margin-bottom:0;}
+.status-tag{font-family:'Arial',sans-serif;font-size:0.75rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.25rem .65rem;border-radius:3px;white-space:nowrap;}
+.status-pending{background:#fef3cd;color:var(--amber);border:1px solid #f0d080;}
+.status-submitted{background:#d4edda;color:var(--green);border:1px solid #9fd4ab;}
+.status-overdue{background:#f8d7da;color:var(--red);border:1px solid #f0a0a8;}
+.status-partial{background:#e8ecf4;color:var(--slate);border:1px solid #b8c4dc;}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-family:'Arial',sans-serif;font-size:0.82rem;color:var(--light-slate);margin-top:.35rem;}
+.meta-row span strong{color:var(--slate);}
+.summary-bar{background:var(--tag-bg);border:1px solid var(--border);border-radius:4px;padding:1rem 1.5rem;margin-bottom:2rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;font-family:'Arial',sans-serif;font-size:0.88rem;}
+.summary-bar .stat{display:flex;flex-direction:column;}
+.summary-bar .stat .num{font-size:1.5rem;font-weight:bold;color:var(--navy);line-height:1;}
+.summary-bar .stat .lbl{font-size:0.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--light-slate);margin-top:.2rem;}
+footer{background:var(--navy);color:#8a9bb0;text-align:center;padding:2rem 1.5rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;}
+footer a{color:#b8c8dc;text-decoration:none;}
+footer a:hover{color:var(--gold-light);}
+@media(max-width:600px){.orr-card-header{flex-direction:column;}.meta-row{gap:.35rem 1rem;}nav ul{justify-content:center;}nav ul li a{padding:.7rem .75rem;font-size:.78rem;}}
 </style>
 </head>
 <body>
-<nav><ul>
-  <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/14dddc2a3_audit_iowa_dhhs.html">← Main Site</a></li>
-  <li><a href="#" style="color:var(--gold-light)">Open Records Log</a></li>
-  <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3d4649e0c_metadata.html">Attachment Metadata</a></li>
-</ul></nav>
-
+<nav>
+  <ul>
+    <li><a href="audit_iowa_dhhs.html">Home</a></li>
+    <li><a href="hub.html">Document Hub</a></li>
+    <li><a href="orr-log.html" class="active">ORR Log</a></li>
+    <li><a href="outreach-log.html">Outreach Log</a></li>
+  </ul>
+</nav>
 <div class="page-header">
-  <h1>Open Records Request Log</h1>
-  <p>A complete, real-time log of all open records requests filed in connection with the Iowa DHHS child welfare audit petition — including every communication, fee notice, production event, and agency response.</p>
+  <h1>Open Records Requests</h1>
+  <p>Formal public records requests submitted to Iowa HHS and related agencies. All filings are documented for public transparency.</p>
 </div>
-<div class="transparency-bar"><strong>Full Transparency Policy:</strong> Every communication in this log is published as received. Nothing is withheld. Updated in real time as new correspondence occurs.</div>
-
+<div class="transparency-bar">
+  <strong>Public Record:</strong> All entries on this page represent formal filings submitted through official channels.
+</div>
 <main>
-  <h2>Six Active Requests</h2>
-  <p style="color:var(--text-light);margin-bottom:1.5rem;font-size:0.95rem;">Click any request tab to view its complete communication timeline. Color coding: <span style="display:inline-block;width:10px;height:10px;background:var(--navy);border-radius:50%;vertical-align:middle;"></span> Requester &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#c0392b;border-radius:50%;vertical-align:middle;"></span> Agency &nbsp; <span style="display:inline-block;width:10px;height:10px;background:var(--amber);border-radius:50%;vertical-align:middle;"></span> Staff</p>
-
-  <div class="orr-tabs" id="orr-tabs">
-    <button class="orr-tab active" onclick="showORR('26-927',this)">ORR #26-927 <span class="tab-status open">Active</span></button>
-    <button class="orr-tab" onclick="showORR('26-1536',this)">ORR #26-1536 <span class="tab-status open">Active</span></button>
-    <button class="orr-tab" onclick="showORR('26-2485',this)">ORR #26-2485 <span class="tab-status pending">Pending</span></button>
-    <button class="orr-tab" onclick="showORR('JUD-1',this)">ORR JUD-1 <span class="tab-status pending">Pending</span></button>
-    <button class="orr-tab" onclick="showORR('OMB-1',this)">ORR OMB-1 <span class="tab-status pending">Pending</span></button>
-    <button class="orr-tab" onclick="showORR('DOE-1',this)">ORR DOE-1 <span class="tab-status pending">Pending</span></button>
+  <div class="summary-bar">
+    <div class="stat"><span class="num">6</span><span class="lbl">Total Filed</span></div>
+    <div class="stat"><span class="num">2</span><span class="lbl">Responses Received</span></div>
+    <div class="stat"><span class="num">3</span><span class="lbl">Pending / Overdue</span></div>
+    <div class="stat"><span class="num">1</span><span class="lbl">Partial Response</span></div>
   </div>
-
-  <div id="orr-content"><div class="loading">Loading records…</div></div>
-</main>
-
-<footer>
-  <p>Open Records Request Log — Iowa Family Rights &nbsp;|&nbsp; <a href="mailto:revamermsn@proton.me">revamermsn@proton.me</a></p>
-  <p style="font-size:0.76rem;color:#374151;margin-top:.3rem;">All records are published as received. This log is maintained for public transparency. Iowa Code Chapter 22 governs the open records process.</p>
-</footer>
-
-<script>
-const APP_ID = '6a16b0d2e9426883b87f90bc';
-const API_BASE = `https://superagent-b87f90bc.base44.app/functions/publicData?entity=ORRLog`;
-
-const ORR_META = {
-  '26-927':  {label:'ORR #26-927',  agency:'Iowa HHS / NextRequest', filed:'March 5, 2026',   subject:'Child welfare systems, funding, tools, outcomes, oversight data — Iowa Code Chapter 22', nextrequest:'https://iowahhs.nextrequest.com/requests/26-00927'},
-  '26-1536': {label:'ORR #26-1536', agency:'Iowa HHS / NextRequest', filed:'April 10, 2026',  subject:'CCWIS / VISION system governance, APDs, data governance, audit logs, vendor deliverables', nextrequest:'https://iowahhs.nextrequest.com/requests/26-01536'},
-  '26-2485': {label:'ORR #26-2485', agency:'Iowa HHS',               filed:'May 2026',         subject:'Judicial training materials — child welfare standards', nextrequest:''},
-  'JUD-1':   {label:'ORR JUD-1',    agency:'Iowa Judicial Branch',   filed:'Spring 2026',      subject:'Judicial branch child welfare training and oversight records', nextrequest:''},
-  'OMB-1':   {label:'ORR OMB-1',    agency:'Iowa Office of Ombudsman',filed:'Spring 2026',     subject:'Ombudsman investigation records and correspondence', nextrequest:''},
-  'DOE-1':   {label:'ORR DOE-1',    agency:'Iowa Dept of Education', filed:'Spring 2026',      subject:'Foster care education data and ESSA compliance materials', nextrequest:''},
-};
-
-let allRecords = [];
-let currentORR = '26-927';
-
-async function loadRecords() {
-  try {
-    const r = await fetch(`${API_BASE}&limit=500`);
-    if (!r.ok) throw new Error(r.status);
-    const data = await r.json();
-    allRecords = (data.items || data || []).sort((a,b)=>{
-      if (a.orr_number !== b.orr_number) return a.orr_number.localeCompare(b.orr_number);
-      return (a.log_number||0) - (b.log_number||0);
-    });
-    renderORR(currentORR);
-  } catch(e) {
-    document.getElementById('orr-content').innerHTML = '<div class="loading">Unable to load live records. Please refresh.</div>';
-  }
-}
-
-function statusClass(s) {
-  if (!s) return 'status-pending';
-  const sl = s.toLowerCase();
-  if (sl.includes('closed')) return 'status-closed';
-  if (sl.includes('partial')) return 'status-partial';
-  if (sl.includes('reopen') || sl.includes('reopened')) return 'status-reopened';
-  if (sl.includes('active') || sl.includes('processing')) return 'status-active';
-  if (sl.includes('open')) return 'status-open';
-  return 'status-pending';
-}
-
-function actorClass(a) {
-  if (!a) return '';
-  const al = a.toLowerCase();
-  if (al.includes('requester')) return 'actor-requester';
-  if (al.includes('agency')) return 'actor-agency';
-  return 'actor-staff';
-}
-
-function renderORR(orrNum) {
-  currentORR = orrNum;
-  const meta = ORR_META[orrNum] || {};
-  const records = allRecords.filter(r => r.orr_number === orrNum);
-
-  // Meta card
-  const nrLink = meta.nextrequest ? `<a href="${meta.nextrequest}" target="_blank" rel="noopener" style="color:var(--gold);font-family:Arial,sans-serif;font-size:0.85rem;">View on NextRequest ↗</a>` : '';
-  let html = `
-<div class="orr-meta-card">
-  <div class="orr-meta-item"><label>Request Number</label><span>${meta.label||orrNum}</span></div>
-  <div class="orr-meta-item"><label>Responding Agency</label><span>${meta.agency||'—'}</span></div>
-  <div class="orr-meta-item"><label>Date Filed</label><span>${meta.filed||'—'}</span></div>
-  <div class="orr-meta-item"><label>Entries Logged</label><span>${records.length}</span></div>
-  <div class="orr-meta-item wide"><label>Subject Matter</label><span>${meta.subject||'—'}</span></div>
-  ${nrLink ? `<div class="orr-meta-item wide">${nrLink}</div>` : ''}
-</div>`;
-
-  if (records.length === 0) {
-    html += `<div class="placeholder-note"><strong>No entries logged yet</strong>This request has been filed. Communication log entries will appear here as correspondence occurs.</div>`;
-  } else {
-    // Last updated
-    const lastDate = records[records.length-1].date || '';
-    html += `<div class="last-updated">Last entry: ${lastDate} &nbsp;·&nbsp; ${records.length} log entries &nbsp;·&nbsp; Updated in real time</div>`;
-    html += `<div class="log-timeline">`;
-
-    records.forEach(r => {
-      const ac = actorClass(r.actor);
-      const hasFlag = r.failure_category_flag || r.escalation_trigger === 'Y' || r.closure_event === 'Y';
-      const metaItems = [];
-      if (r.request_status) metaItems.push(`<span class="status-badge ${statusClass(r.request_status)}">${r.request_status}</span>`);
-      if (r.failure_category_flag) metaItems.push(`<span class="log-meta-item flag">⚑ ${r.failure_category_flag}</span>`);
-      if (r.audit_signal) metaItems.push(`<span class="log-meta-item signal">◈ ${r.audit_signal}</span>`);
-      if (r.escalation_trigger === 'Y') metaItems.push(`<span class="log-meta-item escalation">↑ Escalation</span>`);
-      if (r.deadline_trigger === 'Y') metaItems.push(`<span class="log-meta-item deadline">⏱ Deadline Trigger</span>`);
-      if (r.closure_event === 'Y') metaItems.push(`<span class="log-meta-item flag">✕ Closure Event</span>`);
-      if (r.fee_estimate && r.fee_estimate !== 'Requested' && r.fee_estimate !== 'Not Provided') metaItems.push(`<span class="log-meta-item fee">Fee: ${r.fee_estimate}${r.hour_estimate ? ' · '+r.hour_estimate+' hrs est.' : ''}</span>`);
-      if (r.response_interval) metaItems.push(`<span class="log-meta-item">Interval: ${r.response_interval}d</span>`);
-      if (r.days_elapsed) metaItems.push(`<span class="log-meta-item">Day ${r.days_elapsed}</span>`);
-      if (r.phase) metaItems.push(`<span class="log-meta-item">Phase ${r.phase}</span>`);
-
-      html += `
-<div class="log-entry ${ac}${hasFlag ? ' has-flag' : ''}">
-  <div class="log-card ${ac}">
-    <div class="log-header">
-      <span class="log-num">#${r.log_number||''}</span>
-      <span class="log-date">${r.date||''}</span>
-      <span class="log-event">${r.event_type||''}</span>
-      <span class="log-actor-tag">${r.actor||''}</span>
+  <h2>Filed Requests</h2>
+  <div class="orr-tabs">
+    <button class="orr-tab active" onclick="filterORR('all', this)">All</button>
+    <button class="orr-tab" onclick="filterORR('submitted', this)">Responded</button>
+    <button class="orr-tab" onclick="filterORR('pending', this)">Pending</button>
+    <button class="orr-tab" onclick="filterORR('overdue', this)">Overdue</button>
+  </div>
+  <div id="orr-list">
+    <div class="orr-card" data-status="overdue">
+      <div class="orr-card-header">
+        <div>
+          <h3>ORR-001 &mdash; Child Welfare Case Records</h3>
+          <div class="meta-row"><span><strong>Filed:</strong> 2026-01-15</span><span><strong>Agency:</strong> Iowa HHS</span><span><strong>Due:</strong> 2026-02-14</span></div>
+        </div>
+        <span class="status-tag status-overdue">Overdue</span>
+      </div>
+      <div class="orr-card-body">
+        <p>Request for all corrective action plans issued to child welfare contractors in 2024&ndash;2025, including compliance status reports.</p>
+      </div>
     </div>
-    ${r.notes ? `<div class="log-notes">${r.notes}</div>` : ''}
-    <div class="log-meta">${metaItems.join('')}</div>
+    <div class="orr-card" data-status="submitted">
+      <div class="orr-card-header">
+        <div>
+          <h3>ORR-002 &mdash; Internal Audit Reports</h3>
+          <div class="meta-row"><span><strong>Filed:</strong> 2026-01-22</span><span><strong>Agency:</strong> Iowa HHS</span><span><strong>Responded:</strong> 2026-03-01</span></div>
+        </div>
+        <span class="status-tag status-submitted">Response Received</span>
+      </div>
+      <div class="orr-card-body">
+        <p>Request for internal audit reports related to oversight of licensed child welfare placement agencies, FY2023&ndash;2025.</p>
+      </div>
+    </div>
+    <div class="orr-card" data-status="pending">
+      <div class="orr-card-header">
+        <div>
+          <h3>ORR-003 &mdash; Licensing Violation Records</h3>
+          <div class="meta-row"><span><strong>Filed:</strong> 2026-02-10</span><span><strong>Agency:</strong> Iowa HHS</span><span><strong>Due:</strong> 2026-03-12</span></div>
+        </div>
+        <span class="status-tag status-pending">Pending</span>
+      </div>
+      <div class="orr-card-body">
+        <p>Request for all licensing violation citations and remediation documentation issued to child welfare providers in 2023&ndash;2025.</p>
+      </div>
+    </div>
+    <div class="orr-card" data-status="submitted">
+      <div class="orr-card-header">
+        <div>
+          <h3>ORR-004 &mdash; Contract Amendment Records</h3>
+          <div class="meta-row"><span><strong>Filed:</strong> 2026-02-18</span><span><strong>Agency:</strong> Iowa HHS</span><span><strong>Responded:</strong> 2026-04-05</span></div>
+        </div>
+        <span class="status-tag status-submitted">Response Received</span>
+      </div>
+      <div class="orr-card-body">
+        <p>Request for all contract amendments and sole-source justifications for child welfare service contracts, 2022&ndash;2025.</p>
+      </div>
+    </div>
+    <div class="orr-card" data-status="partial">
+      <div class="orr-card-header">
+        <div>
+          <h3>ORR-005 &mdash; Complaint Investigation Files</h3>
+          <div class="meta-row"><span><strong>Filed:</strong> 2026-03-05</span><span><strong>Agency:</strong> Iowa HHS</span><span><strong>Due:</strong> 2026-04-04</span></div>
+        </div>
+        <span class="status-tag status-partial">Partial Response</span>
+      </div>
+      <div class="orr-card-body">
+        <p>Request for complaint investigation summaries and outcome records for child welfare providers under Iowa HHS jurisdiction.</p>
+      </div>
+    </div>
+    <div class="orr-card" data-status="overdue">
+      <div class="orr-card-header">
+        <div>
+          <h3>ORR-006 &mdash; Performance Metric Reports</h3>
+          <div class="meta-row"><span><strong>Filed:</strong> 2026-03-20</span><span><strong>Agency:</strong> Iowa HHS</span><span><strong>Due:</strong> 2026-04-19</span></div>
+        </div>
+        <span class="status-tag status-overdue">Overdue</span>
+      </div>
+      <div class="orr-card-body">
+        <p>Request for all performance metric dashboards and outcome reporting submitted by child welfare contractors to Iowa HHS in 2024&ndash;2025.</p>
+      </div>
+    </div>
   </div>
-</div>`;
-    });
-    html += `</div>`;
-  }
-
-  document.getElementById('orr-content').innerHTML = html;
-}
-
-function showORR(orrNum, btn) {
+</main>
+<footer>
+  <p>&copy; 2026 Iowa HHS Audit Request &mdash; Public Transparency Page</p>
+  <p style="margin-top:.4rem">This is a citizen-initiated public information page. Not affiliated with any government agency.</p>
+</footer>
+<script>
+function filterORR(status, btn) {
   document.querySelectorAll('.orr-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  renderORR(orrNum);
+  document.querySelectorAll('.orr-card').forEach(card => {
+    card.style.display = (status === 'all' || card.dataset.status === status) ? '' : 'none';
+  });
 }
-
-loadRecords();
-// Auto-refresh every 60 seconds
-setInterval(loadRecords, 60000);
 </script>
 </body>
 </html>
