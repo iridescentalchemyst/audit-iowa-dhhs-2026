@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authority Notification Log — Iowa Family Rights</title>
+<style>
+:root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;--tag-bg:#e8ecf4;--red:#8b1a1a;--amber:#7a5c00;--green:#1a5c2a;--purple:#4a1a7a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.7;}
+nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;}
+nav ul{max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;}
+nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.81rem;letter-spacing:.05em;text-transform:uppercase;}
+nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
+.page-header{background:var(--navy);padding:3rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
+.page-header h1{color:#fff;font-weight:normal;font-size:2.0rem;margin-bottom:.5rem;}
+.page-header p{color:#a0b4cc;font-size:0.95rem;max-width:780px;margin:.5rem auto 0;}
+.transparency-bar{background:#1a3a1a;color:#a8d8a8;text-align:center;padding:.6rem 2rem;font-family:'Arial',sans-serif;font-size:0.84rem;}
+.transparency-bar strong{color:#c8f0c8;}
+main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;}
+/* Filters */
+.filter-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-bottom:1.75rem;background:#fff;padding:1rem 1.25rem;border:1px solid var(--border);}
+.filter-row label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light-slate);}
+select,input[type=text]{font-family:'Arial',sans-serif;font-size:0.89rem;padding:.38rem .7rem;border:1px solid var(--border);background:#fff;color:var(--navy);border-radius:2px;}
+select:focus,input[type=text]:focus{outline:2px solid var(--gold);}
+.record-count{margin-left:auto;font-family:'Arial',sans-serif;font-size:0.84rem;color:var(--light-slate);}
+/* Timeline */
+.timeline{position:relative;padding-left:2.2rem;}
+.timeline::before{content:'';position:absolute;left:.75rem;top:0;bottom:0;width:2px;background:var(--border);}
+.tl-entry{position:relative;margin-bottom:1.1rem;}
+.tl-dot{position:absolute;left:-1.6rem;top:.65rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--border);background:#fff;}
+.cat-Congressional .tl-dot{background:var(--navy);border-color:var(--navy);}
+.cat-Federal-Agency .tl-dot{background:#1a5c2a;border-color:#1a5c2a;}
+.cat-State-Oversight .tl-dot{background:var(--amber);border-color:var(--amber);}
+.cat-Judicial .tl-dot{background:var(--red);border-color:var(--red);}
+.cat-Media .tl-dot{background:var(--purple);border-color:var(--purple);}
+.cat-Other .tl-dot{background:var(--light-slate);border-color:var(--light-slate);}
+.tl-card{background:#fff;border:1px solid var(--border);padding:1.1rem 1.4rem;transition:box-shadow .15s;}
+.tl-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.09);}
+.cat-Congressional .tl-card{border-left:4px solid var(--navy);}
+.cat-Federal-Agency .tl-card{border-left:4px solid #1a5c2a;}
+.cat-State-Oversight .tl-card{border-left:4px solid var(--amber);}
+.cat-Judicial .tl-card{border-left:4px solid var(--red);}
+.cat-Media .tl-card{border-left:4px solid var(--purple);}
+.cat-Other .tl-card{border-left:4px solid var(--light-slate);}
+.tl-header{display:flex;flex-wrap:wrap;gap:.5rem;align-items:baseline;margin-bottom:.5rem;}
+.tl-date{font-family:'Arial',sans-serif;font-size:0.81rem;color:var(--light-slate);min-width:90px;}
+.tl-cat{font-family:'Arial',sans-serif;font-size:0.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px;}
+.cat-Congressional .tl-cat{background:var(--navy);color:#fff;}
+.cat-Federal-Agency .tl-cat{background:#1a5c2a;color:#fff;}
+.cat-State-Oversight .tl-cat{background:#fff3cd;color:var(--amber);}
+.cat-Judicial .tl-cat{background:#fde8e8;color:var(--red);}
+.cat-Media .tl-cat{background:#ede8f8;color:var(--purple);}
+.cat-Other .tl-cat{background:var(--tag-bg);color:var(--light-slate);}
+.tl-method{font-family:'Arial',sans-serif;font-size:0.74rem;color:var(--light-slate);padding:.12rem .4rem;border:1px solid var(--border);border-radius:2px;}
+.tl-title{font-size:0.95rem;font-weight:bold;color:var(--navy);margin-bottom:.25rem;line-height:1.4;}
+.tl-recipient{font-family:'Arial',sans-serif;font-size:0.85rem;color:var(--slate);margin-bottom:.5rem;}
+.tl-recipient span{font-style:italic;}
+.tl-summary{font-size:0.91rem;color:var(--text-light);line-height:1.55;margin-bottom:.65rem;}
+.tl-footer{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;}
+.outcome-badge{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.05em;padding:.15rem .55rem;border-radius:2px;text-transform:uppercase;}
+.outcome-sent-response{background:#d4edda;color:var(--green);}
+.outcome-meeting{background:var(--navy);color:#fff;}
+.outcome-no-response{background:#fde8e8;color:var(--red);}
+.outcome-pending{background:#fff3cd;color:var(--amber);}
+.outcome-acknowledged{background:var(--tag-bg);color:var(--light-slate);}
+.outcome-escalated{background:#ede8f8;color:var(--purple);}
+.outcome-closed{background:#e8e8e8;color:#666;}
+.doc-link{font-family:'Arial',sans-serif;font-size:0.81rem;color:var(--navy);text-decoration:none;border:1px solid var(--navy);padding:.2rem .6rem;border-radius:2px;transition:all .15s;}
+.doc-link:hover{background:var(--navy);color:#fff;}
+.response-note{background:#f0f5ee;border-left:3px solid var(--green);padding:.5rem .85rem;margin-top:.6rem;font-size:0.87rem;color:var(--text-light);}
+.response-note strong{color:var(--green);font-family:'Arial',sans-serif;font-size:0.76rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:.2rem;}
+.related-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.4rem;}
+.related-tag{font-family:'Arial',sans-serif;font-size:0.72rem;color:var(--light-slate);padding:.1rem .4rem;border:1px solid var(--border);border-radius:2px;}
+.no-results{text-align:center;padding:3rem;color:var(--light-slate);font-style:italic;}
+.legend{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;}
+.legend-item{display:flex;align-items:center;gap:.35rem;font-family:'Arial',sans-serif;font-size:0.78rem;color:var(--text-light);}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+footer{background:#111827;color:#6b7280;text-align:center;padding:1.75rem;font-family:'Arial',sans-serif;font-size:0.84rem;margin-top:3rem;}
+footer a{color:var(--gold-light);text-decoration:none;}
+@media(max-width:600px){.tl-header{flex-direction:column;gap:.3rem;}.filter-row{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+
+<nav><ul>
+  <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/14dddc2a3_audit_iowa_dhhs.html">← Main Site</a></li>
+  <li><a href="#" class="active">Authority Notification Log</a></li>
+  <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/759865717_orr_logs.html">ORR Log</a></li>
+  <li><a href="https://base44.app/api/apps/6a16b0d2e9426883b87f90bc/files/mp/public/6a16b0d2e9426883b87f90bc/3d4649e0c_metadata.html">Metadata</a></li>
+</ul></nav>
+
+<div class="page-header">
+  <h1>Authority Notification Log</h1>
+  <p>A complete chronological record of every communication with elected officials, federal agencies, state oversight bodies, and judicial institutions in connection with the Iowa DHHS child welfare audit petition. Every entry links to the source document where available.</p>
+  <p style="margin-top:.75rem;color:#88a0b8;font-size:0.9rem;">This log exists so that any member of the public, any oversight authority, and any journalist can know exactly who has been notified, when, and what they said in response.</p>
+</div>
+<div class="transparency-bar"><strong>Full Transparency Policy:</strong> Nothing withheld. All communications published as sent and received. Updated in real time.</div>
+
+<main>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div>Congressional</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1a5c2a"></div>Federal Agency</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>State Oversight</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Judicial / Court</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Media</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--light-slate)"></div>Other</div>
+  </div>
+
+  <div class="filter-row">
+    <label>Category:</label>
+    <select id="cat-filter" onchange="applyFilters()">
+      <option value="ALL">All Categories</option>
+      <option>Congressional</option>
+      <option>Federal Agency</option>
+      <option>State Oversight</option>
+      <option>Judicial / Court</option>
+      <option>Media</option>
+      <option>Other</option>
+    </select>
+    <label>Status:</label>
+    <select id="status-filter" onchange="applyFilters()">
+      <option value="ALL">All Statuses</option>
+      <option>Meeting Held</option>
+      <option>Sent — Response Received</option>
+      <option>Sent — No Response</option>
+      <option>Pending Response</option>
+      <option>Acknowledged</option>
+      <option>Escalated</option>
+      <option>Closed</option>
+    </select>
+    <label>Search:</label>
+    <input type="text" id="search" placeholder="Name, subject, office…" oninput="applyFilters()">
+    <span class="record-count" id="record-count"></span>
+  </div>
+
+  <div id="timeline-container"><div style="text-align:center;padding:3rem;color:var(--light-slate);font-style:italic;">Loading records…</div></div>
+</main>
+
+<footer>
+  <p>Authority Notification Log — Iowa Family Rights &nbsp;|&nbsp; Ashley Marie Meredith, MSN &nbsp;|&nbsp; <a href="mailto:revamermsn@proton.me">revamermsn@proton.me</a></p>
+  <p style="margin-top:.3rem;font-size:0.76rem;color:#374151;">All communications are published as sent and received. This record is maintained for public accountability purposes under the First Amendment and Iowa open government principles.</p>
+</footer>
+
+<script>
+const APP_ID = '6a16b0d2e9426883b87f90bc';
+let records = [];
+
+function outcomeClass(s) {
+  if (!s) return 'outcome-pending';
+  if (s.includes('Meeting')) return 'outcome-meeting';
+  if (s.includes('Response Received')) return 'outcome-sent-response';
+  if (s.includes('No Response')) return 'outcome-no-response';
+  if (s.includes('Pending')) return 'outcome-pending';
+  if (s.includes('Acknowledged')) return 'outcome-acknowledged';
+  if (s.includes('Escalated')) return 'outcome-escalated';
+  if (s.includes('Closed')) return 'outcome-closed';
+  return 'outcome-pending';
+}
+
+function catClass(c) {
+  return 'cat-' + (c || '').replace(/\s*\/\s*/g,'-').replace(/\s+/g,'-');
+}
+
+function renderTimeline(rows) {
+  const container = document.getElementById('timeline-container');
+  document.getElementById('record-count').textContent = rows.length + ' entr' + (rows.length===1?'y':'ies');
+  if (!rows.length) {
+    container.innerHTML = '<div class="no-results">No matching entries.</div>';
+    return;
+  }
+
+  // Sort descending by date
+  rows = [...rows].sort((a,b) => (b.date||'').localeCompare(a.date||''));
+
+  let html = '<div class="timeline">';
+  rows.forEach(r => {
+    const cc = catClass(r.category);
+    const methodLabel = r.method || '';
+    const hasDoc = r.document_url && r.document_url.trim();
+    const relatedItems = [r.related_orr, r.related_petition_section].filter(Boolean);
+
+    html += `
+<div class="tl-entry ${cc}">
+  <div class="tl-dot"></div>
+  <div class="tl-card">
+    <div class="tl-header">
+      <span class="tl-date">${r.date || ''}</span>
+      <span class="tl-cat">${r.category || ''}</span>
+      ${methodLabel ? `<span class="tl-method">${methodLabel}</span>` : ''}
+    </div>
+    <div class="tl-title">${r.subject || ''}</div>
+    <div class="tl-recipient">${r.recipient_office || ''}${r.contact_name ? ' — <span>' + r.contact_name + '</span>' : ''}</div>
+    ${r.summary ? `<div class="tl-summary">${r.summary}</div>` : ''}
+    <div class="tl-footer">
+      <span class="outcome-badge ${outcomeClass(r.outcome_status)}">${r.outcome_status || 'Status Unknown'}</span>
+      ${hasDoc ? `<a class="doc-link" href="${r.document_url}" target="_blank" rel="noopener">📄 View Document</a>` : ''}
+    </div>
+    ${r.response_summary ? `<div class="response-note"><strong>Response — ${r.response_date || ''}</strong>${r.response_summary}</div>` : ''}
+    ${relatedItems.length ? `<div class="related-tags">${relatedItems.map(t=>`<span class="related-tag">⊕ ${t}</span>`).join('')}</div>` : ''}
+  </div>
+</div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function applyFilters() {
+  const cat = document.getElementById('cat-filter').value;
+  const status = document.getElementById('status-filter').value;
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  let rows = records;
+  if (cat !== 'ALL') rows = rows.filter(r => r.category === cat);
+  if (status !== 'ALL') rows = rows.filter(r => r.outcome_status === status);
+  if (q) rows = rows.filter(r => Object.values(r).some(v => String(v||'').toLowerCase().includes(q)));
+  renderTimeline(rows);
+}
+
+async function loadRecords() {
+  try {
+    const res = await fetch(
+      `https://superagent-b87f90bc.base44.app/functions/publicData?entity=OutreachLog`
+    );
+    const data = await res.json();
+    records = data.items || data || [];
+    applyFilters();
+  } catch(e) {
+    document.getElementById('timeline-container').innerHTML =
+      '<div style="text-align:center;padding:3rem;color:#888;font-style:italic;">Unable to load records. Please refresh.</div>';
+  }
+}
+
+loadRecords();
+setInterval(loadRecords, 90000);
+</script>
+</body>
+</html>
