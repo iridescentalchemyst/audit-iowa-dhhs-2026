@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Iowa HHS Audit Request — Public Transparency Page</title>
-<meta name="description" content="Public transparency page for Ashley Meredith's Iowa HHS audit-request work.">
+<title>Iowa HHS Audit Request &mdash; Public Transparency Page</title>
+<meta name="description" content="Public transparency page for the citizen-initiated Petition to Audit Iowa HHS, including the August 25, 2026 Current-State Auditor Review Packet delivered to Iowa Auditor of State Rob Sand.">
 <style>
 :root{--navy:#0f2742;--gold:#d4a64a;--cream:#f7f1e5;--ink:#18212f;--muted:#5f6b7a;--card:#fff;--line:#ddd4c4}
 *{box-sizing:border-box} body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--cream);color:var(--ink);line-height:1.65}
@@ -25,7 +25,6 @@ h1{font-weight:normal;font-size:clamp(2rem,5vw,4rem);line-height:1.12;margin:.2r
 .cta.secondary{background:transparent;color:#e6edf6;border:1px solid rgba(230,237,246,.45);box-shadow:none}
 .cta.secondary:hover{background:rgba(255,255,255,.08)}
 section{max-width:900px;margin:0 auto;padding:4rem 1.25rem}
-section+section{border-top:1px solid var(--line)}
 h2{font-weight:normal;font-size:clamp(1.5rem,3vw,2.25rem);margin-bottom:.6rem}
 .lead{color:var(--muted);font-size:1.1rem;margin-bottom:2rem;line-height:1.7}
 .doc-card{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:1.5rem 1.75rem;margin-bottom:1.25rem}
@@ -35,9 +34,18 @@ h2{font-weight:normal;font-size:clamp(1.5rem,3vw,2.25rem);margin-bottom:.6rem}
 .badge-pending{background:#f5e6c8;color:#7a5000}
 .badge-active{background:#c8e6d0;color:#1a5c2a}
 .badge-complete{background:#c8d8f0;color:#0f2742}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin-top:2rem}
+.card-grid .doc-card{display:flex;flex-direction:column;margin-bottom:0}
+.card-grid .doc-card p{flex-grow:1}
+.card-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+.card-btn{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;font-family:Arial,sans-serif;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;font-size:.78rem;padding:.6rem 1rem;border-radius:2px;transition:filter .2s}
+.card-btn:hover{filter:brightness(1.18)}
+.card-link{font-family:Arial,sans-serif;font-size:.82rem;color:var(--navy);text-decoration:underline}
+.card-link:hover{color:var(--gold)}
 footer{background:var(--navy);color:#8a9bb0;text-align:center;padding:2.5rem 1.25rem;font-family:Arial,sans-serif;font-size:.82rem;line-height:1.8}
 footer a{color:#b8c8dc;text-decoration:none}
 footer a:hover{color:var(--gold)}
+@media(max-width:700px){.card-grid{grid-template-columns:1fr}}
 @media(max-width:600px){nav ul{justify-content:center;}nav ul li a{padding:.7rem .75rem;font-size:.78rem;}}
 </style>
 </head>
@@ -52,50 +60,69 @@ footer a:hover{color:var(--gold)}
     <li><a href="outreach-log.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Outreach Log</a></li>
   </ul>
 </nav>
+
 <section class="hero">
   <div class="hero-inner">
     <div class="eyebrow">Public transparency page</div>
     <h1>Iowa HHS Audit Request</h1>
     <div class="rule"></div>
-    <p class="subtitle">A petition for an independent audit of Iowa's child-welfare oversight, corrective-action follow-through, and records-integrity standards.</p>
+    <p class="subtitle">A petition for an independent audit of Iowa&#8217;s child-welfare oversight, corrective-action follow-through, and records-integrity standards.</p>
     <div class="cta-row">
-      <a class="cta" href="https://docs.google.com/document/d/1TacHFEBGEy4TkRv_7cMqEF6TlstHEsDP7pOFMBL2kVk/edit?usp=sharing" target="_blank" rel="noopener">View Handoff Packet</a>
-      <a class="cta secondary" href="#status">Document Status</a>
+      <a class="cta" href="Iowa-HHS-Audit-Request_Public-Handoff-Packet_Current-State_2026-08-25.pdf" target="_blank" rel="noopener">Read the Current-State Packet</a>
+      <a class="cta secondary" href="hub.html">Explore the Document Hub</a>
     </div>
   </div>
 </section>
+
 <section id="about">
-  <h2>About This Page</h2>
-  <p class="lead">This public transparency page documents the preparation of a formal audit petition to Iowa HHS. The Current State handoff packet has been delivered to Auditor of State Rob Sand. The formal petition submission is pending finalization of attachments and packet sections.</p>
-  <div class="doc-card">
-    <span class="status-badge badge-pending">Pending Submission</span>
-    <h3>Formal Audit Petition</h3>
-    <p>A written request for an independent audit of Iowa HHS child-welfare oversight practices, corrective-action compliance, and internal records integrity.</p>
-  </div>
-  <div class="doc-card">
-    <span class="status-badge badge-pending">Pending</span>
-    <h3>Agency Response Tracking</h3>
-    <p>Documenting all formal responses, acknowledgements, and non-responses from Iowa HHS and related oversight bodies.</p>
+  <h2>Welcome to the Public Transparency Hub</h2>
+  <p class="lead">This is the public record for a citizen-initiated Petition to Audit the Iowa Department of Health and Human Services. It documents the petition&#8217;s development, materials delivered for preliminary review, and any verified acknowledgments, responses, or follow-up from public officials and oversight bodies.</p>
+  <p class="lead">On August 25, 2026, Ashley Marie Meredith delivered a 62-page Current-State Auditor Review Packet to Iowa Auditor of State Rob Sand during an in-person exchange in Independence, Iowa. The packet presents the stable, review-ready petition core and selected supporting materials as they existed on the date of the handoff.</p>
+  <p class="lead">That handoff was an important step, but it was not the formal petition submission and does not represent acceptance, endorsement, or the opening of an audit. Readers can review the packet below or <a href="https://iowafamilyrights.wordpress.com/2026/08/27/getting-the-iowa-hhs-evidence-record-into-the-right-hands/" target="_blank" rel="noopener">read Ashley&#8217;s account of getting the evidence record into the right hands</a>.</p>
+  <p class="lead">The formal petition remains in final preparation while the remaining sections, attachments, companion reports, and public-source links undergo final verification. This page will be updated as additional materials are finalized and any verified response or follow-up occurs.</p>
+
+  <div class="card-grid">
+
+    <div class="doc-card">
+      <span class="status-badge badge-complete">Delivered August 25, 2026</span>
+      <h3>Current-State Auditor Review Packet</h3>
+      <p>This 62-page packet was delivered to Auditor of State Rob Sand for informal, preliminary review. It contains the stable petition core, source architecture, historical context, and analytical standards available on the date of the handoff. It is not the formal petition submission.</p>
+      <div class="card-actions">
+        <a class="card-btn" href="Iowa-HHS-Audit-Request_Public-Handoff-Packet_Current-State_2026-08-25.pdf" target="_blank" rel="noopener">Read the Packet PDF</a>
+        <a class="card-link" href="https://iowafamilyrights.wordpress.com/2026/08/27/getting-the-iowa-hhs-evidence-record-into-the-right-hands/" target="_blank" rel="noopener">Read the Handoff Story</a>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <span class="status-badge badge-pending">Final Preparation</span>
+      <h3>Formal Petition to Audit Iowa HHS</h3>
+      <p>The complete petition and supporting record remain in controlled finalization. Current work includes section reconciliation, attachment completion, companion-report integration, public-source verification, and packet-wide quality review. Formal submission has not yet occurred.</p>
+      <div class="card-actions">
+        <a class="card-btn" href="hub.html">Explore the Document Hub</a>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <span class="status-badge badge-active">Active Record</span>
+      <h3>Open Records Requests</h3>
+      <p>Follow the public-record requests supporting this work, including agency correspondence, productions, status changes, response intervals, and unresolved records-access questions.</p>
+      <div class="card-actions">
+        <a class="card-btn" href="orr-log.html">View the ORR Log</a>
+      </div>
+    </div>
+
+    <div class="doc-card">
+      <span class="status-badge badge-pending">Ongoing</span>
+      <h3>Official Outreach and Response Tracking</h3>
+      <p>Follow materials and notices sent to public officials and oversight bodies, together with any verified acknowledgments, responses, or follow-up. The log distinguishes outgoing outreach from documented responses and does not treat silence as a substantive agency position.</p>
+      <div class="card-actions">
+        <a class="card-btn" href="outreach-log.html">View the Outreach Log</a>
+      </div>
+    </div>
+
   </div>
 </section>
-<section id="status">
-  <h2>Document Status</h2>
-  <p class="lead">Current status of key documents and filings in this audit request.</p>
-  <div class="doc-card">
-    <span class="status-badge badge-active">Filed</span>
-    <h3>Open Records Requests</h3>
-    <p>Multiple ORR filings submitted to Iowa HHS. Responses tracked in the <a href="orr-log.html">ORR Log</a>.</p>
-  </div>
-  <div class="doc-card">
-    <span class="status-badge badge-pending">Ongoing</span>
-    <h3>Authority Notifications</h3>
-    <p>Formal notifications sent to oversight authorities. Full log available in the <a href="outreach-log.html">Outreach Log</a>.</p>
-  </div>
-</section>
-<section id="owner">
-  <h2>Project Steward</h2>
-  <p class="lead">This audit request is maintained by Ashley Meredith, a concerned citizen and advocate for child-welfare accountability in Iowa.</p>
-</section>
+
 <footer>
   <p>&copy; 2026 Iowa HHS Audit Request &mdash; Public Transparency Page</p>
   <p style="margin-top:.5rem">This is a citizen-initiated public information page. It is not affiliated with any government agency.</p>
