@@ -3,138 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Authority Notification Log Ã¢ÂÂ Iowa HHS Audit Request</title>
+<title>Outreach Log | Iowa HHS Audit Request</title>
 <style>
-:root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;--tag-bg:#e8ecf4;--red:#8b1a1a;--amber:#7a5c00;--green:#1a5c2a;--purple:#4a1a7a;}
+:root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.7;}
+body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.75;}
 nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;position:sticky;top:0;z-index:200;}
 nav ul{max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;}
 nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.81rem;letter-spacing:.05em;text-transform:uppercase;}
 nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
-.page-header{background:var(--navy);padding:3rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
-.page-header h1{color:#fff;font-weight:normal;font-size:2.0rem;margin-bottom:.5rem;}
-.page-header p{color:#a0b4cc;font-size:0.95rem;max-width:780px;margin:.5rem auto 0;}
-.transparency-bar{background:#1a3a1a;color:#a8d8a8;text-align:center;padding:.6rem 2rem;font-family:'Arial',sans-serif;font-size:0.84rem;}
-.transparency-bar strong{color:#c8f0c8;}
-main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;}
-.filter-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-bottom:1.75rem;background:#fff;padding:1rem 1.25rem;border:1px solid var(--border);}
-.filter-row label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light-slate);}
-select,input[type=text]{font-family:'Arial',sans-serif;font-size:0.88rem;padding:.4rem .75rem;border:1px solid var(--border);border-radius:3px;color:var(--text);background:#fff;}
-.summary-stats{display:flex;flex-wrap:wrap;gap:1rem 2rem;background:#fff;border:1px solid var(--border);padding:1.25rem 1.5rem;margin-bottom:2rem;border-radius:3px;}
-.stat-item{display:flex;flex-direction:column;}
-.stat-num{font-size:1.6rem;font-weight:bold;color:var(--navy);line-height:1;}
-.stat-label{font-size:0.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--light-slate);margin-top:.2rem;}
-.timeline{position:relative;padding-left:2rem;}
-.timeline::before{content:'';position:absolute;left:.5rem;top:.5rem;bottom:.5rem;width:2px;background:var(--border);}
-.entry{position:relative;margin-bottom:1.75rem;}
-.entry::before{content:'';position:absolute;left:-1.65rem;top:.45rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--navy);background:#fff;}
-.entry-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.1rem 1.25rem;}
-.entry-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:.6rem;}
-.entry-title{font-size:1.0rem;font-weight:bold;color:var(--navy);margin:0;}
-.entry-meta{display:flex;flex-wrap:wrap;gap:.35rem 1.25rem;font-family:'Arial',sans-serif;font-size:0.82rem;color:var(--light-slate);margin-bottom:.6rem;}
-.entry-meta span strong{color:var(--slate);}
-.entry-body{font-size:0.92rem;color:var(--text-light);line-height:1.65;}
-.status-tag{font-family:'Arial',sans-serif;font-size:0.73rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .6rem;border-radius:3px;white-space:nowrap;}
-.tag-sent{background:#d4edda;color:var(--green);border:1px solid #9fd4ab;}
-.tag-acknowledged{background:#c8d8f0;color:#0f2742;border:1px solid #90b4dc;}
-.tag-no-response{background:#f8d7da;color:var(--red);border:1px solid #f0a0a8;}
-.tag-pending{background:#fef3cd;color:var(--amber);border:1px solid #f0d080;}
-.tag-escalated{background:#ead4f8;color:var(--purple);border:1px solid #c090e0;}
-footer{background:var(--navy);color:#8a9bb0;text-align:center;padding:2rem 1.5rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;}
-footer a{color:#b8c8dc;text-decoration:none;}
-footer a:hover{color:var(--gold-light);}
-@media(max-width:600px){.entry-header{flex-direction:column;}nav ul{justify-content:center;}nav ul li a{padding:.7rem .75rem;font-size:.78rem;}}
+.status-bar{background:#1a2744;color:#c8d4e8;text-align:center;padding:.65rem 2rem;font-family:'Arial',sans-serif;font-size:0.86rem;border-bottom:2px solid var(--gold);}
+.status-bar strong{color:var(--gold-light);}
+.page-header{background:var(--navy);padding:3.5rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
+.page-header h1{color:#fff;font-weight:normal;font-size:2.1rem;margin-bottom:.65rem;}
+.page-header p{color:#a0b4cc;font-size:0.96rem;max-width:700px;margin:0 auto;font-style:italic;}
+main{max-width:1100px;margin:0 auto;padding:2.75rem 2rem;}
+.intro-block{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);padding:1.5rem 1.75rem;margin-bottom:2rem;font-size:0.93rem;color:var(--text-light);line-height:1.7;}
+.intro-block p{margin-bottom:.75rem;}
+.intro-block p:last-child{margin-bottom:0;}
+.source-note{font-size:0.83rem;color:var(--light-slate);font-style:italic;border-top:1px solid var(--border);padding-top:.75rem;margin-top:.75rem;}
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2.5rem;}
+.stat{background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);padding:1.25rem 1rem;text-align:center;}
+.stat-number{font-size:1.9rem;color:var(--navy);line-height:1.1;margin-bottom:.35rem;}
+.stat-label{font-family:'Arial',sans-serif;font-size:0.77rem;color:var(--light-slate);letter-spacing:.06em;text-transform:uppercase;}
+h2{font-size:1.45rem;color:var(--navy);font-weight:normal;border-bottom:3px solid var(--gold);padding-bottom:.4rem;margin-bottom:1.5rem;}
+h3{font-size:1.1rem;color:var(--navy);font-weight:bold;margin-bottom:.6rem;}
+.lane-card{background:#fff;border:1px solid var(--border);border-radius:4px;margin-bottom:1.75rem;overflow:hidden;}
+.lane-card-header{background:var(--navy);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;}
+.lane-card-header h3{color:#fff;font-size:1.0rem;margin:0;font-weight:normal;}
+.lane-tag{font-family:'Arial',sans-serif;font-size:0.73rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .65rem;border-radius:3px;background:rgba(184,149,42,0.25);color:var(--gold-light);border:1px solid rgba(184,149,42,0.4);white-space:nowrap;}
+.lane-card-body{padding:1.25rem 1.5rem;}
+.lane-summary{font-size:0.93rem;color:var(--text-light);line-height:1.65;margin-bottom:1rem;}
+.milestones{margin-bottom:1rem;}
+.milestones-label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.5rem;}
+.milestones ul{list-style:none;padding:0;margin:0;}
+.milestones ul li{font-size:0.88rem;color:var(--text-light);padding:.35rem 0 .35rem 1rem;border-left:2px solid var(--border);margin-bottom:.3rem;line-height:1.55;}
+.milestones ul li:last-child{margin-bottom:0;}
+.milestones ul li strong{color:var(--navy);}
+.caution-block{background:#f5f4f0;border:1px solid var(--border);border-left:3px solid #b8952a;padding:.75rem 1rem;font-size:0.85rem;color:var(--light-slate);font-style:italic;line-height:1.55;}
+.section-block{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
+.section-block h3{font-size:1.05rem;color:var(--navy);margin-bottom:.75rem;border-bottom:1px solid var(--border);padding-bottom:.4rem;}
+.section-block ul{margin:.4rem 0 0 1.25rem;padding:0;}
+.section-block ul li{font-size:0.91rem;color:var(--text-light);margin-bottom:.45rem;line-height:1.6;}
+.section-block p{font-size:0.91rem;color:var(--text-light);line-height:1.65;}
+.omit-block{background:#f0f2f7;border:1px solid var(--border);border-left:4px solid var(--slate);padding:1.25rem 1.5rem;border-radius:4px;margin-bottom:1.5rem;}
+.omit-block h3{color:var(--slate);font-size:1.0rem;margin-bottom:.6rem;}
+.omit-block p{font-size:0.89rem;color:var(--text-light);line-height:1.65;}
+footer{background:var(--navy);color:#a0b4cc;text-align:center;padding:2rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;border-top:3px solid var(--gold);}
+footer p+p{margin-top:.4rem;}
+@media(max-width:680px){
+  .stats-bar{grid-template-columns:1fr 1fr;}
+  .lane-card-header{flex-direction:column;align-items:flex-start;}
+  main{padding:1.75rem 1rem;}
+}
 </style>
 </head>
 <body>
-<nav style="background:#1a2744;position:sticky;top:0;z-index:200;border-bottom:3px solid #b8952a;">
-  <ul style="max-width:1200px;margin:0 auto;padding:0 1.5rem;list-style:none;display:flex;flex-wrap:wrap;">
-    <li><a href="audit_iowa_dhhs.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Home</a></li>
-    <li><a href="hub.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Document Hub</a></li>
-    <li><a href="about.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">About</a></li>
-    <li><a href="contact.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Contact</a></li>
-    <li><a href="orr-log.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">ORR Log</a></li>
-    <li><a href="outreach-log.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Outreach Log</a></li>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hub.html">Document Hub</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="orr-log.html">ORR Log</a></li>
+    <li><a href="outreach-log.html" class="active">Outreach Log</a></li>
   </ul>
 </nav>
+
+<div class="status-bar">
+  <strong>Project Status:</strong> Formal Petition to Audit Iowa HHS &mdash; not yet submitted. Outreach lanes active.
+</div>
+
 <div class="page-header">
-  <h1>Authority Notification Log</h1>
-  <p>A chronological record of formal notifications sent to oversight authorities, legislators, and agency officials regarding the Iowa HHS audit request.</p>
+  <h1>Outreach Log</h1>
+  <p>Source-backed public summary of outreach and notifications related to Ashley Meredith&#8217;s citizen-initiated Iowa HHS Audit Request.</p>
 </div>
-<div class="transparency-bar">
-  <strong>Public Record:</strong> All entries represent formal written communications submitted through official channels.
-</div>
+
 <main>
-  <div class="summary-stats">
-    <div class="stat-item"><span class="stat-num">12</span><span class="stat-label">Total Sent</span></div>
-    <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">Acknowledged</span></div>
-    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">No Response</span></div>
-    <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Escalated</span></div>
-    <div class="stat-item"><span class="stat-num">1</span><span class="stat-label">Pending</span></div>
-  </div>
-  <div class="filter-row">
-    <label>Filter by Status:</label>
-    <select id="statusFilter" onchange="applyFilters()">
-      <option value="all">All Statuses</option>
-      <option value="sent">Sent</option>
-      <option value="acknowledged">Acknowledged</option>
-      <option value="no-response">No Response</option>
-      <option value="escalated">Escalated</option>
-      <option value="pending">Pending</option>
-    </select>
-    <label>Filter by Recipient:</label>
-    <select id="recipientFilter" onchange="applyFilters()">
-      <option value="all">All Recipients</option>
-      <option value="legislature">Legislature</option>
-      <option value="agency">Agency Officials</option>
-      <option value="oversight">Oversight Bodies</option>
-      <option value="ombudsman">Ombudsman</option>
-    </select>
+
+  <div class="intro-block">
+    <p>This page summarizes public-facing outreach, follow-up, and notification activity related to the Iowa HHS Audit Request. Entries are drawn from the project&#8217;s deduplicated Mercury outreach log. The internal tracker contains 38 outgoing messages; this public page summarizes screened outreach lanes and selected public-facing milestones only. Inclusion of an office, official, or organization means only that outreach or follow-up occurred. It does not imply endorsement, acceptance, agreement, or agency action.</p>
+    <p class="source-note">Source status: updated from Mercury&#8217;s September 2, 2026 clean outreach log. Internal source paths, account emails, private working files, sensitive family-support messages, and sealed/case-specific materials are intentionally omitted from this public page.</p>
   </div>
 
-<section class="verification-notice" aria-labelledby="verification-notice-title">
-  <h2 id="verification-notice-title">Page Under Verification</h2>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number">38</div>
+      <div class="stat-label">Deduplicated internal outgoing messages reviewed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">7</div>
+      <div class="stat-label">Public-facing outreach lanes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number" style="font-size:1rem;padding-top:.5rem;">Selected<br>entries</div>
+      <div class="stat-label">Public-screened milestones</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number" style="font-size:.95rem;padding-top:.5rem;">Not yet<br>submitted</div>
+      <div class="stat-label">Formal Petition to Audit</div>
+    </div>
+  </div>
 
-  <p>
-    This page is under verification/reconstruction.
-  </p>
+  <h2>Public Outreach Lanes</h2>
 
-  <p>
-    The formal petition has not yet been submitted.
-  </p>
+  <!-- Lane 1 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>Federal ACF / CCWIS / RFI Lane</h3>
+      <span class="lane-tag">Lane 1</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">Outreach to the ACF/CCWIS lane included Industry Day registration and follow-up, written governance concerns about Iowa&#8217;s VISION/CCWIS modernization, and three formal ACF-26-IS-01 RFI submissions: Attest, Vault, and Governance Assurance. A later proprietary-marking correction follow-up was also sent.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>June 15, 2026:</strong> CCWIS/Industry Day registration follow-up regarding Iowa VISION concerns.</li>
+          <li><strong>June 25, 2026:</strong> Pre-session follow-up placing contract/governance concerns into the written record.</li>
+          <li><strong>June 29, 2026:</strong> Industry Day follow-up placing submitted questions into the written record.</li>
+          <li><strong>August 24, 2026:</strong> RFI Submission 1 &mdash; Attest.</li>
+          <li><strong>August 24, 2026:</strong> RFI Submission 2 &mdash; Vault.</li>
+          <li><strong>August 24, 2026:</strong> RFI Submission 3 &mdash; Governance Assurance.</li>
+          <li><strong>August 30, 2026:</strong> Proprietary-marking correction follow-up.</li>
+        </ul>
+      </div>
+      <div class="caution-block">These were RFI market-research and follow-up communications only. They do not represent an award, endorsement, contract, deployment, or government acceptance.</div>
+    </div>
+  </div>
 
-  <p>
-    The August 25 Current-State Auditor Review Packet is available here:
-    <a
-      href="Iowa-HHS-Audit-Request_Public-Handoff-Packet_Current-State_2026-08-25.pdf"
-      target="_blank"
-      rel="noopener"
-    >
-      Read the Current-State Auditor Review Packet
-    </a>.
-  </p>
+  <!-- Lane 2 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>Federal Senate / Congressional Oversight Lane</h3>
+      <span class="lane-tag">Lane 2</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">Outreach to federal Senate staff focused on child-welfare oversight, CFSR Round 4 / Technical Bulletin 14 issues, CCWIS/VISION governance, AI oversight concerns, and related federal routing questions.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>May 26, 2026:</strong> May 27 virtual meeting confirmed with Senator Grassley staff.</li>
+          <li><strong>May 28, 2026:</strong> Follow-up materials sent regarding Iowa child-welfare federal oversight and post-permanency accountability.</li>
+          <li><strong>June 1, 2026:</strong> Tonal repair/clarification follow-up sent to Senator Grassley staff.</li>
+          <li><strong>June 1, 2026:</strong> Outreach to Senator Ernst staff regarding CFSR Round 4 / TB-14 referral request and Glenn Spalding housing update.</li>
+          <li><strong>June 3, 2026:</strong> Follow-up to Senator Grassley staff after offer to receive/share the petition.</li>
+          <li><strong>June 29, 2026:</strong> ACF Industry Day follow-up forwarded to Senator Grassley and Senator Ernst staff.</li>
+          <li><strong>August 31, 2026:</strong> Thread reactivated with Senator Grassley staff regarding CCWIS, VISION, and AI oversight.</li>
+          <li><strong>August 31, 2026:</strong> Follow-up to Senator Ernst staff; automatic reply indicated staff transition.</li>
+          <li><strong>September 2, 2026:</strong> Updated materials sent to Senator Grassley staff with new CFSR Round 4 oversight report.</li>
+          <li><strong>September 2, 2026:</strong> Re-introduction sent to Senator Ernst&#8217;s new staff contact, Sheila Cole.</li>
+        </ul>
+      </div>
+      <div class="caution-block">These entries document outreach and routing. They do not imply that either Senate office endorsed the petition, agreed with the findings, or took formal action.</div>
+    </div>
+  </div>
 
-  <p>
-    Verified logs/materials will be added after source review.
-  </p>
-</section>
+  <!-- Lane 3 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>Iowa Legislative Outreach Lane</h3>
+      <span class="lane-tag">Lane 3</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">Outreach to Iowa legislators focused on child-welfare oversight architecture, prior legislative proposals concerning family stabilization and preservation, CFSR safety-assessment findings, and potential future legislative attention.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>August 31, 2026:</strong> Outreach to Representative Jeff Shipley referencing HF186, House Government Oversight jurisdiction, the 2018 CFSR 91 percent safety-assessment failure rate, and related oversight architecture.</li>
+          <li><strong>August 31, 2026:</strong> Outreach to Senator Tony Bisignano referencing the petition&#8217;s growth, the public Transparency Hub, Segebart/SF2325, Shipley/HF186, and possible future Senate/House sponsorship.</li>
+        </ul>
+      </div>
+      <div class="caution-block">Future sponsorship or oversight attention was raised as a possibility. No sponsorship has occurred. Do not interpret outreach as confirmed legislative endorsement or action.</div>
+    </div>
+  </div>
 
+  <!-- Lane 4 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>Iowa Auditor of State Lane</h3>
+      <span class="lane-tag">Lane 4</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">The Auditor of State lane concerns the August 25, 2026 Independence, Iowa current-state handoff to Auditor Rob Sand and same-day routing follow-up.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>August 25, 2026:</strong> Current-state Iowa HHS evidentiary audit binder hand-delivered in person at an Independence, Iowa event via aide Sriman; Ashley also spoke directly with Auditor Sand and raised the Google/VISION contract and family-voice/AI-training concern.</li>
+          <li><strong>August 25, 2026:</strong> Same-day follow-up sent to Sriman regarding contact information and routing for the current-state audit review packet.</li>
+        </ul>
+      </div>
+      <div class="caution-block">This was a current-state review-copy handoff, not submission of the full formal Petition to Audit. The formal Petition to Audit has not been submitted, filed, accepted, or opened.</div>
+    </div>
+  </div>
+
+  <!-- Lane 5 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>Iowa Attorney General / Governance Lane</h3>
+      <span class="lane-tag">Lane 5</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">Outreach to the Iowa Attorney General lane focused on VISION/CCWIS governance, government-contract accountability, the ACF RFI package, and structural accountability framing.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>August 31, 2026:</strong> Formal letter sent to Attorney General Brenna Bird&#8217;s office staff regarding CCWIS/Google contract governance, the national VISION/CCWIS context, ACF RFI proposals, AFP Benton County pilot-lead framing, and the public Transparency Hub.</li>
+        </ul>
+      </div>
+      <div class="caution-block">The communication explicitly did not ask the Attorney General to revisit Ashley&#8217;s own case. The Attorney General has not responded, endorsed, agreed, or taken action.</div>
+    </div>
+  </div>
+
+  <!-- Lane 6 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>UPL / Self-Representation Intelligence Boundary Lane</h3>
+      <span class="lane-tag">Lane 6</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">Outreach to the Iowa Supreme Court UPL Commission concerned the boundaries of non-attorney assistance, self-representation support, and the early foundation of what became the Self-Representation Intelligence framework.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>April 3, 2026:</strong> Initial request for clarification and guidance on limitations for non-attorney assistance.</li>
+          <li><strong>April 29, 2026:</strong> Follow-up referencing a real-world assistance scenario as context for the broader non-attorney-assistance question.</li>
+          <li><strong>July 4, 2026:</strong> Follow-up acknowledging/forwarding the Commission&#8217;s June 30 reply, which referred Ashley to a private attorney for further guidance.</li>
+        </ul>
+      </div>
+      <div class="caution-block">Case-specific details, private-party details, and sensitive materials from the underlying assistance scenario are not published here.</div>
+    </div>
+  </div>
+
+  <!-- Lane 7 -->
+  <div class="lane-card">
+    <div class="lane-card-header">
+      <h3>Public Advocacy / Expert / Story Outreach Lane</h3>
+      <span class="lane-tag">Lane 7</span>
+    </div>
+    <div class="lane-card-body">
+      <p class="lane-summary">Some outreach focused on broader advocacy, story submission, peer review, and mentorship connected to child-welfare accountability and family-preservation work.</p>
+      <div class="milestones">
+        <div class="milestones-label">Representative source-backed milestones</div>
+        <ul>
+          <li><strong>June 24, 2026:</strong> Story submission to Molly Belsky / Rippel Foundation Stewards Rising lane.</li>
+          <li><strong>August 31, 2026:</strong> Introduction to Richard Wexler / NCCPR, positioning Ashley&#8217;s work as documented findings and inviting a mentorship read.</li>
+          <li><strong>September 2, 2026:</strong> Outreach to Representative Ashley Hinson through her official constituent web form regarding CCWIS oversight, the Providing for Life Act, the One Small Step event context, and the public Transparency Hub.</li>
+        </ul>
+      </div>
+      <div class="caution-block">Private emails are not displayed. Response status is not overstated. Organizational endorsement is not implied.</div>
+    </div>
+  </div>
+
+  <!-- Sensitive omissions -->
+  <div class="omit-block">
+    <h3>Sensitive entries intentionally omitted from public display</h3>
+    <p>The internal Mercury outreach tracker includes additional deduplicated outgoing messages that are not displayed here because they involve family-resource navigation, sensitive complaint-review correspondence, child-protection report context, sealed or court-adjacent issues, or private account/source details. Those records remain preserved internally but are not suitable for public display without separate review.</p>
+  </div>
+
+  <!-- Open Items -->
+  <div class="section-block">
+    <h3>Open Items</h3>
+    <ul>
+      <li>Confirm whether any ACF RFI submission-date language should be refined further for public display.</li>
+      <li>Continue treating the August 25 Rob Sand material as a current-state review handoff, not the final formal Petition to Audit.</li>
+      <li>Add future outreach entries only after source review and privacy screening.</li>
+      <li>Do not publish raw correspondence, attachments, or source links without a separate public-release review.</li>
+    </ul>
+  </div>
+
+  <!-- Limits of this public log -->
+  <div class="section-block">
+    <h3>Limits of this public log</h3>
+    <p>This public log summarizes selected public-facing outreach lanes from the project&#8217;s internal correspondence records. It does not publish private account details, internal working paths, sealed/confidential material, unreviewed source files, family-resource navigation messages, or case-sensitive correspondence. Inclusion of an office, official, organization, or staff contact means only that outreach or follow-up was sent or occurred; it does not imply agreement, endorsement, acceptance, or agency action.</p>
+  </div>
+
+</main>
 
 <footer>
   <p>&copy; 2026 Iowa HHS Audit Request &mdash; Public Transparency Page</p>
-  <p style="margin-top:.4rem">This is a citizen-initiated public information page. Not affiliated with any government agency.</p>
+  <p>This is a citizen-initiated public information page. It is not affiliated with any government agency.</p>
 </footer>
-<script>
-function applyFilters() {
-  const status = document.getElementById('statusFilter').value;
-  const recipient = document.getElementById('recipientFilter').value;
-  document.querySelectorAll('.entry').forEach(entry => {
-    const matchStatus = status === 'all' || entry.dataset.status === status;
-    const matchRecipient = recipient === 'all' || entry.dataset.recipient === recipient;
-    entry.style.display = (matchStatus && matchRecipient) ? '' : 'none';
-  });
-}
-</script>
+
 </body>
 </html>
