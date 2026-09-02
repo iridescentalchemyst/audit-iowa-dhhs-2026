@@ -16,7 +16,11 @@ nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
 .page-subnav{background:#1e2f56;border-bottom:1px solid rgba(255,255,255,0.1);padding:.5rem 1.5rem;text-align:center;}
 .page-subnav a{color:#a0b4cc;font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;margin:0 .6rem;display:inline-block;padding:.35rem 0;}
 .page-subnav a:hover{color:var(--gold-light);}
-.page-header{background:var(--navy);padding:2.5rem 2rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
+/* Hero */
+.page-header{position:relative;background:#0d1b3e;text-align:center;border-bottom:3px solid var(--gold);overflow:hidden;padding:0;}
+.page-header-photo{display:block;width:100%;height:540px;object-fit:cover;object-position:center top;opacity:.85;}
+.page-header-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,18,45,.82) 0%,rgba(10,18,45,.25) 55%,rgba(10,18,45,.10) 100%);}
+.page-header-inner{position:absolute;bottom:0;left:0;right:0;padding:2rem 2rem 2.5rem;z-index:2;}
 .page-eyebrow{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.75rem;}
 .page-header h1{color:#fff;font-weight:normal;font-size:2.2rem;margin-bottom:.75rem;line-height:1.25;}
 .page-header p{color:#a8c0d8;font-size:1.0rem;max-width:740px;margin:0 auto;font-style:italic;}
@@ -79,9 +83,13 @@ footer{background:var(--navy);color:#7a90a8;text-align:center;padding:1.5rem 2re
 </div>
 
 <div class="page-header">
-  <div class="page-eyebrow">Iowa HHS Audit Request</div>
-  <h1>Analytical Framework</h1>
-  <p>The audit framework uses two linked classification systems. Domains A&ndash;H organize the source record by system area. Deficiency Categories F1&ndash;F13 identify recurring operational failure types found across records, reports, reviews, audits, correspondence, and case-adjacent source materials. Together, the two systems help distinguish isolated incidents from repeat, cross-domain system-pattern evidence.</p>
+  <img class="page-header-photo" src="https://media.base44.com/images/public/6a16b0d2e9426883b87f90bc/3fa50bfee_20260305_IowaCapitalBuilding.jpg" alt="Iowa State Capitol building photographed March 5, 2026">
+  <div class="page-header-overlay"></div>
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Iowa HHS Audit Request</div>
+    <h1>Analytical Framework</h1>
+    <p>The audit framework uses two linked classification systems. Domains A&ndash;H organize the source record by system area. Deficiency Categories F1&ndash;F13 identify recurring operational failure types found across records, reports, reviews, audits, correspondence, and case-adjacent source materials. Together, the two systems help distinguish isolated incidents from repeat, cross-domain system-pattern evidence.</p>
+  </div>
 </div>
 
 <main>
