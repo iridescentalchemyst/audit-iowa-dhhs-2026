@@ -3,264 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document Hub Under Verification | Iowa HHS Audit Request</title>
+<title>Document Hub | Iowa HHS Audit Request</title>
 <style>
-:root {
-  --navy:#1a2744; --gold:#b8952a; --gold-light:#d4af4a;
-  --slate:#3d4f6b; --light-slate:#6b7d9a;
-  --off-white:#f5f4f0; --white:#ffffff;
-  --text:#1e1e1e; --text-light:#4a4a4a;
-  --border:#d0cec8; --hover-bg:#eef1f7; --tag-bg:#e8ecf4;
-  --red:#8b1a1a; --amber:#7a5c00;
-}
+:root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;--tag-bg:#e8ecf4;--green:#1a5c2a;--amber:#7a5c00;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.75;}
-
-/* NAV */
-nav{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:3px solid var(--gold);}
-nav ul{max-width:1200px;margin:0 auto;padding:0 1.5rem;list-style:none;display:flex;flex-wrap:wrap;}
-nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.84rem;letter-spacing:.05em;text-transform:uppercase;transition:color .2s,background .2s;}
-nav ul li a:hover{color:var(--gold-light);background:rgba(255,255,255,.05);}
-
-/* HERO */
-.hero{position:relative;height:480px;overflow:hidden;}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(.52);}
-.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;}
-.hero-tag{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.75rem;}
-.hero h1{font-size:clamp(1.8rem,4.5vw,3.2rem);color:#fff;font-weight:normal;line-height:1.2;max-width:780px;margin-bottom:.75rem;}
-.hero-rule{width:60px;height:3px;background:var(--gold);margin:.9rem auto;}
-.hero-sub{color:#c8d4e8;font-size:1.0rem;max-width:600px;font-style:italic;}
-
-.alert-banner{background:var(--navy);color:#c8d4e8;text-align:center;padding:.7rem 2rem;font-family:'Arial',sans-serif;font-size:0.87rem;}
-.alert-banner strong{color:var(--gold-light);}
-.draft-banner{background:#4a1a1a;color:#f5c6c6;text-align:center;padding:.6rem 2rem;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:.02em;}
-.draft-banner strong{color:#ffaaaa;}
-
-/* LAYOUT */
-section{max-width:1200px;margin:0 auto;padding:3.5rem 2rem;}
-section+section{border-top:1px solid var(--border);}
-.section-label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.4rem;}
-h2{font-size:1.75rem;color:var(--navy);font-weight:normal;margin-bottom:.4rem;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;}
-h3{font-size:1.1rem;color:var(--slate);font-weight:bold;margin:1.25rem 0 .5rem;}
-p{margin-bottom:.9rem;color:var(--text-light);}
-p:last-child{margin-bottom:0;}
-
-/* HOVER CARDS */
-.hc{border-bottom:2px dotted var(--gold);cursor:help;position:relative;display:inline;}
-.hc-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:310px;background:var(--navy);color:#fff;border-radius:4px;padding:.9rem 1.1rem;font-size:0.85rem;line-height:1.5;z-index:300;box-shadow:0 4px 20px rgba(0,0,0,.4);font-family:'Arial',sans-serif;pointer-events:none;}
-.hc-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy);}
-.hc:hover .hc-popup{display:block;}
-.hc-plain{color:var(--gold-light);font-weight:bold;display:block;margin-bottom:.3rem;}
-.hc-legal{color:#a0b4cc;display:block;margin-bottom:.3rem;}
-.hc-etym{color:#6a8aaa;font-style:italic;display:block;font-size:0.82rem;}
-.hc-label{font-size:0.73rem;letter-spacing:.1em;text-transform:uppercase;color:#4a6a8a;display:block;margin-top:.4rem;}
-
-/* STAT CARDS */
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.25rem;margin:1.75rem 0;}
-.stat-card{background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);padding:1.25rem;text-align:center;}
-.stat-number{font-size:2.25rem;color:var(--navy);line-height:1;margin-bottom:.4rem;}
-.stat-label{font-family:'Arial',sans-serif;font-size:0.79rem;color:var(--light-slate);letter-spacing:.05em;text-transform:uppercase;}
-
-/* PDF VIEWER MODAL */
-#pdf-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:500;flex-direction:column;}
-#pdf-modal.open{display:flex;}
-.modal-header{background:var(--navy);padding:.75rem 1.25rem;display:flex;align-items:center;gap:1rem;border-bottom:2px solid var(--gold);}
-.modal-title{color:#fff;font-family:'Arial',sans-serif;font-size:0.95rem;flex:1;}
-.modal-draft-tag{background:#6b1a1a;color:#ffaaaa;font-family:'Arial',sans-serif;font-size:0.74rem;padding:.2rem .6rem;border-radius:2px;letter-spacing:.08em;text-transform:uppercase;}
-.modal-close{background:none;border:1px solid #4a6a8a;color:#a0b4cc;padding:.35rem .8rem;cursor:pointer;font-family:'Arial',sans-serif;font-size:0.85rem;border-radius:2px;}
-.modal-close:hover{background:rgba(255,255,255,.1);}
-.modal-actions{display:flex;gap:.5rem;align-items:center;}
-.modal-btn{background:var(--gold);color:var(--navy);border:none;padding:.35rem .85rem;cursor:pointer;font-family:'Arial',sans-serif;font-size:0.84rem;font-weight:bold;border-radius:2px;text-decoration:none;display:inline-block;}
-.modal-btn.outline{background:none;border:1px solid var(--gold-light);color:var(--gold-light);}
-.modal-body{flex:1;overflow:hidden;}
-.modal-body iframe{width:100%;height:100%;border:none;}
-
-/* PETITION SECTION CARDS */
-.section-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-top:1.5rem;}
-.sec-card{background:#fff;border:1px solid var(--border);border-left:4px solid var(--navy);padding:1.1rem 1.25rem;transition:box-shadow .2s;}
-.sec-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.1);}
-.sec-card.draft{border-left-color:var(--amber);}
-.sec-card.final{border-left-color:#1a5c2a;}
-.sec-num{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.3rem;}
-.sec-title{font-family:'Arial',sans-serif;font-size:0.95rem;font-weight:bold;color:var(--navy);margin-bottom:.6rem;line-height:1.3;}
-.sec-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;}
-.sec-btn{font-family:'Arial',sans-serif;font-size:0.78rem;padding:.28rem .7rem;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;}
-.sec-btn.view{background:var(--navy);color:#fff;border:none;}
-.sec-btn.view:hover{background:var(--slate);}
-.sec-btn.dl{background:none;border:1px solid var(--navy);color:var(--navy);}
-.sec-btn.dl:hover{background:var(--tag-bg);}
-.sec-btn.pending{background:none;border:1px solid var(--border);color:var(--light-slate);cursor:default;}
-.sec-status{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px;display:inline-block;margin-bottom:.4rem;}
-.sec-status.draft{background:#fff3cd;color:#7a5c00;}
-.sec-status.final{background:#d4edda;color:#1a5c2a;}
-.sec-status.pending{background:var(--tag-bg);color:var(--light-slate);}
-
-/* COMPANION DOCS */
-.companion-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.25rem;margin-top:1.5rem;}
-.companion-card{background:#fff;border:1px solid var(--border);border-top:4px solid var(--navy);padding:1.5rem;}
-.companion-card h3{margin-top:0;color:var(--navy);font-size:1.0rem;}
-.companion-card p{font-size:0.93rem;}
-
-/* DOMAIN & DEFICIENCY CARDS */
-.domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;margin-top:1.5rem;}
-.domain-card{background:#fff;border:1px solid var(--border);border-left:5px solid var(--navy);padding:1.1rem 1.4rem;}
-.domain-letter{font-family:'Arial',sans-serif;font-size:1.5rem;font-weight:bold;color:var(--gold);line-height:1;margin-bottom:.2rem;}
-.domain-name{font-family:'Arial',sans-serif;font-size:0.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin-bottom:.4rem;font-weight:bold;}
-.domain-card p{font-size:0.88rem;margin:0;}
-
-.def-table{width:100%;border-collapse:collapse;margin-top:1.25rem;font-size:0.89rem;}
-.def-table th{background:var(--navy);color:#fff;padding:.65rem .9rem;text-align:left;font-family:'Arial',sans-serif;font-size:0.76rem;letter-spacing:.08em;text-transform:uppercase;}
-.def-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-light);vertical-align:top;}
-.def-table tr:nth-child(even) td{background:var(--hover-bg);}
-.def-code{font-family:'Arial',sans-serif;font-weight:bold;color:var(--navy);font-size:0.93rem;white-space:nowrap;}
-.sev-high{color:var(--red);font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:.2rem;}
-.sev-med{color:var(--amber);font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:.2rem;}
-
-/* ATTACHMENT INDEX */
-.att-filter-bar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:1.25rem 0 .5rem;}
-.filter-label{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--light-slate);margin-right:.2rem;min-width:70px;}
-.filter-btn{font-family:'Arial',sans-serif;font-size:0.81rem;padding:.25rem .65rem;border:1px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:2px;transition:all .15s;}
-.filter-btn:hover{background:var(--tag-bg);border-color:var(--navy);}
-.filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
-.filter-btn2{font-family:'Arial',sans-serif;font-size:0.78rem;padding:.22rem .55rem;border:1px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:2px;transition:all .15s;}
-.filter-btn2:hover{background:#f5edd8;border-color:var(--gold);}
-.filter-btn2.active{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:bold;}
-
-.att-group{margin-bottom:.65rem;border:1px solid var(--border);}
-.att-group-header{display:flex;align-items:center;gap:1rem;padding:.8rem 1.1rem;background:var(--navy);cursor:pointer;user-select:none;}
-.att-group-header:hover{background:var(--slate);}
-.att-group-name{font-family:'Arial',sans-serif;font-size:0.87rem;letter-spacing:.03em;color:#fff;font-weight:bold;flex:1;}
-.att-group-count{font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--gold-light);}
-.att-toggle{color:var(--gold-light);font-size:0.76rem;transition:transform .2s;}
-.att-group-body{display:none;overflow-x:auto;}
-.att-group-body.open{display:block;}
-
-.att-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
-.att-table th{background:#243356;color:#a0b4cc;padding:.5rem .75rem;text-align:left;font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
-.att-table td{padding:.55rem .75rem;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text-light);}
-.att-table tr:nth-child(even) td{background:var(--hover-bg);}
-.att-table tr.sub-row td{background:#f0f2f8;padding-left:1.75rem;}
-.att-table tr.sub-row:nth-child(even) td{background:#e8ebf5;}
-.att-table tr.filtered-out{display:none;}
-.att-row{cursor:pointer;}
-.att-row:hover td{background:var(--hover-bg)!important;}
-.att-num{font-family:'Arial',sans-serif;font-weight:bold;color:var(--navy);font-size:0.84rem;white-space:nowrap;}
-.att-title{font-size:0.85rem;max-width:340px;line-height:1.35;}
-.att-agency{font-size:0.81rem;color:var(--light-slate);max-width:160px;}
-.att-tags{white-space:nowrap;}
-.dtag{display:inline-block;background:var(--navy);color:#fff;font-family:'Arial',sans-serif;font-size:0.69rem;padding:.08rem .3rem;border-radius:2px;margin:1px;font-weight:bold;}
-.ftag{display:inline-block;background:var(--tag-bg);color:var(--slate);font-family:'Arial',sans-serif;font-size:0.69rem;padding:.08rem .3rem;border-radius:2px;margin:1px;border:1px solid var(--border);}
-.str-high{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;color:#1a5c2a;}
-.str-med{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);}
-.str-low{font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--light-slate);}
-.att-link{display:inline-flex;align-items:center;gap:.25rem;font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--navy);text-decoration:none;padding:.2rem .5rem;border:1px solid var(--border);border-radius:2px;margin:1px;white-space:nowrap;}
-.att-link:hover{background:var(--tag-bg);border-color:var(--navy);}
-.att-link.source{color:var(--slate);}
-.att-link.doc{background:var(--navy);color:#fff;border-color:var(--navy);}
-.att-link.doc:hover{background:var(--slate);}
-.att-link.draft-doc{background:var(--amber);color:#fff;border-color:var(--amber);}
-
-/* TIMELINE */
-.timeline{margin:1.5rem 0;}
-.tl-item{display:flex;gap:1.25rem;margin-bottom:1.25rem;align-items:flex-start;}
-.tl-year{font-family:'Arial',sans-serif;font-size:0.85rem;font-weight:bold;color:#fff;background:var(--navy);padding:.22rem .55rem;white-space:nowrap;min-width:62px;text-align:center;flex-shrink:0;margin-top:.2rem;}
-.tl-content{flex:1;}
-.tl-content strong{color:var(--navy);display:block;margin-bottom:.2rem;font-size:0.97rem;}
-.tl-content p{font-size:0.89rem;margin:0;}
-
-/* UPDATES */
-.update-item{border-left:3px solid var(--gold);padding:.7rem 1.1rem;margin-bottom:.9rem;background:#fff;}
-.update-date{font-family:'Arial',sans-serif;font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.2rem;}
-.update-item p{font-size:0.93rem;margin:0;}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:start;margin-top:1.75rem;}
-.about-photo{width:100%;border:4px solid var(--navy);}
-.about-name{font-size:1.3rem;color:var(--navy);margin-bottom:.2rem;}
-.about-title{font-family:'Arial',sans-serif;font-size:0.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;}
-
-.contact-block{background:var(--navy);color:#fff;padding:2.25rem;margin-top:1.75rem;}
-.contact-block h3{color:var(--gold-light);margin-top:0;font-size:1.05rem;}
-.contact-block p{color:#a0b4cc;}
-.contact-block a{color:var(--gold-light);}
-
-footer{background:#111827;color:#6b7280;text-align:center;padding:2rem;font-family:'Arial',sans-serif;font-size:0.84rem;margin-top:2rem;line-height:2;}
-footer a{color:var(--gold-light);text-decoration:none;}
-
+/* Nav */
+nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;position:sticky;top:0;z-index:300;}
+nav ul{max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;}
+nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.81rem;letter-spacing:.05em;text-transform:uppercase;}
+nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
+/* Jump nav */
+.jump-nav{background:#1e2f56;border-bottom:1px solid rgba(255,255,255,0.1);padding:.5rem 1.5rem;position:sticky;top:54px;z-index:200;overflow-x:auto;white-space:nowrap;}
+.jump-nav a{color:#a0b4cc;font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;margin-right:1.25rem;display:inline-block;}
+.jump-nav a:hover{color:var(--gold-light);}
+/* Status bar */
+.status-bar{background:#1a3050;border-bottom:2px solid var(--gold);padding:.7rem 2rem;text-align:center;font-family:'Arial',sans-serif;font-size:0.85rem;color:#a0b4cc;}
+.status-bar strong{color:var(--gold-light);}
+.status-bar .sep{margin:0 .75rem;opacity:.4;}
+/* Hero */
+.hero{position:relative;background:linear-gradient(160deg,#0d1b3e 0%,#1a2744 55%,#243460 100%);padding:4.5rem 2rem 3.5rem;text-align:center;border-bottom:3px solid var(--gold);overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Iowa_State_Capitol_Building.jpg/1280px-Iowa_State_Capitol_Building.jpg') center/cover no-repeat;opacity:.13;}
+.hero-inner{position:relative;z-index:1;}
+.hero-eyebrow{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.75rem;}
+.hero h1{color:#fff;font-weight:normal;font-size:2.4rem;margin-bottom:.75rem;line-height:1.25;}
+.hero p{color:#a8c0d8;font-size:1.0rem;max-width:680px;margin:0 auto 1.5rem;font-style:italic;}
+.hero-badge{display:inline-block;background:rgba(184,149,42,.18);border:1px solid rgba(184,149,42,.45);color:var(--gold-light);font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;padding:.35rem 1rem;border-radius:3px;}
+/* Main */
+main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
+/* Section wrappers */
+.hub-section{margin-bottom:3.5rem;}
+.section-eyebrow{font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.hub-section h2{font-size:1.5rem;color:var(--navy);font-weight:normal;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;margin-bottom:1.25rem;}
+.section-body{font-size:0.93rem;color:var(--text-light);line-height:1.7;margin-bottom:1.5rem;max-width:820px;}
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem;}
+.stat-card{background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);padding:1.25rem 1rem;text-align:center;}
+.stat-number{font-size:2.1rem;color:var(--navy);line-height:1;margin-bottom:.35rem;}
+.stat-label{font-family:'Arial',sans-serif;font-size:0.76rem;color:var(--light-slate);letter-spacing:.06em;text-transform:uppercase;}
+/* Document card */
+.doc-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;max-width:520px;margin-bottom:1.25rem;}
+.doc-card-title{font-size:1.05rem;color:var(--navy);font-weight:bold;}
+.doc-card-desc{font-size:0.91rem;color:var(--text-light);line-height:1.6;}
+.badge{display:inline-block;font-family:'Arial',sans-serif;font-size:0.72rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .6rem;border-radius:3px;}
+.badge-available{background:#d4edda;color:var(--green);border:1px solid #9fd4ab;}
+.badge-pending{background:#e8eaf6;color:var(--slate);border:1px solid #b0b8d8;}
+.btn-primary{display:inline-block;background:var(--navy);color:#fff;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:.05em;text-decoration:none;padding:.65rem 1.4rem;border-radius:3px;transition:background .2s;}
+.btn-primary:hover{background:#253a6e;}
+/* Section grid */
+.section-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem;margin-bottom:1.5rem;}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1rem 1.1rem;}
+.section-card-num{font-family:'Arial',sans-serif;font-size:0.73rem;font-weight:bold;letter-spacing:.07em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.25rem;}
+.section-card-title{font-size:0.9rem;color:var(--navy);font-weight:bold;margin-bottom:.5rem;line-height:1.4;}
+.section-card-status{font-family:'Arial',sans-serif;font-size:0.75rem;color:var(--light-slate);font-style:italic;}
+/* Companion cards */
+.companion-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.companion-card{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:4px;padding:1.1rem 1.25rem;}
+.companion-card h4{font-size:0.97rem;color:var(--navy);margin-bottom:.4rem;}
+.companion-card p{font-size:0.85rem;color:var(--text-light);}
+/* Domain cards */
+.domain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.domain-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.1rem 1.25rem;}
+.domain-letter{display:inline-block;background:var(--navy);color:#fff;font-family:'Arial',sans-serif;font-size:0.85rem;font-weight:bold;width:2rem;height:2rem;line-height:2rem;text-align:center;border-radius:3px;margin-bottom:.6rem;}
+.domain-card h4{font-size:0.9rem;color:var(--navy);margin-bottom:.35rem;}
+.domain-card p{font-size:0.83rem;color:var(--text-light);line-height:1.55;}
+/* Deficiency table */
+.deficiency-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);font-size:0.88rem;margin-bottom:1.5rem;}
+.deficiency-table th{background:var(--navy);color:#c8d4e0;font-family:'Arial',sans-serif;font-size:0.76rem;letter-spacing:.06em;text-transform:uppercase;padding:.65rem 1rem;text-align:left;font-weight:normal;}
+.deficiency-table td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-light);line-height:1.5;}
+.deficiency-table tr:last-child td{border-bottom:none;}
+.deficiency-table tr:hover td{background:var(--hover-bg);}
+/* Timeline */
+.timeline{border-left:3px solid var(--gold);padding-left:1.75rem;margin-bottom:1.5rem;}
+.timeline-entry{position:relative;margin-bottom:1.5rem;}
+.timeline-entry::before{content:'';position:absolute;left:-2.1rem;top:.35rem;width:.7rem;height:.7rem;background:var(--gold);border-radius:50%;}
+.timeline-year{font-family:'Arial',sans-serif;font-size:0.78rem;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem;}
+.timeline-text{font-size:0.91rem;color:var(--text-light);line-height:1.6;}
+/* Updates */
+.update-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.update-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.1rem 1.25rem;}
+.update-date{font-family:'Arial',sans-serif;font-size:0.78rem;font-weight:bold;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;}
+.update-card p{font-size:0.89rem;color:var(--text-light);line-height:1.6;}
+/* Related logs */
+.log-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.25rem;}
+.log-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.25rem 1.4rem;display:flex;flex-direction:column;gap:.65rem;}
+.log-card h4{font-size:1.0rem;color:var(--navy);margin-bottom:.1rem;}
+.log-card p{font-size:0.86rem;color:var(--text-light);line-height:1.55;}
+/* About */
+.about-block{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);padding:1.5rem 1.75rem;font-size:0.93rem;color:var(--text-light);line-height:1.7;border-radius:4px;}
+/* Placeholder notice */
+.notice-block{background:#f0f2f7;border:1px solid var(--border);border-left:4px solid var(--slate);padding:1rem 1.25rem;font-size:0.88rem;color:var(--text-light);font-style:italic;border-radius:4px;margin-bottom:1.25rem;}
+/* Footer */
+footer{background:var(--navy);color:#a0b4cc;text-align:center;padding:2rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;border-top:3px solid var(--gold);}
+footer p+p{margin-top:.4rem;}
 @media(max-width:700px){
-  .about-grid{grid-template-columns:1fr;}
-  .about-photo{max-width:180px;}
-  .hero{height:360px;}
   .hero h1{font-size:1.65rem;}
-  .section-cards-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .section-grid,.companion-grid,.domain-grid,.update-grid,.log-grid{grid-template-columns:1fr;}
+  main{padding:2rem 1rem;}
+  .jump-nav{top:52px;}
+  .deficiency-table thead{display:none;}
+  .deficiency-table tr{display:block;margin-bottom:1rem;border:1px solid var(--border);}
+  .deficiency-table td{display:block;border-bottom:1px solid var(--border);}
+  .deficiency-table td::before{content:attr(data-label);display:block;font-family:'Arial',sans-serif;font-size:0.72rem;text-transform:uppercase;color:var(--light-slate);margin-bottom:.2rem;}
 }
-
-/* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ HOVER CARD ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
-#att-hover-card {
-  display:none;
-  transition:opacity .1s ease;
-  position:fixed;
-  z-index:9999;
-  width:340px;
-  background:#fff;
-  border:1px solid var(--border);
-  border-top:3px solid var(--navy);
-  box-shadow:0 8px 28px rgba(26,39,68,.18);
-  padding:1rem 1.1rem 1rem;
-  pointer-events:none;
-  font-family:'Arial',sans-serif;
-}
-#att-hover-card.visible { display:block; }
-.hc-att-id {
-  font-size:0.72rem;font-weight:bold;letter-spacing:.08em;
-  color:var(--gold);text-transform:uppercase;margin-bottom:.3rem;
-}
-.hc-title {
-  font-size:0.93rem;font-weight:bold;color:var(--navy);
-  line-height:1.4;margin-bottom:.5rem;
-}
-.hc-agency {
-  font-size:0.79rem;color:var(--light-slate);margin-bottom:.65rem;
-  border-bottom:1px solid var(--border);padding-bottom:.5rem;
-}
-.hc-section { margin-bottom:.5rem; }
-.hc-label {
-  font-size:0.68rem;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--light-slate);font-weight:bold;margin-bottom:.25rem;
-}
-.hc-pills { display:flex;flex-wrap:wrap;gap:.25rem; }
-.hc-pill-domain {
-  font-size:0.73rem;background:var(--navy);color:#fff;
-  padding:.15rem .45rem;border-radius:2px;line-height:1.35;
-}
-.hc-pill-def {
-  font-size:0.73rem;background:var(--tag-bg);color:var(--slate);
-  padding:.15rem .45rem;border-radius:2px;line-height:1.35;
-  border:1px solid #cdd3e0;
-}
-.hc-strength-high   { color:#1a5c2a;font-weight:bold;font-size:0.8rem; }
-.hc-strength-medium { color:var(--amber);font-weight:bold;font-size:0.8rem; }
-.hc-strength-low    { color:var(--red);font-weight:bold;font-size:0.8rem; }
-.hc-footer {
-  margin-top:.65rem;border-top:1px solid var(--border);padding-top:.5rem;
-  font-size:0.73rem;color:var(--light-slate);
-  display:flex;align-items:center;justify-content:space-between;
-}
-
-
-/* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ SECTION BADGE (attachment index) ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
-.att-section-cell { white-space:nowrap; }
-a.sec-badge {
-  display:inline-block;
-  font-family:'Arial',sans-serif;font-size:0.72rem;font-weight:bold;
-  background:var(--navy);color:var(--gold-light);
-  padding:.15rem .45rem;border-radius:2px;
-  text-decoration:none;letter-spacing:.03em;
-  border:1px solid var(--slate);
-  transition:background .15s;
-}
-a.sec-badge:hover { background:var(--slate); color:#fff; }
-
 </style>
 </head>
 <body>
@@ -268,7 +114,7 @@ a.sec-badge:hover { background:var(--slate); color:#fff; }
 <nav>
   <ul>
     <li><a href="index.html">Home</a></li>
-    <li><a href="hub.html">Document Hub</a></li>
+    <li><a href="hub.html" class="active">Document Hub</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="orr-log.html">ORR Log</a></li>
@@ -276,28 +122,441 @@ a.sec-badge:hover { background:var(--slate); color:#fff; }
   </ul>
 </nav>
 
+<div class="jump-nav">
+  <a href="#overview">Overview</a>
+  <a href="#packet">Current Packet</a>
+  <a href="#sections">Petition Sections</a>
+  <a href="#companions">Companion Reports</a>
+  <a href="#domains">Analytical Framework</a>
+  <a href="#attachments">Attachments</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#updates">Updates</a>
+  <a href="#logs">Related Logs</a>
+  <a href="#about">About</a>
+</div>
+
+<div class="status-bar">
+  <strong>Formal Petition to Audit Iowa HHS:</strong> not yet submitted
+  <span class="sep">|</span>
+  <strong>Current-State Auditor Review Packet:</strong> available
+  <span class="sep">|</span>
+  Full document hub: being rebuilt from verified public-safe records
+</div>
+
 <div class="hero">
-  <img src="images/iowa-capitol.jpg" alt="Iowa State Capitol building" loading="lazy">
-  <div class="hero-overlay">
-    <div class="hero-tag">Public Document Hub</div>
-    <h1>Document Hub Under Verification</h1>
-    <div class="hero-rule"></div>
-    <p class="hero-sub">The formal Petition to Audit Iowa HHS has not yet been submitted. The August 25, 2026 Current-State Auditor Review Packet remains available while the full document hub is rebuilt from verified public-safe records.</p>
-    <p class="hero-sub" style="margin-top:.75rem;font-style:normal;font-size:0.85rem;color:#a8b8cc;">Status: Verification and reconstruction in progress.</p>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Iowa HHS Audit Request</div>
+    <h1>Public Document Hub</h1>
+    <p>A source-controlled public index for the Iowa HHS Audit Request.</p>
+    <div class="hero-badge">Citizen-Initiated Transparency Project</div>
   </div>
 </div>
 
-<section class="verification-notice" aria-labelledby="verification-notice-title" style="max-width:900px;margin:3rem auto;padding:2.5rem 2rem;background:#fff;border:1px solid #d0cec8;border-left:4px solid #b8952a;">
-  <h2 id="verification-notice-title" style="font-size:1.4rem;color:#1a2744;border-bottom:2px solid #b8952a;padding-bottom:.4rem;display:inline-block;margin-bottom:1.2rem;">Document Hub Under Verification</h2>
-  <p>This page is under verification/reconstruction.</p>
-  <p>The formal petition has not yet been submitted.</p>
-  <p>The August 25 Current-State Auditor Review Packet is <a href="Iowa-HHS-Audit-Request_Public-Handoff-Packet_Current-State_2026-08-25.pdf" target="_blank" rel="noopener" style="color:#b8952a;">available here</a>.</p>
-  <p>Verified logs/materials will be added after source review.</p>
-</section>
+<main>
+
+  <!-- OVERVIEW -->
+  <div class="hub-section" id="overview">
+    <div class="section-eyebrow">What This Is</div>
+    <h2>The Case for an Independent Audit</h2>
+    <p class="section-body">Since 2003, Iowa&#8217;s child welfare system has been reviewed across multiple federal Child and Family Services Review cycles. The Iowa HHS Audit Request organizes public records, federal review findings, open-records correspondence, and source-backed analysis into a public-facing transparency structure. The formal Petition to Audit has not yet been submitted; this hub currently provides a public-safe current-state packet and a verified index of the audit framework.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">23</div>
+        <div class="stat-label">Years of Federal Review History</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-label">CFSR Review Cycles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">20</div>
+        <div class="stat-label">Planned Petition Sections</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Open Records Request Lanes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRENT PACKET -->
+  <div class="hub-section" id="packet">
+    <div class="section-eyebrow">Current Public Packet</div>
+    <h2>Current-State Auditor Review Packet</h2>
+    <p class="section-body">The current public packet is a reviewed, public-safe current-state handoff version prepared for the August 25, 2026 Auditor of State outreach lane. It is not the final full Petition to Audit.</p>
+    <div class="doc-card">
+      <div>
+        <span class="badge badge-available">Available</span>
+      </div>
+      <div class="doc-card-title">Current-State Auditor Review Packet</div>
+      <div class="doc-card-desc">Public-safe current-state packet prepared for review and transparency purposes. This packet does not represent formal submission of the full Petition to Audit.</div>
+      <div>
+        <a class="btn-primary" href="Iowa-HHS-Audit-Request_Public-Handoff-Packet_Current-State_2026-08-25.pdf" target="_blank" rel="noopener">View Current-State Packet</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PETITION SECTIONS -->
+  <div class="hub-section" id="sections">
+    <div class="section-eyebrow">Petition Architecture</div>
+    <h2>Planned Petition Sections</h2>
+    <p class="section-body">The formal Petition to Audit is organized into a section-based architecture. Individual section files are not posted here until they pass source, privacy, and public-release review.</p>
+    <div class="section-grid">
+      <div class="section-card">
+        <div class="section-card-num">Front Matter</div>
+        <div class="section-card-title">Title Page / Cover Letter / Table of Contents / Reader Guidance</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 0</div>
+        <div class="section-card-title">Referral Memorandum</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 1</div>
+        <div class="section-card-title">Executive Summary</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 2</div>
+        <div class="section-card-title">One-Page Audit Snapshot</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 3</div>
+        <div class="section-card-title">Definitions, Scope, and Analytical Framework</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 4</div>
+        <div class="section-card-title">System Timeline and Evolutionary Context</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 5</div>
+        <div class="section-card-title">Attachment Map and Evidentiary Index</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 6</div>
+        <div class="section-card-title">CFSR Longitudinal Record</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 7</div>
+        <div class="section-card-title">CFSR Round 4 Structural Integrity Analysis</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 8</div>
+        <div class="section-card-title">Longitudinal CFSR Performance Analysis</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 9</div>
+        <div class="section-card-title">Structured Decision-Making and Implementation Record</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 10</div>
+        <div class="section-card-title">Iowa HHS Operational Capacity and Workforce Analysis</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 11</div>
+        <div class="section-card-title">Contract and Provider Oversight Failures</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 12</div>
+        <div class="section-card-title">Judicial Interface and Legal Oversight Deficiencies</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 13</div>
+        <div class="section-card-title">Child Fatality Pattern Analysis and Post-Permanency Risk</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 14</div>
+        <div class="section-card-title">Independent Systems Evaluations</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 15</div>
+        <div class="section-card-title">Iowa Auditor of State Historical Findings Record</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 16</div>
+        <div class="section-card-title">Iowa Ombudsman Investigation Record</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 17</div>
+        <div class="section-card-title">CCWIS and Technology Modernization Transparency and Risk Analysis</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 18</div>
+        <div class="section-card-title">Funding Compliance and Fiscal Accountability</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 19</div>
+        <div class="section-card-title">Audit Questions and Proposed Scope</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-num">Section 20</div>
+        <div class="section-card-title">Certification of Good Faith and Evidentiary Standards</div>
+        <div class="section-card-status"><span class="badge badge-pending">Public release pending</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANION REPORTS -->
+  <div class="hub-section" id="companions">
+    <div class="section-eyebrow">Analytical Depth</div>
+    <h2>Companion Reports</h2>
+    <p class="section-body">Companion reports provide supporting analysis for the audit request. Public versions will be posted only after final source and privacy review.</p>
+    <div class="companion-grid">
+      <div class="companion-card">
+        <h4>CFSR Companion Report</h4>
+        <p><span class="badge badge-pending">Public release pending</span></p>
+      </div>
+      <div class="companion-card">
+        <h4>CCWIS / VISION Companion Report</h4>
+        <p><span class="badge badge-pending">Public release pending</span></p>
+      </div>
+      <div class="companion-card">
+        <h4>Structured Decision-Making Companion Report</h4>
+        <p><span class="badge badge-pending">Public release pending</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYTICAL FRAMEWORK -->
+  <div class="hub-section" id="domains">
+    <div class="section-eyebrow">Analytical Framework</div>
+    <h2>Domains and Deficiency Categories</h2>
+    <p class="section-body">The audit framework organizes the source record across analytical domains and recurring deficiency categories. This structure helps distinguish isolated incidents from repeated system-pattern evidence.</p>
+
+    <h3 style="font-size:1.05rem;color:var(--navy);margin-bottom:1rem;font-family:'Georgia',serif;font-weight:normal;font-style:italic;">Eight Analytical Domains</h3>
+    <div class="domain-grid">
+      <div class="domain-card">
+        <div class="domain-letter">A</div>
+        <h4>Funding Authorization and Federal Compliance</h4>
+        <p>Federal and state child welfare funding streams, reimbursement compliance, budget allocation, and financial oversight controls.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">B</div>
+        <h4>Contract and Provider Oversight</h4>
+        <p>Oversight, monitoring, enforcement, and accountability mechanisms governing contracted providers and service-delivery entities.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">C</div>
+        <h4>Decision Controls and Case Authorization</h4>
+        <p>Policies, decision-support tools, controls governing case actions, removals, placements, service authorization, and ICWA compliance.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">D</div>
+        <h4>Judicial Interface and Legal Oversight</h4>
+        <p>Agency-court interaction, evidentiary submissions, guardian ad litem coordination, ICWA tribal notification, and oversight mechanisms.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">E</div>
+        <h4>Outcomes, Incentives, and Systemic Disparities</h4>
+        <p>Measured child welfare outcomes, performance incentives, demographic disparities, and operational metrics including safety, permanency, and well-being tracking.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">F</div>
+        <h4>Workforce Capacity and Internal Accountability</h4>
+        <p>Workforce stability, staffing, supervision systems, training adequacy, internal accountability, and ICWA-specific training requirements.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">G</div>
+        <h4>Federal Oversight History and Corrective Action Response</h4>
+        <p>CFSR cycles, Program Improvement Plans, federal oversight findings, corrective-action implementation, and recurring findings across review cycles.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-letter">H</div>
+        <h4>Data Integrity and System Auditability</h4>
+        <p>Reliability, accessibility, auditability, and governance of administrative and case-management data systems, including audit trails and reporting infrastructure.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.05rem;color:var(--navy);margin:1.5rem 0 1rem;font-family:'Georgia',serif;font-weight:normal;font-style:italic;">Thirteen Deficiency Categories</h3>
+    <table class="deficiency-table" aria-label="Thirteen Deficiency Categories">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Category</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="#">1</td>
+          <td data-label="Category">Repeated CFSR Non-Conformity</td>
+          <td data-label="Description">Findings of non-conformity recurring across multiple federal review cycles without sustained corrective action.</td>
+        </tr>
+        <tr>
+          <td data-label="#">2</td>
+          <td data-label="Category">PIP Non-Implementation</td>
+          <td data-label="Description">Program Improvement Plans accepted but not fully implemented or independently verified.</td>
+        </tr>
+        <tr>
+          <td data-label="#">3</td>
+          <td data-label="Category">Safety Assessment Failure</td>
+          <td data-label="Description">Documented patterns of inadequate safety-assessment accuracy in structured decision-making tools and practice.</td>
+        </tr>
+        <tr>
+          <td data-label="#">4</td>
+          <td data-label="Category">Contract Oversight Gaps</td>
+          <td data-label="Description">Insufficient monitoring, performance accountability, or enforcement in contracted provider relationships.</td>
+        </tr>
+        <tr>
+          <td data-label="#">5</td>
+          <td data-label="Category">ICWA Compliance Deficiencies</td>
+          <td data-label="Description">Failures in Indian Child Welfare Act notification, tribal coordination, and placement-preference compliance.</td>
+        </tr>
+        <tr>
+          <td data-label="#">6</td>
+          <td data-label="Category">Post-Permanency Risk Gaps</td>
+          <td data-label="Description">Inadequate monitoring, support, or accountability for children after reunification, adoption, or guardianship.</td>
+        </tr>
+        <tr>
+          <td data-label="#">7</td>
+          <td data-label="Category">Workforce and Supervision Instability</td>
+          <td data-label="Description">High turnover, supervision gaps, inadequate training, and workforce-capacity deficiencies affecting case quality.</td>
+        </tr>
+        <tr>
+          <td data-label="#">8</td>
+          <td data-label="Category">Data Integrity and Auditability Concerns</td>
+          <td data-label="Description">Unreliable, inaccessible, or non-auditable administrative and case-management data systems.</td>
+        </tr>
+        <tr>
+          <td data-label="#">9</td>
+          <td data-label="Category">Fiscal Accountability Gaps</td>
+          <td data-label="Description">Federal funding compliance questions, reimbursement accuracy concerns, and budget-oversight deficiencies.</td>
+        </tr>
+        <tr>
+          <td data-label="#">10</td>
+          <td data-label="Category">Technology Modernization Risk</td>
+          <td data-label="Description">Data-governance, auditability, and public-records risks introduced by CCWIS/VISION modernization work.</td>
+        </tr>
+        <tr>
+          <td data-label="#">11</td>
+          <td data-label="Category">Judicial Coordination Deficiencies</td>
+          <td data-label="Description">Gaps in agency-court information sharing, evidentiary standards, and oversight coordination.</td>
+        </tr>
+        <tr>
+          <td data-label="#">12</td>
+          <td data-label="Category">Child Fatality Pattern Issues</td>
+          <td data-label="Description">Systemic concerns identified in child fatality review records, including prior-contact and oversight patterns.</td>
+        </tr>
+        <tr>
+          <td data-label="#">13</td>
+          <td data-label="Category">Family Preservation and Stabilization Gaps</td>
+          <td data-label="Description">Insufficient investment in, or implementation of, family-stabilization and preservation services prior to removal.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ATTACHMENTS -->
+  <div class="hub-section" id="attachments">
+    <div class="section-eyebrow">Evidentiary Record</div>
+    <h2>Attachment Index</h2>
+    <p class="section-body">The attachment index is being rebuilt from verified public-safe records. Attachment numbers, source status, and public-release eligibility will be added only after source and privacy screening.</p>
+    <div class="notice-block">Attachment index reconstruction in progress. Public-safe source entries will be added after review.</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="hub-section" id="timeline">
+    <div class="section-eyebrow">Longitudinal Record</div>
+    <h2>23-Year Oversight Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-entry">
+        <div class="timeline-year">2003</div>
+        <div class="timeline-text">CFSR Round 1 identifies major Iowa child-welfare performance and systemic-factor deficiencies.</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">2010&ndash;2011</div>
+        <div class="timeline-text">CFSR Round 2 continues to show unresolved conformity and corrective-action issues.</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">2016&ndash;2017</div>
+        <div class="timeline-text">Iowa child-fatality investigations and public oversight concerns intensify after the Finn, Ray, and Duis cases.</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">2018</div>
+        <div class="timeline-text">CFSR Round 3 record shows continued non-conformity and persistent safety-assessment concerns.</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">2023</div>
+        <div class="timeline-text">Structured Decision-Making post-implementation analysis identifies continuing accuracy and decision-integrity concerns.</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">2025&ndash;2026</div>
+        <div class="timeline-text">Iowa VISION / CCWIS modernization raises data-governance, auditability, and public-records questions.</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">August 25, 2026</div>
+        <div class="timeline-text">Current-state review packet hand-delivered in the Auditor of State outreach lane. This was not formal submission of the full Petition to Audit.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPDATES -->
+  <div class="hub-section" id="updates">
+    <div class="section-eyebrow">Significant Developments</div>
+    <h2>Updates</h2>
+    <div class="update-grid">
+      <div class="update-card">
+        <div class="update-date">August 25, 2026</div>
+        <p>Current-State Auditor Review Packet prepared and hand-delivered in the Rob Sand outreach lane.</p>
+      </div>
+      <div class="update-card">
+        <div class="update-date">September 2, 2026</div>
+        <p>Document Hub reconstruction underway. ORR Log rebuilt from source-backed records. Outreach Log undergoing public-safe update.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED LOGS -->
+  <div class="hub-section" id="logs">
+    <h2>Related Public Logs</h2>
+    <p class="section-body">The ORR Log and Outreach Log provide separate public-safe summaries of records requests and outreach activity. They do not publish private account details, internal working paths, sealed/confidential material, or unreviewed source files.</p>
+    <div class="log-grid">
+      <div class="log-card">
+        <h4>Open Records Request Log</h4>
+        <p>Six source-backed request lanes tracking Iowa HHS, Iowa Judicial Branch, Iowa Office of Ombudsman, and Iowa Department of Education public-records requests.</p>
+        <a class="btn-primary" href="orr-log.html">View ORR Log</a>
+      </div>
+      <div class="log-card">
+        <h4>Outreach Log</h4>
+        <p>Seven public-facing outreach lanes drawn from the Mercury deduplicated clean log. Privacy-screened summary only.</p>
+        <a class="btn-primary" href="outreach-log.html">View Outreach Log</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="hub-section" id="about">
+    <div class="section-eyebrow">About</div>
+    <h2>About Ashley Meredith, MSN</h2>
+    <div class="about-block">
+      <p>Ashley Meredith, MSN, is an Iowa-based registered nurse, public-records researcher, and founder of Iowa Family Rights. Her work focuses on child-welfare accountability, public-records transparency, system auditability, and family-preservation policy.</p>
+    </div>
+  </div>
+
+</main>
 
 <footer>
   <p>&copy; 2026 Iowa HHS Audit Request &mdash; Public Transparency Page</p>
-  <p style="margin-top:.4rem;font-size:0.76rem;color:#374151;">This is a citizen-initiated public information page. It is not affiliated with any government agency.</p>
+  <p>This is a citizen-initiated public information page. It is not affiliated with any government agency.</p>
 </footer>
 
 </body>
