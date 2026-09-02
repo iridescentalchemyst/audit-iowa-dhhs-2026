@@ -22,9 +22,10 @@ nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
 .status-bar strong{color:var(--gold-light);}
 .status-bar .sep{margin:0 .75rem;opacity:.4;}
 /* Hero */
-.hero{position:relative;background:linear-gradient(160deg,#0d1b3e 0%,#1a2744 55%,#243460 100%);padding:4.5rem 2rem 3.5rem;text-align:center;border-bottom:3px solid var(--gold);overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Iowa_State_Capitol_Building.jpg/1280px-Iowa_State_Capitol_Building.jpg') center/cover no-repeat;opacity:.13;}
-.hero-inner{position:relative;z-index:1;}
+.hero{position:relative;background:#0d1b3e;padding:0;text-align:center;border-bottom:3px solid var(--gold);overflow:hidden;}
+.hero-photo{display:block;width:100%;max-height:420px;object-fit:cover;object-position:center 40%;opacity:.85;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,18,45,.82) 0%,rgba(10,18,45,.35) 60%,rgba(10,18,45,.18) 100%);}
+.hero-inner{position:absolute;bottom:0;left:0;right:0;padding:2rem 2rem 2.5rem;z-index:2;}
 .hero-eyebrow{font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.75rem;}
 .hero h1{color:#fff;font-weight:normal;font-size:2.4rem;margin-bottom:.75rem;line-height:1.25;}
 .hero p{color:#a8c0d8;font-size:1.0rem;max-width:680px;margin:0 auto 1.5rem;font-style:italic;}
@@ -132,7 +133,6 @@ footer p+p{margin-top:.4rem;}
   <a href="#timeline">Timeline</a>
   <a href="#updates">Updates</a>
   <a href="#logs">Related Logs</a>
-  <a href="#about">About</a>
 </div>
 
 <div class="status-bar">
@@ -144,6 +144,8 @@ footer p+p{margin-top:.4rem;}
 </div>
 
 <div class="hero">
+  <img class="hero-photo" src="20260305_IowaCapitalBuilding.jpg" alt="Iowa State Capitol building at night, photographed March 5, 2026">
+  <div class="hero-overlay"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow">Iowa HHS Audit Request</div>
     <h1>Public Document Hub</h1>
@@ -551,14 +553,6 @@ footer p+p{margin-top:.4rem;}
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <div class="hub-section" id="about">
-    <div class="section-eyebrow">About</div>
-    <h2>About Ashley Meredith, MSN</h2>
-    <div class="about-block">
-      <p>Ashley Meredith, MSN, is an Iowa-based registered nurse, public-records researcher, and founder of Iowa Family Rights. Her work focuses on child-welfare accountability, public-records transparency, system auditability, and family-preservation policy.</p>
-    </div>
-  </div>
 
 </main>
 
