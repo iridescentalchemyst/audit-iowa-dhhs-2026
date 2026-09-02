@@ -3,105 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Open Records Requests Ã¢ÂÂ Iowa HHS Audit Request</title>
+<title>Open Records Request Log | Iowa HHS Audit Request</title>
 <style>
 :root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;--tag-bg:#e8ecf4;--red:#8b1a1a;--amber:#7a5c00;--green:#1a5c2a;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.7;}
+body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.75;}
 nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;position:sticky;top:0;z-index:200;}
 nav ul{max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;}
 nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.81rem;letter-spacing:.05em;text-transform:uppercase;}
 nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
-.page-header{background:var(--navy);padding:3rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
-.page-header h1{color:#fff;font-weight:normal;font-size:2.0rem;margin-bottom:.5rem;}
-.page-header p{color:#a0b4cc;font-size:0.95rem;max-width:700px;margin:0 auto;}
-.transparency-bar{background:#1a3a1a;color:#a8d8a8;text-align:center;padding:.6rem 2rem;font-family:'Arial',sans-serif;font-size:0.85rem;}
-.transparency-bar strong{color:#c8f0c8;}
-main{max-width:1200px;margin:0 auto;padding:2.5rem 2rem;}
-h2{font-size:1.5rem;color:var(--navy);font-weight:normal;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;margin-bottom:1.25rem;}
-.orr-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;}
-.orr-tab{font-family:'Arial',sans-serif;font-size:0.85rem;padding:.5rem 1.1rem;border:2px solid var(--border);background:#fff;color:var(--slate);cursor:pointer;border-radius:3px;transition:all .2s;}
-.orr-tab:hover,.orr-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
-.orr-card{background:#fff;border:1px solid var(--border);border-radius:4px;margin-bottom:1.25rem;overflow:hidden;}
-.orr-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;}
-.orr-card-header h3{font-size:1.05rem;color:var(--navy);margin:0;font-weight:bold;}
-.orr-card-body{padding:1rem 1.25rem;font-size:0.92rem;line-height:1.65;color:var(--text-light);}
-.orr-card-body p{margin-bottom:.5rem;}
-.orr-card-body p:last-child{margin-bottom:0;}
-.status-tag{font-family:'Arial',sans-serif;font-size:0.75rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.25rem .65rem;border-radius:3px;white-space:nowrap;}
-.status-pending{background:#fef3cd;color:var(--amber);border:1px solid #f0d080;}
-.status-submitted{background:#d4edda;color:var(--green);border:1px solid #9fd4ab;}
-.status-overdue{background:#f8d7da;color:var(--red);border:1px solid #f0a0a8;}
-.status-partial{background:#e8ecf4;color:var(--slate);border:1px solid #b8c4dc;}
-.meta-row{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-family:'Arial',sans-serif;font-size:0.82rem;color:var(--light-slate);margin-top:.35rem;}
-.meta-row span strong{color:var(--slate);}
-.summary-bar{background:var(--tag-bg);border:1px solid var(--border);border-radius:4px;padding:1rem 1.5rem;margin-bottom:2rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;font-family:'Arial',sans-serif;font-size:0.88rem;}
-.summary-bar .stat{display:flex;flex-direction:column;}
-.summary-bar .stat .num{font-size:1.5rem;font-weight:bold;color:var(--navy);line-height:1;}
-.summary-bar .stat .lbl{font-size:0.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--light-slate);margin-top:.2rem;}
-footer{background:var(--navy);color:#8a9bb0;text-align:center;padding:2rem 1.5rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;}
-footer a{color:#b8c8dc;text-decoration:none;}
-footer a:hover{color:var(--gold-light);}
-@media(max-width:600px){.orr-card-header{flex-direction:column;}.meta-row{gap:.35rem 1rem;}nav ul{justify-content:center;}nav ul li a{padding:.7rem .75rem;font-size:.78rem;}}
+.page-header{background:var(--navy);padding:3.5rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
+.page-header h1{color:#fff;font-weight:normal;font-size:2.1rem;margin-bottom:.65rem;}
+.page-header p{color:#a0b4cc;font-size:0.96rem;max-width:680px;margin:0 auto;font-style:italic;}
+main{max-width:1100px;margin:0 auto;padding:2.75rem 2rem;}
+.intro-block{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);padding:1.5rem 1.75rem;margin-bottom:2.25rem;font-size:0.93rem;color:var(--text-light);line-height:1.7;}
+.intro-block p{margin-bottom:.75rem;}
+.intro-block p:last-child{margin-bottom:0;}
+.source-note{font-size:0.83rem;color:var(--light-slate);font-style:italic;border-top:1px solid var(--border);padding-top:.75rem;margin-top:.75rem;}
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2.5rem;}
+.stat{background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);padding:1.25rem 1rem;text-align:center;}
+.stat-number{font-size:2rem;color:var(--navy);line-height:1;margin-bottom:.35rem;}
+.stat-label{font-family:'Arial',sans-serif;font-size:0.77rem;color:var(--light-slate);letter-spacing:.06em;text-transform:uppercase;}
+h2{font-size:1.45rem;color:var(--navy);font-weight:normal;border-bottom:3px solid var(--gold);padding-bottom:.4rem;display:inline-block;margin-bottom:1.5rem;}
+.orr-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);font-size:0.91rem;}
+.orr-table th{background:var(--navy);color:#c8d4e0;font-family:'Arial',sans-serif;font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;padding:.75rem 1rem;text-align:left;font-weight:normal;}
+.orr-table td{padding:.9rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-light);line-height:1.55;}
+.orr-table tr:last-child td{border-bottom:none;}
+.orr-table tr:hover td{background:var(--hover-bg);}
+.orr-id{font-family:'Arial',sans-serif;font-weight:bold;color:var(--navy);font-size:0.88rem;white-space:nowrap;}
+.orr-req{font-size:0.83rem;color:var(--light-slate);display:block;margin-top:.2rem;}
+.status-tag{display:inline-block;font-family:'Arial',sans-serif;font-size:0.73rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .6rem;border-radius:3px;white-space:nowrap;}
+.status-open{background:#fff3cd;color:#7a5c00;border:1px solid #f0d080;}
+.status-closed{background:#d4edda;color:#1a5c2a;border:1px solid #9fd4ab;}
+.status-pending{background:#e8eaf6;color:#3d4f6b;border:1px solid #b0b8d8;}
+.status-partial{background:#fce8d0;color:#7a3c00;border:1px solid #e8b880;}
+.notes-cell{font-size:0.87rem;}
+.notes-cell ul{margin:.4rem 0 0 1.1rem;padding:0;}
+.notes-cell ul li{margin-bottom:.25rem;}
+.petition-status-bar{background:#1a2744;color:#c8d4e8;text-align:center;padding:.65rem 2rem;font-family:'Arial',sans-serif;font-size:0.86rem;border-bottom:2px solid var(--gold);}
+.petition-status-bar strong{color:var(--gold-light);}
+footer{background:var(--navy);color:#a0b4cc;text-align:center;padding:2rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;border-top:3px solid var(--gold);}
+footer p+p{margin-top:.4rem;}
+@media(max-width:720px){
+  .orr-table thead{display:none;}
+  .orr-table tr{display:block;margin-bottom:1.25rem;border:1px solid var(--border);background:#fff;}
+  .orr-table td{display:block;border-bottom:1px solid var(--border);padding:.7rem 1rem;}
+  .orr-table td:last-child{border-bottom:none;}
+  .orr-table td::before{content:attr(data-label);display:block;font-family:'Arial',sans-serif;font-size:0.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--light-slate);margin-bottom:.2rem;}
+  .stats-bar{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
-<nav style="background:#1a2744;position:sticky;top:0;z-index:200;border-bottom:3px solid #b8952a;">
-  <ul style="max-width:1200px;margin:0 auto;padding:0 1.5rem;list-style:none;display:flex;flex-wrap:wrap;">
-    <li><a href="audit_iowa_dhhs.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Home</a></li>
-    <li><a href="hub.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Document Hub</a></li>
-    <li><a href="about.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">About</a></li>
-    <li><a href="contact.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Contact</a></li>
-    <li><a href="orr-log.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">ORR Log</a></li>
-    <li><a href="outreach-log.html" style="display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:Arial,sans-serif;font-size:0.82rem;letter-spacing:.05em;text-transform:uppercase;">Outreach Log</a></li>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hub.html">Document Hub</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="orr-log.html" class="active">ORR Log</a></li>
+    <li><a href="outreach-log.html">Outreach Log</a></li>
   </ul>
 </nav>
-<div class="page-header">
-  <h1>Open Records Requests</h1>
-  <p>Formal public records requests submitted to Iowa HHS and related agencies. All filings are documented for public transparency.</p>
+
+<div class="petition-status-bar">
+  <strong>Project Status:</strong> Formal Petition to Audit Iowa HHS &mdash; not yet submitted. ORR lanes active.
 </div>
 
-<section class="verification-notice" aria-labelledby="verification-notice-title">
-  <h2 id="verification-notice-title">Page Under Verification</h2>
+<div class="page-header">
+  <h1>Open Records Request Log</h1>
+  <p>Source-backed public tracker for open-records requests supporting Ashley Meredith&#8217;s citizen-initiated Iowa HHS Audit Request.</p>
+</div>
 
-  <p>
-    This page is under verification/reconstruction.
-  </p>
+<main>
 
-  <p>
-    The formal petition has not yet been submitted.
-  </p>
+  <div class="intro-block">
+    <p>This page summarizes public-records requests and related agency correspondence supporting the Iowa HHS Audit Request. The entries below are drawn from the project&#8217;s verified ORR master log and administrative communication tracker. Status language reflects the public request record as captured in the source log and does not represent agency endorsement, audit acceptance, or formal petition submission.</p>
+    <p class="source-note">Source status: updated from the August 8, 2026 administrative communication tracker containing 61 logged ORR communication/status events. Internal source paths, account emails, and private working files are intentionally omitted from this public page.</p>
+  </div>
 
-  <p>
-    The August 25 Current-State Auditor Review Packet is available here:
-    <a
-      href="Iowa-HHS-Audit-Request_Public-Handoff-Packet_Current-State_2026-08-25.pdf"
-      target="_blank"
-      rel="noopener"
-    >
-      Read the Current-State Auditor Review Packet
-    </a>.
-  </p>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Tracked Request Lanes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">61</div>
+      <div class="stat-label">Logged Communication Events</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Public Bodies Represented</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number" style="font-size:1.1rem;padding-top:.35rem;">Not Yet<br>Submitted</div>
+      <div class="stat-label">Formal Petition to Audit</div>
+    </div>
+  </div>
 
-  <p>
-    Verified logs/materials will be added after source review.
-  </p>
-</section>
+  <h2>Request Lane Summary</h2>
 
+  <table class="orr-table" aria-label="Open Records Request Lane Summary">
+    <thead>
+      <tr>
+        <th>Lane</th>
+        <th>Agency</th>
+        <th>Filed</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Lane">
+          <span class="orr-id">ORR1</span>
+          <span class="orr-req">Iowa HHS No. 26-927</span>
+        </td>
+        <td data-label="Agency">Iowa Department of Health and Human Services</td>
+        <td data-label="Filed">March 5, 2026</td>
+        <td data-label="Status"><span class="status-tag status-open">Open</span></td>
+        <td data-label="Notes" class="notes-cell">Fee-waiver issue unresolved. Request remains open pending resolution.</td>
+      </tr>
+      <tr>
+        <td data-label="Lane">
+          <span class="orr-id">ORR2</span>
+          <span class="orr-req">Iowa HHS No. 26-1536</span>
+        </td>
+        <td data-label="Agency">Iowa Department of Health and Human Services</td>
+        <td data-label="Filed">April 2026</td>
+        <td data-label="Status"><span class="status-tag status-open">Open</span></td>
+        <td data-label="Notes" class="notes-cell">Second Iowa HHS request lane. Status logged in ORR master log.</td>
+      </tr>
+      <tr>
+        <td data-label="Lane">
+          <span class="orr-id">ORR3</span>
+          <span class="orr-req">Iowa HHS No. 26-2485</span>
+        </td>
+        <td data-label="Agency">Iowa Department of Health and Human Services</td>
+        <td data-label="Filed">May 2026</td>
+        <td data-label="Status"><span class="status-tag status-open">Open</span></td>
+        <td data-label="Notes" class="notes-cell">Third Iowa HHS request lane. Status logged in ORR master log.</td>
+      </tr>
+      <tr>
+        <td data-label="Lane">
+          <span class="orr-id">ORR4</span>
+          <span class="orr-req">Judicial Branch (JUD1)</span>
+        </td>
+        <td data-label="Agency">Iowa Judicial Branch</td>
+        <td data-label="Filed">2026</td>
+        <td data-label="Status"><span class="status-tag status-pending">Pending</span></td>
+        <td data-label="Notes" class="notes-cell">Iowa Judicial Branch request lane. Status tracked in communication log.</td>
+      </tr>
+      <tr>
+        <td data-label="Lane">
+          <span class="orr-id">ORR5</span>
+          <span class="orr-req">Office of Management &amp; Budget</span>
+        </td>
+        <td data-label="Agency">Iowa Office of Management &amp; Budget</td>
+        <td data-label="Filed">2026</td>
+        <td data-label="Status"><span class="status-tag status-pending">Pending</span></td>
+        <td data-label="Notes" class="notes-cell">Direct email/form pathway. Grouped as ORR5 lane in communication tracker.</td>
+      </tr>
+      <tr>
+        <td data-label="Lane">
+          <span class="orr-id">ORR6</span>
+          <span class="orr-req">Iowa Department of Education</span>
+        </td>
+        <td data-label="Agency">Iowa Department of Education</td>
+        <td data-label="Filed">2026</td>
+        <td data-label="Status"><span class="status-tag status-pending">Pending</span></td>
+        <td data-label="Notes" class="notes-cell">Direct email/form pathway. Grouped as ORR6 lane in communication tracker.</td>
+      </tr>
+    </tbody>
+  </table>
 
 </main>
+
 <footer>
   <p>&copy; 2026 Iowa HHS Audit Request &mdash; Public Transparency Page</p>
-  <p style="margin-top:.4rem">This is a citizen-initiated public information page. Not affiliated with any government agency.</p>
+  <p>This is a citizen-initiated public information page. It is not affiliated with any government agency.</p>
 </footer>
-<script>
-function filterORR(status, btn) {
-  document.querySelectorAll('.orr-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.orr-card').forEach(card => {
-    card.style.display = (status === 'all' || card.dataset.status === status) ? '' : 'none';
-  });
-}
-</script>
+
 </body>
 </html>
