@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Public Source Library | Iowa HHS Audit Request</title>
+<style>
+:root{--navy:#1a2744;--gold:#b8952a;--gold-light:#d4af4a;--slate:#3d4f6b;--light-slate:#6b7d9a;--off-white:#f5f4f0;--white:#fff;--text:#1e1e1e;--text-light:#4a4a4a;--border:#d0cec8;--hover-bg:#eef1f7;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Georgia',serif;color:var(--text);background:var(--off-white);font-size:17px;line-height:1.75;}
+nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:0 1.5rem;position:sticky;top:0;z-index:300;}
+nav ul{max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;}
+nav ul li a{display:block;color:#c8d0e0;text-decoration:none;padding:.85rem 1rem;font-family:'Arial',sans-serif;font-size:0.81rem;letter-spacing:.05em;text-transform:uppercase;}
+nav ul li a:hover,nav ul li a.active{color:var(--gold-light);}
+.jump-nav{background:#1e2f56;border-bottom:1px solid rgba(255,255,255,0.1);padding:.5rem 1.5rem;position:sticky;top:54px;z-index:200;overflow-x:auto;white-space:nowrap;}
+.jump-nav a{color:#a0b4cc;font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;margin-right:1.25rem;display:inline-block;}
+.jump-nav a:hover{color:var(--gold-light);}
+.status-bar{background:#1a3050;border-bottom:2px solid var(--gold);padding:.7rem 2rem;text-align:center;font-family:'Arial',sans-serif;font-size:0.85rem;color:#a0b4cc;}
+.status-bar strong{color:var(--gold-light);}
+.status-bar .sep{margin:0 .75rem;opacity:.4;}
+.page-header{background:var(--navy);padding:3.5rem 2rem;text-align:center;border-bottom:3px solid var(--gold);}
+.page-header h1{color:#fff;font-weight:normal;font-size:2.1rem;margin-bottom:.65rem;}
+.page-header p{color:#a0b4cc;font-size:0.96rem;max-width:700px;margin:0 auto;font-style:italic;}
+main{max-width:1100px;margin:0 auto;padding:3rem 2rem;}
+.intro-block{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);padding:1.5rem 1.75rem;margin-bottom:2rem;font-size:0.93rem;color:var(--text-light);line-height:1.7;}
+.intro-block p{margin-bottom:.75rem;}
+.intro-block p:last-child{margin-bottom:0;}
+.source-note{font-size:0.83rem;color:var(--light-slate);font-style:italic;border-top:1px solid var(--border);padding-top:.75rem;margin-top:.75rem;}
+.cat-section{margin-bottom:3rem;}
+.cat-eyebrow{font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;}
+.cat-section h2{font-size:1.35rem;color:var(--navy);font-weight:normal;border-bottom:3px solid var(--gold);padding-bottom:.35rem;display:inline-block;margin-bottom:.75rem;}
+.cat-desc{font-size:0.91rem;color:var(--text-light);line-height:1.65;margin-bottom:1rem;max-width:820px;}
+.allowed-domains{font-family:'Arial',sans-serif;font-size:0.78rem;color:var(--light-slate);margin-bottom:1rem;}
+.allowed-domains strong{color:var(--slate);}
+.source-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);font-size:0.88rem;margin-bottom:.75rem;}
+.source-table th{background:var(--navy);color:#c8d4e0;font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:.06em;text-transform:uppercase;padding:.65rem 1rem;text-align:left;font-weight:normal;}
+.source-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-light);line-height:1.5;}
+.source-table tr:last-child td{border-bottom:none;}
+.source-table tr:hover td{background:var(--hover-bg);}
+.source-table a{color:var(--navy);text-decoration:underline;font-size:0.85rem;}
+.source-table a:hover{color:var(--gold);}
+.badge{display:inline-block;font-family:'Arial',sans-serif;font-size:0.71rem;font-weight:bold;text-transform:uppercase;letter-spacing:.07em;padding:.18rem .55rem;border-radius:3px;white-space:nowrap;}
+.badge-federal{background:#dde6f5;color:#1a2744;border:1px solid #b0c0dc;}
+.badge-state{background:#d4edda;color:#1a5c2a;border:1px solid #9fd4ab;}
+.badge-audit{background:#fff3cd;color:#7a5c00;border:1px solid #f0d080;}
+.badge-law{background:#e8eaf6;color:#3d4f6b;border:1px solid #b0b8d8;}
+.badge-research{background:#f3e8f5;color:#4a1a7a;border:1px solid #c8a0d8;}
+.badge-media{background:#f5f0e8;color:#7a5c2a;border:1px solid #d8c8a0;}
+.badge-tech{background:#e8f5f0;color:#1a4a3a;border:1px solid #9fd4c0;}
+.badge-pending{background:#f0f2f7;color:var(--slate);border:1px solid var(--border);}
+.notice-block{background:#f0f2f7;border:1px solid var(--border);border-left:4px solid var(--slate);padding:1rem 1.25rem;font-size:0.88rem;color:var(--text-light);font-style:italic;border-radius:4px;margin-bottom:1rem;}
+.btn-sm{display:inline-block;background:var(--navy);color:#fff;font-family:'Arial',sans-serif;font-size:0.78rem;text-decoration:none;padding:.35rem .9rem;border-radius:3px;}
+.btn-sm:hover{background:#253a6e;}
+footer{background:var(--navy);color:#a0b4cc;text-align:center;padding:2rem;font-family:'Arial',sans-serif;font-size:0.82rem;margin-top:3rem;border-top:3px solid var(--gold);}
+footer p+p{margin-top:.4rem;}
+@media(max-width:700px){
+  .source-table thead{display:none;}
+  .source-table tr{display:block;margin-bottom:1rem;border:1px solid var(--border);background:#fff;}
+  .source-table td{display:block;border-bottom:1px solid var(--border);padding:.65rem 1rem;}
+  .source-table td::before{content:attr(data-label);display:block;font-family:'Arial',sans-serif;font-size:0.72rem;text-transform:uppercase;color:var(--light-slate);margin-bottom:.2rem;}
+  main{padding:2rem 1rem;}
+  .jump-nav{top:52px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hub.html">Document Hub</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="orr-log.html">ORR Log</a></li>
+    <li><a href="outreach-log.html">Outreach Log</a></li>
+  </ul>
+</nav>
+
+<div class="jump-nav">
+  <a href="#federal-cw">Federal CW Oversight</a>
+  <a href="#iowa-hhs">Iowa HHS / State</a>
+  <a href="#auditor">Auditor of State</a>
+  <a href="#ombudsman">Ombudsman</a>
+  <a href="#legislature">Legislature / Iowa Code</a>
+  <a href="#ccwis">CCWIS / Technology</a>
+  <a href="#civil-rights">Federal Civil Rights</a>
+  <a href="#research">Research / Evaluation</a>
+  <a href="#media">Media / Contextual</a>
+</div>
+
+<div class="status-bar">
+  <strong>Formal Petition to Audit Iowa HHS:</strong> not yet submitted
+  <span class="sep">|</span>
+  <strong>Source Library:</strong> public-source register under active review
+  <span class="sep">|</span>
+  Private/sealed/internal materials: not posted
+</div>
+
+<div class="page-header">
+  <h1>Public Source Library</h1>
+  <p>Publicly available source documents and reference materials supporting the Iowa HHS Audit Request.</p>
+</div>
+
+<main>
+
+  <div class="intro-block">
+    <p>This page collects publicly available source documents, government reports, public-record portals, oversight materials, statutes, research materials, and contextual references used to support the Iowa HHS Audit Request. This is a source library, not the final Petition to Audit packet. Inclusion of a source does not imply endorsement, acceptance, agreement, or action by the issuing agency, public office, organization, or publisher.</p>
+    <p>Sources are grouped by issuing body or source type. Public government reports and statutes are treated differently from media or contextual reporting. Media sources are listed only as contextual references and do not independently establish audit findings.</p>
+    <p class="source-note">This library is limited to public-facing source materials. It does not publish private correspondence, sealed/confidential records, internal paths, private file links, unreviewed working files, sensitive case materials, or old draft packet PDFs. Additional sources may be added after source review and public-release screening.</p>
+  </div>
+
+  <!-- A: Federal Child Welfare Oversight -->
+  <div class="cat-section" id="federal-cw">
+    <div class="cat-eyebrow">Category A</div>
+    <h2>Federal Child Welfare Oversight</h2>
+    <p class="cat-desc">Federal Child and Family Services Review materials, ACF monitoring resources, and national child-welfare oversight references.</p>
+    <div class="allowed-domains"><strong>Primary source domains:</strong> acf.gov &mdash; cfsrportal.acf.hhs.gov</div>
+    <table class="source-table" aria-label="Federal Child Welfare Oversight Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">CFSR Public Portal &mdash; Iowa State Reports</td>
+          <td data-label="Issuing Body">ACF / HHS</td>
+          <td data-label="Type"><span class="badge badge-federal">Public federal source</span></td>
+          <td data-label="Relevance">Entry point for CFSR Round 1&ndash;4 Iowa statewide assessment and PIP records.</td>
+          <td data-label="Link"><a href="https://cfsrportal.acf.hhs.gov" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">ACF Children&#8217;s Bureau &mdash; Child Welfare Oversight</td>
+          <td data-label="Issuing Body">Administration for Children and Families</td>
+          <td data-label="Type"><span class="badge badge-federal">Public federal source</span></td>
+          <td data-label="Relevance">Federal oversight, monitoring framework, CFSR methodology, and TB-14 / CFSR Round 4 resources.</td>
+          <td data-label="Link"><a href="https://www.acf.hhs.gov/cb" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">ACF-26-IS-01 CCWIS RFI Solicitation</td>
+          <td data-label="Issuing Body">ACF / HHS</td>
+          <td data-label="Type"><span class="badge badge-federal">Public federal source</span></td>
+          <td data-label="Relevance">RFI market-research solicitation for CCWIS national modernization context; basis for Iowa VISION governance analysis.</td>
+          <td data-label="Link"><a href="https://www.acf.hhs.gov/cb/data-technology/ccwis" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Additional CFSR Round 1&ndash;4 Iowa-specific statewide assessments and PIP documents will be linked here after source review confirms public availability and correct URLs.</div>
+  </div>
+
+  <!-- B: Iowa HHS / State -->
+  <div class="cat-section" id="iowa-hhs">
+    <div class="cat-eyebrow">Category B</div>
+    <h2>Iowa HHS / State Child Welfare Materials</h2>
+    <p class="cat-desc">Public Iowa HHS reports, plans, open-records pages, child-welfare planning documents, and related state-published materials.</p>
+    <div class="allowed-domains"><strong>Primary source domains:</strong> hhs.iowa.gov &mdash; publications.iowa.gov &mdash; earlychildhood.iowa.gov</div>
+    <table class="source-table" aria-label="Iowa HHS State Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa HHS Public Home</td>
+          <td data-label="Issuing Body">Iowa Department of Health and Human Services</td>
+          <td data-label="Type"><span class="badge badge-state">Public state source</span></td>
+          <td data-label="Relevance">Primary agency site; child welfare, reports, open-records request portal.</td>
+          <td data-label="Link"><a href="https://hhs.iowa.gov" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Iowa HHS Open Records / Chapter 22 Portal</td>
+          <td data-label="Issuing Body">Iowa Department of Health and Human Services</td>
+          <td data-label="Type"><span class="badge badge-state">Public state source</span></td>
+          <td data-label="Relevance">Official portal for public-records requests under Iowa Code Chapter 22; basis for ORR lanes ORR1&ndash;ORR3.</td>
+          <td data-label="Link"><a href="https://hhs.iowa.gov/public-records" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Iowa Publications Online</td>
+          <td data-label="Issuing Body">Iowa State Library</td>
+          <td data-label="Type"><span class="badge badge-state">Public state source</span></td>
+          <td data-label="Relevance">Repository for Iowa state government publications including HHS and child-welfare planning documents.</td>
+          <td data-label="Link"><a href="https://publications.iowa.gov" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Iowa HHS annual reports, child-welfare service plans, and PIP-related public publications will be added after source confirmation.</div>
+  </div>
+
+  <!-- C: Iowa Auditor -->
+  <div class="cat-section" id="auditor">
+    <div class="cat-eyebrow">Category C</div>
+    <h2>Iowa Auditor of State Materials</h2>
+    <p class="cat-desc">Auditor of State reports and financial/oversight records relevant to Iowa HHS, DHS, child welfare, provider oversight, managed care, fiscal controls, and related audit themes.</p>
+    <div class="allowed-domains"><strong>Primary source domain:</strong> auditor.iowa.gov</div>
+    <table class="source-table" aria-label="Iowa Auditor Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa Auditor of State &mdash; Reports Portal</td>
+          <td data-label="Issuing Body">Iowa Auditor of State</td>
+          <td data-label="Type"><span class="badge badge-audit">Public audit report</span></td>
+          <td data-label="Relevance">Public search portal for Iowa Auditor reports covering state agencies including DHS/HHS, providers, managed care, and fiscal oversight.</td>
+          <td data-label="Link"><a href="https://www.auditor.iowa.gov/reports" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Specific Iowa Auditor reports relevant to DHS/HHS child welfare, provider oversight, and managed care will be linked here after individual URL verification.</div>
+  </div>
+
+  <!-- D: Ombudsman -->
+  <div class="cat-section" id="ombudsman">
+    <div class="cat-eyebrow">Category D</div>
+    <h2>Iowa Ombudsman Materials</h2>
+    <p class="cat-desc">Public Iowa Ombudsman reports and annual-report materials relevant to complaint systems, confidentiality boundaries, oversight capacity, and public accountability.</p>
+    <div class="allowed-domains"><strong>Primary source domain:</strong> ombudsman.iowa.gov</div>
+    <table class="source-table" aria-label="Iowa Ombudsman Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa Office of Ombudsman &mdash; Annual Reports</td>
+          <td data-label="Issuing Body">Iowa Office of Ombudsman</td>
+          <td data-label="Type"><span class="badge badge-state">Public Ombudsman source</span></td>
+          <td data-label="Relevance">Public annual reports covering statewide complaint, investigation, and substantiation data; basis for ORR5 lane and FY2018&ndash;FY2024 dataset.</td>
+          <td data-label="Link"><a href="https://ombudsman.iowa.gov" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Direct links to specific Ombudsman annual-report PDFs will be added after URL verification.</div>
+  </div>
+
+  <!-- E: Legislature / Iowa Code -->
+  <div class="cat-section" id="legislature">
+    <div class="cat-eyebrow">Category E</div>
+    <h2>Iowa Legislature / Iowa Code Materials</h2>
+    <p class="cat-desc">Public Iowa Code sections, legislative publications, and statutory materials relevant to Auditor authority, public records, child welfare, family preservation, agency oversight, and related governance issues.</p>
+    <div class="allowed-domains"><strong>Primary source domain:</strong> legis.iowa.gov</div>
+    <table class="source-table" aria-label="Iowa Legislature and Code Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa Code Chapter 11 &mdash; State Auditor Authority</td>
+          <td data-label="Issuing Body">Iowa Legislature</td>
+          <td data-label="Type"><span class="badge badge-law">Public law / legislative source</span></td>
+          <td data-label="Relevance">Statutory basis for Iowa Auditor of State authority to examine state agency records and conduct performance audits.</td>
+          <td data-label="Link"><a href="https://www.legis.iowa.gov/law/iowaCode/sections?codeChapter=11" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Iowa Code Chapter 22 &mdash; Public Records</td>
+          <td data-label="Issuing Body">Iowa Legislature</td>
+          <td data-label="Type"><span class="badge badge-law">Public law / legislative source</span></td>
+          <td data-label="Relevance">Public-records access statute governing Chapter 22 requests; basis for ORR lanes ORR1&ndash;ORR3 and fee-waiver provisions.</td>
+          <td data-label="Link"><a href="https://www.legis.iowa.gov/law/iowaCode/sections?codeChapter=22" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Iowa Code Chapter 2C &mdash; Ombudsman</td>
+          <td data-label="Issuing Body">Iowa Legislature</td>
+          <td data-label="Type"><span class="badge badge-law">Public law / legislative source</span></td>
+          <td data-label="Relevance">Statutory framework for the Iowa Office of Ombudsman, including confidentiality provisions cited in ORR5 response under section 2C.8.</td>
+          <td data-label="Link"><a href="https://www.legis.iowa.gov/law/iowaCode/sections?codeChapter=2C" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Iowa Legislature &mdash; Bill Search (HF186, SF2325)</td>
+          <td data-label="Issuing Body">Iowa Legislature</td>
+          <td data-label="Type"><span class="badge badge-law">Public law / legislative source</span></td>
+          <td data-label="Relevance">Public bill-history portal; relevant to HF186 (Shipley / family preservation) and SF2325 (Segebart) referenced in Iowa legislative outreach lane.</td>
+          <td data-label="Link"><a href="https://www.legis.iowa.gov/legislation/billTracking" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- F: CCWIS / Technology -->
+  <div class="cat-section" id="ccwis">
+    <div class="cat-eyebrow">Category F</div>
+    <h2>CCWIS / Technology / Procurement Sources</h2>
+    <p class="cat-desc">Public materials related to Iowa VISION, CCWIS modernization, IT procurement, data governance, auditability, and technology oversight.</p>
+    <div class="allowed-domains"><strong>Primary source domains:</strong> ocio.iowa.gov &mdash; hhs.iowa.gov &mdash; acf.gov &mdash; publications.iowa.gov</div>
+    <table class="source-table" aria-label="CCWIS Technology Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa OCIO &mdash; IT Governance and Standards</td>
+          <td data-label="Issuing Body">Iowa Office of the Chief Information Officer</td>
+          <td data-label="Type"><span class="badge badge-tech">Public technology / procurement source</span></td>
+          <td data-label="Relevance">Iowa IT procurement, standards, and OCIO approval-process materials relevant to VISION/CCWIS governance analysis.</td>
+          <td data-label="Link"><a href="https://ocio.iowa.gov" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">ACF &mdash; CCWIS Regulations and Guidance</td>
+          <td data-label="Issuing Body">Administration for Children and Families</td>
+          <td data-label="Type"><span class="badge badge-federal">Public federal source</span></td>
+          <td data-label="Relevance">Federal CCWIS regulatory framework and implementation guidance; basis for Iowa VISION compliance analysis.</td>
+          <td data-label="Link"><a href="https://www.acf.hhs.gov/cb/data-technology/ccwis" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Public procurement records, IAPD public filings, and Iowa OCIO VISION-related approval materials will be added after URL verification and public-availability confirmation.</div>
+  </div>
+
+  <!-- G: Federal Civil Rights / DOJ -->
+  <div class="cat-section" id="civil-rights">
+    <div class="cat-eyebrow">Category G</div>
+    <h2>Federal Civil Rights / DOJ Materials</h2>
+    <p class="cat-desc">Public federal civil-rights and institutional-investigation materials relevant to disability, system oversight, state institutional accountability, and public-sector compliance.</p>
+    <div class="allowed-domains"><strong>Primary source domain:</strong> justice.gov</div>
+    <table class="source-table" aria-label="Federal Civil Rights Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">DOJ Civil Rights Division &mdash; Special Litigation Section</td>
+          <td data-label="Issuing Body">U.S. Department of Justice</td>
+          <td data-label="Type"><span class="badge badge-federal">Public federal civil-rights source</span></td>
+          <td data-label="Relevance">Federal institutional oversight and civil-rights investigation framework; contextual reference for disability, institutional care, and state-accountability analysis.</td>
+          <td data-label="Link"><a href="https://www.justice.gov/crt/special-litigation-section" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Specific DOJ investigation findings relevant to Iowa institutions will be linked here after source review.</div>
+  </div>
+
+  <!-- H: Research / Evaluation -->
+  <div class="cat-section" id="research">
+    <div class="cat-eyebrow">Category H</div>
+    <h2>Public Research / Evaluation Materials</h2>
+    <p class="cat-desc">Public research reports, evaluation documents, and policy-analysis materials from universities, research institutions, and public policy organizations.</p>
+    <div class="allowed-domains"><strong>Allowed source domains may include:</strong> mathematica.org &mdash; iastate.edu &mdash; i2d2.iastate.edu &mdash; drake.edu &mdash; harkininstitute.drake.edu</div>
+    <table class="source-table" aria-label="Research and Evaluation Sources">
+      <thead><tr><th>Title</th><th>Issuing Body</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa Data for Decision Making (I2D2) &mdash; Public Portal</td>
+          <td data-label="Issuing Body">Iowa State University</td>
+          <td data-label="Type"><span class="badge badge-research">Public research source</span></td>
+          <td data-label="Relevance">Public administrative data portal relevant to child welfare outcomes, demographic analysis, and cross-agency data governance.</td>
+          <td data-label="Link"><a href="https://i2d2.iastate.edu" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Harkin Institute for Public Policy &amp; Citizen Engagement</td>
+          <td data-label="Issuing Body">Drake University</td>
+          <td data-label="Type"><span class="badge badge-research">Public research source</span></td>
+          <td data-label="Relevance">Iowa public-policy research and civic-engagement context relevant to child-welfare, family policy, and legislative oversight themes.</td>
+          <td data-label="Link"><a href="https://harkininstitute.drake.edu" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Mathematica &mdash; Child Welfare Evaluations</td>
+          <td data-label="Issuing Body">Mathematica</td>
+          <td data-label="Type"><span class="badge badge-research">Public research source</span></td>
+          <td data-label="Relevance">National child-welfare evaluation and SDM effectiveness analysis; contextual reference for structured decision-making companion report.</td>
+          <td data-label="Link"><a href="https://www.mathematica.org/focus-areas/child-welfare" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Additional public evaluation reports, including SDM implementation assessments and Iowa-specific outcome research, will be added after source review.</div>
+  </div>
+
+  <!-- I: Media / Contextual -->
+  <div class="cat-section" id="media">
+    <div class="cat-eyebrow">Category I</div>
+    <h2>Public Media / Contextual Reporting</h2>
+    <p class="cat-desc">Public reporting may be listed as contextual source material only. Media sources may provide chronology, public context, or corroborating background, but they do not independently establish audit findings.</p>
+    <table class="source-table" aria-label="Media and Contextual Sources">
+      <thead><tr><th>Title</th><th>Publisher</th><th>Type</th><th>Relevance</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Title">Iowa child welfare coverage &mdash; public reporting archive</td>
+          <td data-label="Publisher">KCCI Des Moines</td>
+          <td data-label="Type"><span class="badge badge-media">Contextual media reference</span></td>
+          <td data-label="Relevance">Public television news reporting on Iowa child-welfare cases, oversight failures, and child-fatality investigations. Contextual only.</td>
+          <td data-label="Link"><a href="https://www.kcci.com" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+        <tr>
+          <td data-label="Title">Populist Wire &mdash; Iowa oversight reporting</td>
+          <td data-label="Publisher">Populist Wire</td>
+          <td data-label="Type"><span class="badge badge-media">Contextual media reference</span></td>
+          <td data-label="Relevance">Iowa accountability and public-interest reporting; contextual background for oversight and legislative themes.</td>
+          <td data-label="Link"><a href="https://populistwire.com" target="_blank" rel="noopener" class="btn-sm">View source</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice-block">Media sources are listed as contextual references only. They do not independently establish audit findings. Additional public media references may be added after review.</div>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Iowa HHS Audit Request &mdash; Public Transparency Page</p>
+  <p>This is a citizen-initiated public information page. It is not affiliated with any government agency.</p>
+</footer>
+
+</body>
+</html>
